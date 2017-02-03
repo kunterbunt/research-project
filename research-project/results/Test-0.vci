@@ -1,0 +1,455 @@
+file 389980 1486140256                                          
+version 2
+run Test-0-20170203-17:43:51-15831
+attr configname Test
+attr datetime 20170203-17:43:51
+attr experiment Test
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network LTECell
+attr processid 15831
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.UE*.macCellId 1
+param **.UE*.masterId 1
+param **.UE*.mobility.initFromDisplayString false
+param **.UERx.mobility.initialX 500m
+param **.UERx.mobility.initialY 300m
+param **.UETx.mobility.initialX 100m
+param **.UETx.mobility.initialY 300m
+param **.UETx.numTcpApps 1
+param **.UETx.tcpApp[0].connectAddress "\"server\""
+param **.UETx.tcpApp[0].connectPort 1000
+param **.UETx.tcpApp[0].idleInterval exponential(1s)
+param **.UETx.tcpApp[0].replyLength exponential(250kB)
+param **.UETx.tcpApp[0].requestLength 750B
+param **.UETx.tcpApp[0].thinkTime 0s
+param **.UETx.tcpApp[0].typename "\"TCPBasicClientApp\""
+param **.batchSize 10000
+param **.channelControl.alpha 1.0
+param **.channelControl.carrierFrequency 2100e+6Hz
+param **.channelControl.pMax 10W
+param **.deployer.numRbDl 50
+param **.deployer.numRbUl 50
+param **.eNodeB.mobility.initialX 300m
+param **.eNodeB.mobility.initialY 300m
+param **.eth[*].inputHook[0].typename "\"ThruputMeter\""
+param **.eth[*].numInputHooks 1
+param **.fbDelay 1
+param **.feedbackComputation "xmldoc(\"config_channel.xml\")"
+param **.inputHook[*].typename "\"ThruputMeter\""
+param **.maxInterval 1s
+param **.mobility.constraintAreaMaxZ 0m
+param **.mobility.constraintAreaMinZ 0m
+param **.nic.phy.channelModel "xmldoc(\"config_channel.xml\")"
+param **.numBands 50
+param **.ppp[*].inputHook[0].typename "\"ThruputMeter\""
+param **.ppp[*].numInputHooks 1
+param **.routingRecorder.enabled false
+param **.server.numTcpApps 1
+param **.server.tcpApp[0].localPort 1000
+param **.server.tcpApp[0].typename "\"TCPGenericSrvApp\""
+param *.eNodeB.mobility.initFromDisplayString false
+
+vector 20  LTECell.eNodeB.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 21  LTECell.eNodeB.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 43  LTECell.pgw.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 44  LTECell.pgw.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 54  LTECell.pgw.pppInterface.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 55  LTECell.pgw.pppInterface.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 70  LTECell.router.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 71  LTECell.router.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 81  LTECell.router.ppp[1].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 82  LTECell.router.ppp[1].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 100  LTECell.server.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 101  LTECell.server.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 10  LTECell.eNodeB.nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 111  LTECell.UETx.tcpApp[0]  numActiveSessions:vector  ETV
+attr interpolationmode  sample-hold
+attr source  sum(connect)
+attr title  "number of active sessions, vector"
+vector 189  LTECell.UETx.tcp  tcpRcvQueueBytes  ETV
+vector 176  LTECell.UETx.tcp  "advertised window"  ETV
+vector 175  LTECell.UETx.tcp  "receive window"  ETV
+vector 178  LTECell.UETx.tcp  "sent ack"  ETV
+vector 112  LTECell.UETx.nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 115  LTECell.UETx.nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 116  LTECell.UETx.nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 119  LTECell.UETx.nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 12  LTECell.eNodeB.nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 117  LTECell.UETx.nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 118  LTECell.UETx.nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 15  LTECell.eNodeB.nic.phy  averageCqiUlvect:vector  ETV
+attr source  averageCqiUlvect
+attr title  "Average Cqi reported in UL, vector"
+attr unit  cqi
+vector 11  LTECell.eNodeB.nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 13  LTECell.eNodeB.nic.mac  measuredItbs:vector  ETV
+attr source  measuredItbs
+attr title  "TBS index, vector"
+attr unit  ""
+vector 6  LTECell.eNodeB.nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 7  LTECell.eNodeB.nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 0  LTECell.eNodeB.udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 17  LTECell.eNodeB.ppp.queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 19  LTECell.eNodeB.ppp.queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 26  LTECell.eNodeB.ppp.ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 22  LTECell.eNodeB.ppp.ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 46  LTECell.pgw.ppp[0].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 50  LTECell.pgw.ppp[0].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 142  LTECell.pgw.ppp[0].inputHook[0]  "thruput (bit/sec)"  ETV
+vector 143  LTECell.pgw.ppp[0].inputHook[0]  packet/sec  ETV
+vector 31  LTECell.pgw.udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 32  LTECell.pgw.udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 51  LTECell.pgw.pppInterface.queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 53  LTECell.pgw.pppInterface.queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 60  LTECell.pgw.pppInterface.ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 56  LTECell.pgw.pppInterface.ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 73  LTECell.router.ppp[0].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 77  LTECell.router.ppp[0].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 144  LTECell.router.ppp[0].inputHook[0]  "thruput (bit/sec)"  ETV
+vector 145  LTECell.router.ppp[0].inputHook[0]  packet/sec  ETV
+vector 78  LTECell.router.ppp[1].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 80  LTECell.router.ppp[1].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 87  LTECell.router.ppp[1].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 83  LTECell.router.ppp[1].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 103  LTECell.server.ppp[0].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 107  LTECell.server.ppp[0].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 148  LTECell.server.ppp[0].inputHook[0]  "thruput (bit/sec)"  ETV
+vector 149  LTECell.server.ppp[0].inputHook[0]  packet/sec  ETV
+vector 155  LTECell.server.tcp  "rcvd seq"  ETV
+vector 156  LTECell.server.tcp  "rcvd ack"  ETV
+vector 152  LTECell.server.tcp  "advertised window"  ETV
+vector 150  LTECell.server.tcp  "send window"  ETV
+vector 165  LTECell.server.tcp  tcpRcvQueueBytes  ETV
+vector 151  LTECell.server.tcp  "receive window"  ETV
+vector 154  LTECell.server.tcp  "sent ack"  ETV
+vector 97  LTECell.server.ppp[0].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 99  LTECell.server.ppp[0].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 106  LTECell.server.ppp[0].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 102  LTECell.server.ppp[0].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 84  LTECell.router.ppp[1].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 88  LTECell.router.ppp[1].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 146  LTECell.router.ppp[1].inputHook[0]  "thruput (bit/sec)"  ETV
+vector 147  LTECell.router.ppp[1].inputHook[0]  packet/sec  ETV
+vector 67  LTECell.router.ppp[0].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 69  LTECell.router.ppp[0].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 76  LTECell.router.ppp[0].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 72  LTECell.router.ppp[0].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 57  LTECell.pgw.pppInterface.ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 61  LTECell.pgw.pppInterface.ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 30  LTECell.pgw.udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 40  LTECell.pgw.ppp[0].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 42  LTECell.pgw.ppp[0].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 49  LTECell.pgw.ppp[0].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 45  LTECell.pgw.ppp[0].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 23  LTECell.eNodeB.ppp.ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 27  LTECell.eNodeB.ppp.ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 1  LTECell.eNodeB.udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 2  LTECell.eNodeB.udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 5  LTECell.eNodeB.nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 8  LTECell.eNodeB.nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 9  LTECell.eNodeB.nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 121  LTECell.UETx.nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 113  LTECell.UETx.nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 114  LTECell.UETx.nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 179  LTECell.UETx.tcp  "rcvd seq"  ETV
+vector 180  LTECell.UETx.tcp  "rcvd ack"  ETV
+vector 174  LTECell.UETx.tcp  "send window"  ETV
+vector 109  LTECell.UETx.tcpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 177  LTECell.UETx.tcp  "sent seq"  ETV
+vector 181  LTECell.UETx.tcp  "unacked bytes"  ETV
+vector 157  LTECell.server.tcp  "unacked bytes"  ETV
+vector 158  LTECell.server.tcp  "rcvd dupAcks"  ETV
+vector 193  LTECell.UETx.tcp  "measured RTT"  ETV
+vector 194  LTECell.UETx.tcp  "smoothed RTT"  ETV
+vector 195  LTECell.UETx.tcp  RTTVAR  ETV
+vector 196  LTECell.UETx.tcp  RTO  ETV
+vector 191  LTECell.UETx.tcp  cwnd  ETV
+vector 182  LTECell.UETx.tcp  "rcvd dupAcks"  ETV
+0	15719 66 5430 5958 1.008 1.048 4 48 584 946 414708
+1	15785 68 5476 6008 1.0080005896 1.048001084 3 48 52 148 7312
+2	15853 65 5476 6008 1.0080005896 1.048001084 3 1 3 6 14
+5	15918 68 5479 6011 1.0080005896 1.048001084 3 40 44 124 5136
+6	15986 66 5426 5954 1.008 1.048 4 41 577 918 401660
+7	16052 66 5426 5954 1.008 1.048 4 40 576 914 399828
+8	16118 68 5479 6011 1.0080005896 1.048001084 3 41 45 127 5387
+9	16186 116 5482 6019 1.0080005896 1.049 6 41 47 260 11294
+10	16302 365537 35 320425 0.002 59.996 20015 0 0 0 0
+11	381839 169 5421 6015 1.008 1.049 10 0 474 932 261706
+12	382008 398 5372 6022 1.001 1.049 25 0 0 0 0
+13	382406 136 5421 6015 1.008 1.049 8 25 26 203 5153
+15	382542 119 5409 5932 1.005 1.045 7 13 13 91 1183
+17	382661 70 5432 5960 1.008 1.048 4 68 604 1026 454148
+19	382731 64 5432 5960 1.008 1.048 4 0 0 0 0
+20	382795 9 0 0 0 0 1 0 0 0 0
+21	382804 163 0 5969 0 1.0480002312 9 0 1 4 4
+22	382967 70 5433 5961 1.008 1.048 4 75 611 1054 468708
+23	383037 71 5474 6006 1.0080005896 1.048001084 3 75 79 229 17491
+26	383108 70 5433 5961 1.008 1.048 4 68 604 1026 454148
+27	383178 71 5474 6006 1.0080005896 1.048001084 3 68 72 208 14432
+30	383249 71 5469 6001 1.0080004764 1.048000974 3 48 52 148 7312
+31	383320 96 5441 5973 1.0080001132 1.0480002812 4 48 584 946 414708
+32	383416 90 5441 5973 1.0080001132 1.0480002812 4 1 4 10 30
+40	383506 71 5471 6003 1.0080004764 1.048000974 3 68 72 208 14432
+42	383577 68 5471 6003 1.0080004764 1.048000974 3 0 0 0 0
+43	383645 9 0 0 0 0 1 0 0 0 0
+44	383654 145 0 6005 0 1.048001034 7 0 1 3 3
+45	383799 71 5472 6004 1.0080004764 1.048000974 3 75 79 229 17491
+46	383870 96 5438 5970 1.0080001132 1.0480002812 4 75 611 1054 468708
+49	383966 71 5472 6004 1.0080004764 1.048000974 3 68 72 208 14432
+50	384037 96 5438 5970 1.0080001132 1.0480002812 4 68 604 1026 454148
+51	384133 96 5443 5975 1.0080001132 1.0480002812 4 40 576 914 399828
+53	384229 90 5443 5975 1.0080001132 1.0480002812 4 0 0 0 0
+54	384319 9 0 0 0 0 1 0 0 0 0
+55	384328 188 0 5977 0 1.04800049 9 0 1 4 4
+56	384516 96 5444 5976 1.0080001132 1.0480002812 4 47 583 942 412820
+57	384612 71 5466 5998 1.0080004764 1.048000974 3 47 51 145 7019
+60	384683 96 5444 5976 1.0080001132 1.0480002812 4 40 576 914 399828
+61	384779 71 5466 5998 1.0080004764 1.048000974 3 40 44 124 5136
+67	384850 72 5463 5995 1.0080003856 1.0480008864 3 40 44 124 5136
+69	384922 69 5463 5995 1.0080003856 1.0480008864 3 0 0 0 0
+70	384991 9 0 0 0 0 1 0 0 0 0
+71	385000 146 0 5997 0 1.048000924 7 0 1 3 3
+72	385146 72 5464 5996 1.0080003856 1.0480008864 3 47 51 145 7019
+73	385218 95 5446 5978 1.008000204 1.04800054 4 47 583 942 412820
+76	385313 72 5464 5996 1.0080003856 1.0480008864 3 40 44 124 5136
+77	385385 95 5446 5978 1.008000204 1.04800054 4 40 576 914 399828
+78	385480 95 5449 5981 1.008000204 1.04800054 4 40 576 914 399828
+80	385575 89 5449 5981 1.008000204 1.04800054 4 0 0 0 0
+81	385664 9 0 0 0 0 1 0 0 0 0
+82	385673 190 0 5983 0 1.0480007488 9 0 1 4 4
+83	385863 95 5450 5982 1.008000204 1.04800054 4 47 583 942 412820
+84	385958 72 5460 5992 1.0080003856 1.0480008864 3 47 51 145 7019
+87	386030 95 5450 5982 1.008000204 1.04800054 4 40 576 914 399828
+88	386125 72 5460 5992 1.0080003856 1.0480008864 3 40 44 124 5136
+97	386197 72 5457 5989 1.0080002948 1.0480007988 3 40 44 124 5136
+99	386269 69 5457 5989 1.0080002948 1.0480007988 3 0 0 0 0
+100	386338 10 0 0 0 0 1 0 0 0 0
+101	386348 154 0 5991 0 1.0480008364 7 0 1 3 3
+102	386502 75 5458 5990 1.0080002948 1.0480007988 3 47 51 145 7019
+103	386577 102 5452 5984 1.0080002948 1.0480007988 4 47 583 942 412820
+106	386679 75 5458 5990 1.0080002948 1.0480007988 3 40 44 124 5136
+107	386754 102 5452 5984 1.0080002948 1.0480007988 4 40 576 914 399828
+109	386856 19 5527 5527 1.013 1.013 1 750 750 750 562500
+111	386875 13 5354 5354 1 1 1 1 1 1 1
+112	386888 70 5358 5812 1 1.033 4 40 576 914 399828
+113	386958 54 5522 6054 1.013 1.053 3 41 45 127 5387
+114	387012 54 5522 6054 1.013 1.053 3 40 44 124 5136
+115	387066 70 5358 5812 1 1.033 4 41 577 918 401660
+116	387136 198 5361 5919 1 1.044 11 41 577 1850 663366
+117	387334 422 5382 6034 1.002 1.05 25 0 0 0 0
+118	387756 173 5392 6050 1.004 1.053 10 0 47 133 5907
+119	387929 251 5363 6050 1 1.053 15 0 0 0 0
+121	388180 51 5507 6033 1.01 1.05 3 15 15 45 675
+142	388231 13 5439 5439 0 0 1 0 0 0 0
+143	388244 13 5439 5439 0 0 1 0 0 0 0
+144	388257 13 5447 5447 0 0 1 0 0 0 0
+145	388270 13 5447 5447 0 0 1 0 0 0 0
+146	388283 13 5461 5461 0 0 1 0 0 0 0
+147	388296 13 5461 5461 0 0 1 0 0 0 0
+148	388309 13 5453 5453 0 0 1 0 0 0 0
+149	388322 13 5453 5453 0 0 1 0 0 0 0
+150	388335 54 5455 5652 1.0080002948 1.0220002852 2 7504 7504 15008 112620032
+151	388389 81 5455 5987 1.0080002948 1.0480007988 3 7504 7504 22512 168930048
+152	388470 116 5455 5987 1.0080002948 1.0480007988 4 257505 258255 1031306 265898452756
+154	388586 87 5455 5987 1.0080002948 1.0480007988 3 250001 250751 751289 188145352371
+155	388673 116 5455 5987 1.0080002948 1.0480007988 4 250000 250537 1000539 250269788371
+156	388789 111 5455 5987 1.0080002948 1.0480007988 4 0 252001 756003 190513512003
+157	388900 24 5652 5652 1.0220002852 1.0220002852 1 0 0 0 0
+158	388924 48 5743 5987 1.0280015716 1.0480007988 2 0 0 0 0
+165	388972 120 5455 5987 1.0080002948 1.0480007988 5 0 0 0 0
+174	389092 60 5525 6057 1.013 1.053 3 7504 7504 22512 168930048
+175	389152 76 5355 5809 1 1.033 4 7504 7504 30016 225240064
+176	389228 104 5355 5809 1 1.033 5 7504 259505 1045524 269427690116
+177	389332 44 5529 5809 1.013 1.033 2 250001 250537 500538 125269288370
+178	389376 79 5355 5809 1 1.033 4 0 252001 756003 190513512003
+179	389455 66 5525 6057 1.013 1.053 3 252000 252001 756002 190513008002
+180	389521 66 5525 6057 1.013 1.053 3 250001 250751 751289 188145352371
+181	389587 72 5529 6057 1.013 1.053 4 0 536 750 333092
+182	389659 34 5809 6057 1.033 1.053 2 0 0 0 0
+189	389693 64 5355 5809 1 1.033 4 0 0 0 0
+191	389757 40 5809 6057 1.033 1.053 2 1072 1608 2680 3734848
+193	389797 40 5809 6057 1.033 1.053 2 0.02 0.02 0.04 0.0008
+194	389837 47 5809 6057 1.033 1.053 2 0.0025 0.0046875 0.0071875 2.822265625e-05
+195	389884 49 5809 6057 1.033 1.053 2 0.57859375 0.65875 1.23734375 0.76872229003906
+196	389933 47 5809 6057 1.033 1.053 2 2.3190625 2.6375 4.9565625 12.334457128906

@@ -1,0 +1,1 @@
+-DHAVE_SWAPCONTEXT -DWITH_QTENV -DWITH_TKENV -DWITH_MPI -DXMLPARSER=libxml -DWITH_PARSIM -DWITH_NETBUILDER  -g -Wall -fPIC  -fno-stack-protector  -I. -Iresults -Iresults/SinglePair -Iresults/SinglePair-UDP-D2D -Iresults/Test -I/home/kunterbunt/dev/omnetpp-5.0/include

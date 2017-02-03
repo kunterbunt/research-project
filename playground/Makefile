@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for research-project
+# OMNeT++/OMNEST Makefile for playground
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -L../../d2d-pisa/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -ld2d-pisa -lINET -KD2D_PISA_PROJ=../../d2d-pisa -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
+#  opp_makemake -f --deep -O out -L../d2d-pisa/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -ld2d-pisa -lINET -KD2D_PISA_PROJ=../d2d-pisa -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
 #
 
 # Name of target to be created (-o option)
-TARGET = research-project$(EXE_SUFFIX)
+TARGET = playground$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LIBS)
@@ -15,18 +15,18 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I.
+INCLUDE_PATH = -I. -Iresults -Iresults/SinglePair -Iresults/SinglePair-UDP-D2D -Iresults/Test
 
 # Additional object and library files to link with
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L../../d2d-pisa/out/$(CONFIGNAME)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$(CONFIGNAME)/src  -ld2d-pisa -lINET
-LIBS += -Wl,-rpath,`abspath ../../d2d-pisa/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath /home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$(CONFIGNAME)/src`
+LIBS = -L../d2d-pisa/out/$(CONFIGNAME)/src -L$(INET_PROJ)/out/$(CONFIGNAME)/src  -ld2d-pisa -lINET
+LIBS += -Wl,-rpath,`abspath ../d2d-pisa/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src`
 
 # Output directory
-PROJECT_OUTPUT_DIR = ../out
-PROJECTRELATIVE_PATH = src
+PROJECT_OUTPUT_DIR = out
+PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
@@ -39,7 +39,7 @@ MSGFILES =
 SMFILES =
 
 # Other makefile variables (-K)
-D2D_PISA_PROJ=../../d2d-pisa
+D2D_PISA_PROJ=../d2d-pisa
 INET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
 
 #------------------------------------------------------------------------------
@@ -119,15 +119,19 @@ smheaders: $(SMFILES:.sm=_sm.h)
 clean:
 	$(qecho) Cleaning...
 	$(Q)-rm -rf $O
-	$(Q)-rm -f research-project research-project.exe libresearch-project.so libresearch-project.a libresearch-project.dll libresearch-project.dylib
+	$(Q)-rm -f playground playground.exe libplayground.so libplayground.a libplayground.dll libplayground.dylib
 	$(Q)-rm -f ./*_m.cc ./*_m.h ./*_sm.cc ./*_sm.h
+	$(Q)-rm -f results/*_m.cc results/*_m.h results/*_sm.cc results/*_sm.h
+	$(Q)-rm -f results/SinglePair/*_m.cc results/SinglePair/*_m.h results/SinglePair/*_sm.cc results/SinglePair/*_sm.h
+	$(Q)-rm -f results/SinglePair-UDP-D2D/*_m.cc results/SinglePair-UDP-D2D/*_m.h results/SinglePair-UDP-D2D/*_sm.cc results/SinglePair-UDP-D2D/*_sm.h
+	$(Q)-rm -f results/Test/*_m.cc results/Test/*_m.h results/Test/*_sm.cc results/Test/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc results/*.cc results/SinglePair/*.cc results/SinglePair-UDP-D2D/*.cc results/Test/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

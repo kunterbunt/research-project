@@ -1,4 +1,4 @@
 # Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
-config default-configname	{}
-config default-runnumber	{}
+config default-configname	{Test}
+config default-runnumber	{0}
 
