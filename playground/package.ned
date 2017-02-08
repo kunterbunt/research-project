@@ -1,3 +1,11 @@
+// 
+//                           SimuLTE
+// 
+// This file is part of a software released under the license included in file
+// "license.pdf". This license can be also found at http://www.ltesimulator.com/
+// The above file and the present reference are part of the software itself, 
+// and cannot be removed from it.
+// 
 package playground;
 
 import inet.networklayer.configurator.ipv4.IPv4NetworkConfigurator;
@@ -14,7 +22,7 @@ import lte.world.radio.LteChannelControl;
 import lte.epc.PgwStandardSimplified;
 
 
-network Playground
+network SingleCell_D2D
 {
     parameters:
         int numUeCell = default(1);
@@ -48,11 +56,14 @@ network Playground
         eNodeB: eNodeB {
             @display("p=391,259;is=vl");
         }
+        ueCell[numUeCell]: Ue {
+            @display("p=292,367");
+        }
         ueD2DTx[numUeD2DTx]: Ue {
-            @display("p=111.9375,396.75626");
+            @display("p=477,367");
         }
         ueD2DRx[numUeD2DRx]: Ue {
-            @display("p=771.125,396.75626");
+            @display("p=544,299");
         }
     connections:
         server.pppg++ <--> Eth10G <--> router.pppg++;

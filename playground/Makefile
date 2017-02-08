@@ -15,7 +15,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I. -Iresults -Iresults/SinglePair -Iresults/SinglePair-UDP-D2D -Iresults/Test
+INCLUDE_PATH = -I. -Iresults -Iresults/Cellular -Iresults/D2D
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -122,16 +122,15 @@ clean:
 	$(Q)-rm -f playground playground.exe libplayground.so libplayground.a libplayground.dll libplayground.dylib
 	$(Q)-rm -f ./*_m.cc ./*_m.h ./*_sm.cc ./*_sm.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h results/*_sm.cc results/*_sm.h
-	$(Q)-rm -f results/SinglePair/*_m.cc results/SinglePair/*_m.h results/SinglePair/*_sm.cc results/SinglePair/*_sm.h
-	$(Q)-rm -f results/SinglePair-UDP-D2D/*_m.cc results/SinglePair-UDP-D2D/*_m.h results/SinglePair-UDP-D2D/*_sm.cc results/SinglePair-UDP-D2D/*_sm.h
-	$(Q)-rm -f results/Test/*_m.cc results/Test/*_m.h results/Test/*_sm.cc results/Test/*_sm.h
+	$(Q)-rm -f results/Cellular/*_m.cc results/Cellular/*_m.h results/Cellular/*_sm.cc results/Cellular/*_sm.h
+	$(Q)-rm -f results/D2D/*_m.cc results/D2D/*_m.h results/D2D/*_sm.cc results/D2D/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc results/*.cc results/SinglePair/*.cc results/SinglePair-UDP-D2D/*.cc results/Test/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

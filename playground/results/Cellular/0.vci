@@ -1,0 +1,805 @@
+file 1442939 1486552646                                         
+version 2
+run Cellular-0-20170208-12:17:21-14637
+attr configname Cellular
+attr datetime 20170208-12:17:21
+attr experiment Cellular
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network playground.SingleCell_D2D
+attr processid 14637
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.**.amcMode "\"AUTO\""
+param **.channelControl.alpha 1.0
+param **.channelControl.carrierFrequency 2100e+6Hz
+param **.channelControl.pMax 10W
+param **.deployer.numRbDl 50
+param **.deployer.numRbUl 50
+param **.fbDelay 1
+param **.feedbackComputation "xmldoc(\"config_channel.xml\")"
+param **.mobility.constraintAreaMaxZ 0m
+param **.mobility.constraintAreaMinZ 0m
+param **.nic.phy.channelModel "xmldoc(\"config_channel.xml\")"
+param **.numBands 50
+param **.rbAllocationType "\"localized\""
+param **.routingRecorder.enabled false
+param **.tcp.advertisedWindow 1460000
+param **.tcp.mss 1460
+param **.tcp.tcpAlgorithmClass "\"TCPNewReno\""
+param **.tcp.windowScalingSupport true
+param **.tcpApp[*].dataTransferMode "\"object\""
+param **.tcpApp[*].tClose -1s
+param **.tcpType "\"TCP\""
+param *.eNodeB.d2dCapable false
+param *.eNodeB.mobility.initFromDisplayString false
+param *.eNodeB.mobility.initialX 300m
+param *.eNodeB.mobility.initialY 300m
+param *.numUeCell 0
+param *.numUeD2DRx 1
+param *.numUeD2DTx 1
+param *.ue*[0].macCellId 1
+param *.ue*[0].masterId 1
+param *.ue*[0].mobility.initFromDisplayString false
+param *.ueD2D*[0].d2dCapable false
+param *.ueD2D*[0].numTcpApps 1
+param *.ueD2DRx[0].mobility.initialX 310m
+param *.ueD2DRx[0].mobility.initialY 350m
+param *.ueD2DRx[0].tcpApp[*].localPort 1000
+param *.ueD2DRx[0].tcpApp[*].typename "\"TCPGenericSrvApp\""
+param *.ueD2DTx[0].mobility.initialX 290m
+param *.ueD2DTx[0].mobility.initialY 350m
+param *.ueD2DTx[0].tcpApp[0].connectAddress "\"ueD2DRx[0]\""
+param *.ueD2DTx[0].tcpApp[0].connectPort 1000
+param *.ueD2DTx[0].tcpApp[0].idleInterval exponential(1s)
+param *.ueD2DTx[0].tcpApp[0].replyLength exponential(250kB)
+param *.ueD2DTx[0].tcpApp[0].requestLength 750B
+param *.ueD2DTx[0].tcpApp[0].thinkTime 0s
+param *.ueD2DTx[0].tcpApp[0].typename "\"TCPBasicClientApp\""
+
+vector 8  SingleCell_D2D.server.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 9  SingleCell_D2D.server.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 24  SingleCell_D2D.router.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 25  SingleCell_D2D.router.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 35  SingleCell_D2D.router.ppp[1].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 36  SingleCell_D2D.router.ppp[1].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 56  SingleCell_D2D.pgw.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 57  SingleCell_D2D.pgw.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 67  SingleCell_D2D.pgw.pppInterface.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 68  SingleCell_D2D.pgw.pppInterface.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 95  SingleCell_D2D.eNodeB.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 96  SingleCell_D2D.eNodeB.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 85  SingleCell_D2D.eNodeB.nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 108  SingleCell_D2D.ueD2DTx[0].tcpApp[0]  numActiveSessions:vector  ETV
+attr interpolationmode  sample-hold
+attr source  sum(connect)
+attr title  "number of active sessions, vector"
+vector 181  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 168  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 167  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 170  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 109  SingleCell_D2D.ueD2DTx[0].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 112  SingleCell_D2D.ueD2DTx[0].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 113  SingleCell_D2D.ueD2DTx[0].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 116  SingleCell_D2D.ueD2DTx[0].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 87  SingleCell_D2D.eNodeB.nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 114  SingleCell_D2D.ueD2DTx[0].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 115  SingleCell_D2D.ueD2DTx[0].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 90  SingleCell_D2D.eNodeB.nic.phy  averageCqiUlvect:vector  ETV
+attr source  averageCqiUlvect
+attr title  "Average Cqi reported in UL, vector"
+attr unit  cqi
+vector 86  SingleCell_D2D.eNodeB.nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 88  SingleCell_D2D.eNodeB.nic.mac  measuredItbs:vector  ETV
+attr source  measuredItbs
+attr title  "TBS index, vector"
+attr unit  ""
+vector 81  SingleCell_D2D.eNodeB.nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 82  SingleCell_D2D.eNodeB.nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 80  SingleCell_D2D.eNodeB.nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 83  SingleCell_D2D.eNodeB.nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 84  SingleCell_D2D.eNodeB.nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 136  SingleCell_D2D.ueD2DRx[0].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 132  SingleCell_D2D.ueD2DRx[0].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 134  SingleCell_D2D.ueD2DRx[0].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 133  SingleCell_D2D.ueD2DRx[0].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 128  SingleCell_D2D.ueD2DRx[0].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 129  SingleCell_D2D.ueD2DRx[0].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 147  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 148  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 144  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 142  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 157  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 143  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 146  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 127  SingleCell_D2D.ueD2DRx[0].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 130  SingleCell_D2D.ueD2DRx[0].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 131  SingleCell_D2D.ueD2DRx[0].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 118  SingleCell_D2D.ueD2DTx[0].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 110  SingleCell_D2D.ueD2DTx[0].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 111  SingleCell_D2D.ueD2DTx[0].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 171  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 172  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 166  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 106  SingleCell_D2D.ueD2DTx[0].tcpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 169  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 173  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 149  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 150  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 124  SingleCell_D2D.ueD2DRx[0].tcpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 126  SingleCell_D2D.ueD2DRx[0].tcpApp[0]  endToEndDelay:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "end-to-end delay, vector"
+attr unit  s
+vector 125  SingleCell_D2D.ueD2DRx[0].tcpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 145  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 185  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 186  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 187  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 188  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 183  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 174  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 161  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 162  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 163  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 164  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 159  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+vector 105  SingleCell_D2D.ueD2DTx[0].tcpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 107  SingleCell_D2D.ueD2DTx[0].tcpApp[0]  endToEndDelay:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "end-to-end delay, vector"
+attr unit  s
+159	11590 2542 6216 14495 1.081 1.337 115 2920 169360 9906100 1123449122000
+161	14132 149 6216 13442 1.081 1.291 7 0.034 0.038 0.244 0.00852
+162	14281 200 6216 13442 1.081 1.291 7 0.00425 0.021367089272 0.094430375101 0.0014969503845807
+163	14481 196 6216 13442 1.081 1.291 7 0.308561088563 0.6605 3.261009094241 1.6157363045369
+164	14677 200 6216 13442 1.081 1.291 7 1.255611443524 2.64625 13.138466752065 26.168092518594
+142	14877 2773 5481 14495 1.013 1.337 117 65535 1460000 169425535 2.4726989483622e+14
+143	17650 2765 5481 14215 1.013 1.309 118 65535 1460000 170885535 2.4940149483622e+14
+144	20415 2788 5481 14215 1.013 1.309 119 315536 1710752 200788941 3.4261940390572e+14
+145	23203 2559 5854 11584 1.047 1.268 114 253250 418230 38274360 13113384975400
+146	25762 2649 5481 14215 1.013 1.309 118 250001 250752 29587870 7419000991124
+147	28411 2703 5481 14495 1.013 1.337 119 250000 250752 29837119 7481124925621
+148	31114 2698 5481 14495 1.013 1.337 119 0 419393 39785787 13705190325677
+149	33812 3747 5783 14495 1.041 1.337 175 0 83220 7139935 396847620949
+150	37559 2074 5851 14495 1.047 1.337 117 0 0 0 0
+157	39633 2076 5481 14215 1.013 1.309 119 0 0 0 0
+vector 229  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 216  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 215  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 218  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 195  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 196  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 192  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 190  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 205  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 191  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 194  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 219  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 220  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 214  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 217  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 221  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 197  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 198  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 193  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 233  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 234  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 235  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 236  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 231  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 222  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 209  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 210  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 211  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 212  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 207  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+207	43527 653 19284 22409 2.154 2.329 30 2920 45260 722700 22200614000
+209	44180 109 19284 21849 2.154 2.29 5 0.034 0.034 0.17 0.00578
+210	44289 142 19284 21849 2.154 2.29 5 0.00425 0.016561096192 0.054072326661 0.0006797413505024
+211	44431 139 19284 21849 2.154 2.29 5 0.397138061524 0.6605 2.602522338868 1.3980783868693
+212	44570 142 19284 21849 2.154 2.29 5 1.605113342288 2.64625 10.464161682133 22.578840815875
+190	44712 764 18551 22409 2.086 2.329 32 65535 1460000 45325535 66083894836225
+191	45476 788 18551 22129 2.086 2.301 33 65535 1460000 46785535 68215494836225
+192	46264 812 18551 22129 2.086 2.301 34 583626 1978842 64490166 1.2598722103611e+14
+193	47076 666 18920 21136 2.12 2.267 29 521500 562380 15716260 8521597092400
+194	47742 757 18551 22129 2.086 2.301 33 518091 518842 17121005 8882691824639
+195	48499 779 18551 22409 2.086 2.329 34 518090 518842 17638344 9150330336056
+196	49278 774 18551 22409 2.086 2.329 34 0 563736 17928966 9746951920546
+197	50052 993 18849 22409 2.114 2.329 47 0 21795 459786 6515911776
+198	51045 573 18917 22409 2.12 2.329 32 0 0 0 0
+205	51618 609 18551 22129 2.086 2.301 34 0 0 0 0
+vector 277  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 264  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 263  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 266  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 243  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 244  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 240  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 238  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 253  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 239  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 242  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 267  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 268  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 262  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 265  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 269  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 245  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 246  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 241  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 281  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 282  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 283  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 284  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 279  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 270  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 257  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 258  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 259  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 260  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 255  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+255	54045 3696 23730 34751 2.496 2.777 164 2920 240900 19993240 3220877442400
+257	57741 175 23730 33901 2.496 2.738 8 0.031 0.039 0.276 0.009558
+258	57916 235 23730 33901 2.496 2.738 8 0.00425 0.022680578113 0.117235953214 0.0020167164054386
+259	58151 231 23730 33901 2.496 2.738 8 0.271288816334 0.6605 3.532422910575 1.6894110823019
+260	58382 235 23730 33901 2.496 2.738 8 1.107835843449 2.64625 14.246927595514 27.396962679554
+238	58617 3978 22997 34751 2.428 2.777 166 65535 1460000 240965535 3.5171829483622e+14
+239	62595 4002 22997 34471 2.428 2.749 167 65535 1460000 242425535 3.5384989483622e+14
+240	66597 4026 22997 34471 2.428 2.749 168 669238 2064454 344037676 7.083821546678e+14
+241	70623 3745 23366 31843 2.462 2.713 163 607001 843521 118217543 86507829524923
+242	74368 3837 22997 34471 2.428 2.749 167 603703 604454 100942903 61014788978717
+243	78205 3860 22997 34751 2.428 2.777 168 603702 604454 101545854 61378337757614
+244	82065 3855 22997 34751 2.428 2.777 168 0 843938 121356356 89012970406706
+245	85920 5448 23295 34751 2.456 2.777 248 0 118676 14461833 1143946954913
+246	91368 2984 23363 34751 2.462 2.777 166 0 0 0 0
+253	94352 3020 22997 34471 2.428 2.749 168 0 0 0 0
+vector 325  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 312  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 311  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 314  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 291  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 292  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 288  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 286  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 301  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 287  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 290  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 315  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 316  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 310  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 313  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 317  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 293  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 294  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 289  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 329  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 330  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 331  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 332  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 327  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 318  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 305  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 306  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 307  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 308  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 303  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+303	99190 1091 36948 41461 3.108 3.317 50 2920 74460 1934500 97041090000
+305	100281 131 36948 40849 3.108 3.278 6 0.034 0.034 0.204 0.006936
+306	100412 173 36948 40849 3.108 3.278 6 0.00425 0.018740959168 0.072813285829 0.001030964901039
+307	100585 169 36948 40849 3.108 3.278 6 0.34967566681 0.6605 2.952198005678 1.5203514588283
+308	100754 173 36948 40849 3.108 3.278 6 1.417443626408 2.64625 11.881605308541 24.58798724992
+286	100927 1241 36215 41461 3.04 3.317 52 65535 1460000 74525535 1.0871589483622e+14
+287	102168 1261 36215 41181 3.04 3.289 53 65535 1460000 75985535 1.1084749483622e+14
+288	103429 1284 36215 41181 3.04 3.289 54 822150 2217366 116947282 2.5702066236216e+14
+289	104713 1119 36584 39982 3.074 3.255 49 760001 830081 38957009 30993309072369
+290	105832 1210 36215 41181 3.04 3.289 53 756615 757366 40139597 30399759935387
+291	107042 1237 36215 41461 3.04 3.317 54 756614 757366 40895460 30971087680652
+292	108279 1232 36215 41461 3.04 3.317 54 0 830333 42208007 33639265943707
+293	109511 1646 36513 41461 3.068 3.317 77 0 35291 1285236 30328169426
+294	111157 932 36581 41461 3.074 3.317 52 0 0 0 0
+301	112089 963 36215 41181 3.04 3.289 54 0 0 0 0
+vector 373  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 360  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 359  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 362  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 339  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 340  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 336  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 334  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 349  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 335  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 338  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 363  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 364  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 358  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 361  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 365  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 341  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 342  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 337  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 377  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 378  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 379  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 380  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 375  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 366  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 353  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 354  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 355  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 356  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 351  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+351	114870 1247 45620 50563 4.016 4.231 57 2920 84680 2496600 142237404800
+353	116117 131 45620 49762 4.016 4.186 6 0.034 0.034 0.204 0.006936
+354	116248 173 45620 49762 4.016 4.186 6 0.00425 0.018740959168 0.072813285829 0.001030964901039
+355	116421 169 45620 49762 4.016 4.186 6 0.34967566681 0.6605 2.952198005678 1.5203514588283
+356	116590 173 45620 49762 4.016 4.186 6 1.417443626408 2.64625 11.881605308541 24.58798724992
+334	116763 1412 44887 50563 3.948 4.231 59 65535 1460000 84745535 1.2363709483622e+14
+335	118175 1434 44887 50281 3.948 4.203 60 65535 1460000 86205535 1.2576869483622e+14
+336	119609 1460 44887 50281 3.948 4.203 61 1049182 2444398 146317789 3.5473110043877e+14
+337	121069 1331 45258 48656 3.982 4.163 56 987001 1067301 57520456 59113379208856
+338	122400 1376 44887 50281 3.948 4.203 60 983647 984398 59063072 58140775121130
+339	123776 1401 44887 50563 3.948 4.231 61 983646 984398 60045967 59106856572651
+340	125177 1446 44887 50563 3.948 4.231 61 0 1068068 61711659 63509853668459
+341	126623 1892 45187 50563 3.976 4.231 88 0 40880 1717969 46849047729
+342	128515 1060 45255 50563 3.982 4.231 59 0 0 0 0
+349	129575 1094 44887 50281 3.948 4.203 61 0 0 0 0
+vector 421  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 408  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 407  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 410  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 387  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 388  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 384  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 382  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 397  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 383  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 386  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 411  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 412  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 406  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 409  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 413  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 389  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 390  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 385  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 425  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 426  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 427  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 428  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 423  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 414  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 401  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 402  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 403  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 404  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 399  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+399	132487 2048 52582 59661 4.529 4.774 93 2920 137240 6517440 599606290400
+401	134535 154 52582 58906 4.529 4.735 7 0.034 0.036 0.24 0.008232
+402	134689 205 52582 58906 4.529 4.735 7 0.00425 0.020867089272 0.093930375101 0.0014758332953087
+403	134894 201 52582 58906 4.529 4.735 7 0.308061088563 0.6605 3.260509094241 1.6154279934483
+404	135095 205 52582 58906 4.529 4.735 7 1.253111443524 2.64625 13.135966752065 26.161820711377
+382	135300 2259 51851 59661 4.461 4.774 95 65535 1460000 137305535 2.0037469483622e+14
+383	137559 2281 51851 59379 4.461 4.746 96 65535 1460000 138765535 2.0250629483622e+14
+384	139840 2307 51851 59379 4.461 4.746 97 1177311 2572527 246744594 6.3147168463577e+14
+385	142147 2187 52220 57463 4.495 4.71 92 1115251 1248111 108714652 1.2860434329281e+14
+386	144334 2283 51851 59379 4.461 4.746 96 1111776 1112527 106801748 1.188188898885e+14
+387	146617 2309 51851 59661 4.461 4.774 97 1111775 1112527 107912772 1.2005326308757e+14
+388	148926 2303 51851 59661 4.461 4.774 97 0 1248578 113575635 1.3452496415776e+14
+389	151229 3054 52149 59661 4.489 4.774 142 0 67160 4621897 206693545977
+390	154283 1691 52217 59661 4.495 4.774 95 0 0 0 0
+397	155974 1725 51851 59379 4.461 4.746 97 0 0 0 0
+vector 469  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 456  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 455  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 458  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 435  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 436  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 432  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 430  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 445  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 431  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 434  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 459  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 460  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 454  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 457  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 461  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 437  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 438  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 433  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 473  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 474  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 475  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 476  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 471  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 462  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 449  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 450  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 451  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 452  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 447  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+447	159517 7991 64080 85315 5.522 5.882 353 2920 516840 91737640 31654268526400
+449	167508 194 64080 82966 5.522 5.83 9 0.034 0.06 0.342 0.013566
+450	167702 264 64080 82966 5.522 5.83 9 0.00425 0.028001755849 0.145987709063 0.0028353981032351
+451	167966 260 64080 82966 5.522 5.83 9 0.242605142028 0.6605 3.775778052603 1.7486758329649
+452	168226 251 64080 82966 5.522 5.83 9 1 2.64625 15.250677595514 28.40528551088
+430	168477 8462 63347 85315 5.454 5.882 355 65535 1460000 516905535 7.5459069483622e+14
+431	176939 8470 63347 85020 5.454 5.858 356 65535 1460000 518365535 7.5672229483622e+14
+432	185409 8496 63347 85020 5.454 5.858 357 1425591 2820807 1004237314 2.8287806345026e+15
+433	193905 8376 63718 77880 5.488 5.786 352 1363501 1875961 570145312 9.3122931097187e+14
+434	202281 8472 63347 85020 5.454 5.858 356 1360056 1360807 484446188 6.5923626198714e+14
+435	210753 8512 63347 85315 5.454 5.882 357 1360055 1360807 485805492 6.6108396822205e+14
+436	219265 8506 63347 85315 5.454 5.882 357 0 1876166 577137309 9.4364843502288e+14
+437	227771 11894 63647 85315 5.482 5.882 532 0 256960 67744865 11597359878017
+438	239665 6334 63715 85315 5.488 5.882 355 0 0 0 0
+445	245999 6354 63347 85020 5.454 5.858 357 0 0 0 0
+vector 517  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 504  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 503  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 506  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 483  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 484  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 480  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 478  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 493  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 479  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 482  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 507  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 508  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 502  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 505  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 509  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 485  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 486  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 481  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 521  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 522  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 523  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 524  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 519  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 510  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 497  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 498  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 499  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 500  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 495  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+495	254171 1582 100538 106383 8.655 8.895 69 2920 102200 3626640 248958090400
+497	255753 161 100538 105994 8.655 8.861 7 0.034 0.036 0.24 0.008232
+498	255914 212 100538 105994 8.655 8.861 7 0.00425 0.020867089272 0.093930375101 0.0014758332953087
+499	256126 208 100538 105994 8.655 8.861 7 0.308061088563 0.6605 3.260509094241 1.6154279934483
+500	256334 212 100538 105994 8.655 8.861 7 1.253111443524 2.64625 13.135966752065 26.161820711377
+478	256546 1770 99803 106383 8.587 8.895 71 65535 1460000 102265535 1.4921629483622e+14
+479	258316 1796 99803 106097 8.587 8.867 72 65535 1460000 103725535 1.5134789483622e+14
+480	260112 1822 99803 106097 8.587 8.867 73 2208907 3604123 260310478 9.3202692743855e+14
+481	261934 1699 100172 105045 8.621 8.83 68 2146751 2244571 149304948 3.2787889295583e+14
+482	263633 1798 99803 106097 8.587 8.867 72 2143372 2144123 154376036 3.3099945181964e+14
+483	265431 1822 99803 106383 8.587 8.895 73 2143371 2144123 156518656 3.3559027115453e+14
+484	267253 1816 99803 106383 8.587 8.895 73 0 2245034 158186799 3.4760795681516e+14
+485	269069 2395 100101 106383 8.615 8.895 106 0 49640 2522529 83348647337
+486	271464 1347 100169 106383 8.621 8.895 71 0 0 0 0
+493	272811 1385 99803 106097 8.587 8.867 73 0 0 0 0
+vector 565  SingleCell_D2D.ueD2DTx[0].tcp  tcpRcvQueueBytes  ETV
+vector 552  SingleCell_D2D.ueD2DTx[0].tcp  "advertised window"  ETV
+vector 551  SingleCell_D2D.ueD2DTx[0].tcp  "receive window"  ETV
+vector 554  SingleCell_D2D.ueD2DTx[0].tcp  "sent ack"  ETV
+vector 531  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd seq"  ETV
+vector 532  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd ack"  ETV
+vector 528  SingleCell_D2D.ueD2DRx[0].tcp  "advertised window"  ETV
+vector 526  SingleCell_D2D.ueD2DRx[0].tcp  "send window"  ETV
+vector 541  SingleCell_D2D.ueD2DRx[0].tcp  tcpRcvQueueBytes  ETV
+vector 527  SingleCell_D2D.ueD2DRx[0].tcp  "receive window"  ETV
+vector 530  SingleCell_D2D.ueD2DRx[0].tcp  "sent ack"  ETV
+vector 555  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd seq"  ETV
+vector 556  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd ack"  ETV
+vector 550  SingleCell_D2D.ueD2DTx[0].tcp  "send window"  ETV
+vector 553  SingleCell_D2D.ueD2DTx[0].tcp  "sent seq"  ETV
+vector 557  SingleCell_D2D.ueD2DTx[0].tcp  "unacked bytes"  ETV
+vector 533  SingleCell_D2D.ueD2DRx[0].tcp  "unacked bytes"  ETV
+vector 534  SingleCell_D2D.ueD2DRx[0].tcp  "rcvd dupAcks"  ETV
+vector 529  SingleCell_D2D.ueD2DRx[0].tcp  "sent seq"  ETV
+vector 569  SingleCell_D2D.ueD2DTx[0].tcp  "measured RTT"  ETV
+vector 570  SingleCell_D2D.ueD2DTx[0].tcp  "smoothed RTT"  ETV
+vector 571  SingleCell_D2D.ueD2DTx[0].tcp  RTTVAR  ETV
+vector 572  SingleCell_D2D.ueD2DTx[0].tcp  RTO  ETV
+vector 567  SingleCell_D2D.ueD2DTx[0].tcp  cwnd  ETV
+vector 558  SingleCell_D2D.ueD2DTx[0].tcp  "rcvd dupAcks"  ETV
+vector 545  SingleCell_D2D.ueD2DRx[0].tcp  "measured RTT"  ETV
+vector 546  SingleCell_D2D.ueD2DRx[0].tcp  "smoothed RTT"  ETV
+vector 547  SingleCell_D2D.ueD2DRx[0].tcp  RTTVAR  ETV
+vector 548  SingleCell_D2D.ueD2DRx[0].tcp  RTO  ETV
+vector 543  SingleCell_D2D.ueD2DRx[0].tcp  cwnd  ETV
+543	276014 6116 107430 123577 9.011 9.336 258 2920 378140 49156740 12416376024400
+545	282130 207 107430 123289 9.011 9.308 9 0.034 0.049 0.331 0.012367
+546	282337 276 107430 123289 9.011 9.308 9 0.00425 0.026626755849 0.144612709063 0.0027602838996503
+547	282613 272 107430 123289 9.011 9.308 9 0.241230142028 0.6605 3.774403052603 1.7480105594493
+548	282885 263 107430 123289 9.011 9.308 9 1 2.64625 15.250677595514 28.40528551088
+526	283148 6494 106699 123577 8.943 9.336 260 65535 1460000 378205535 5.5208869483622e+14
+527	289642 6523 106699 123295 8.943 9.308 261 65535 1460000 379665535 5.5422029483622e+14
+528	296165 6550 106699 123295 8.943 9.308 262 2297895 3693111 964804392 3.5567166403805e+15
+529	302715 6425 107068 119351 8.977 9.259 257 2235751 2609511 622616167 1.5113844351602e+15
+530	309140 6525 106699 123295 8.943 9.308 261 2232360 2233111 582840962 1.301546310848e+15
+531	315665 6546 106699 123577 8.943 9.336 262 2232359 2233111 585072570 1.3065263839842e+15
+532	322211 6540 106699 123577 8.943 9.336 262 0 2609997 632681907 1.5368192602742e+15
+533	328751 9082 106997 123577 8.971 9.336 389 0 187365 36036966 4499610184026
+534	337833 4936 107065 123577 8.977 9.336 260 0 0 0 0
+541	342769 4978 106699 123295 8.943 9.308 262 0 0 0 0
+8	347747 8 0 0 0 0 1 0 0 0 0
+9	347755 8 0 0 0 0 1 0 0 0 0
+24	347763 9 0 0 0 0 1 0 0 0 0
+25	347772 9 0 0 0 0 1 0 0 0 0
+35	347781 9 0 0 0 0 1 0 0 0 0
+36	347790 9 0 0 0 0 1 0 0 0 0
+56	347799 9 0 0 0 0 1 0 0 0 0
+57	347808 9 0 0 0 0 1 0 0 0 0
+67	347817 9 0 0 0 0 1 0 0 0 0
+68	347826 9 0 0 0 0 1 0 0 0 0
+80	347835 46655 5431 123527 1.008 9.331 2441 40 1500 1819761 2647559055
+81	394490 46653 5426 123522 1.008 9.331 2441 41 1501 1822202 2651201018
+82	441143 46653 5426 123522 1.008 9.331 2441 40 1500 1819761 2647559055
+83	487796 46655 5431 123527 1.008 9.331 2441 41 1501 1822202 2651201018
+84	534451 61549 5434 123538 1.008 9.332 3207 41 4448 3645936 9831856556
+85	596000 91284 35 127115 0.002 9.998 5404 0 0 0 0
+86	687284 30538 5421 123534 1.008 9.332 1675 0 4448 1824020 7367741998
+87	717822 55870 5372 123541 1.001 9.332 3270 0 0 0 0
+88	773692 29209 5421 123534 1.008 9.332 1614 26 26 41964 1091064
+90	802901 16435 5409 123503 1.005 9.328 909 15 15 13635 204525
+95	819336 9 0 0 0 0 1 0 0 0 0
+96	819345 9 0 0 0 0 1 0 0 0 0
+105	819354 205 13413 122578 1.291 9.297 9 42235 512664 1715227 527362644123
+106	819559 178 5615 106829 1.027 8.957 9 750 750 6750 5062500
+107	819737 199 13413 122578 1.291 9.297 9 0.184 0.373 2.404 0.670868
+108	819936 392 5354 122578 1 9.297 18 0 1 9 9
+109	820328 23510 5358 123448 1 9.322 1225 40 790 55822 7568836
+110	843838 25619 5610 123438 1.027 9.322 1216 41 1501 1765155 2643519313
+111	869457 25619 5610 123438 1.027 9.322 1216 40 1500 1763939 2639990219
+112	895076 23510 5358 123448 1 9.322 1225 41 791 57047 7681705
+113	918586 29136 5361 123494 1 9.327 1516 3 1155 114676 35148766
+114	947722 25344 5382 123550 1.002 9.332 1401 0 0 0 0
+115	973066 15829 5392 123490 1.004 9.327 794 0 4448 1766161 7149616465
+116	988895 18364 5363 123497 1 9.327 1015 0 0 0 0
+118	1007259 9609 5591 123418 1.024 9.319 503 15 15 7545 113175
+124	1016868 180 5852 107066 1.047 8.977 9 750 750 6750 5062500
+125	1017048 203 5852 107066 1.047 8.977 9 42235 512664 1715227 527362644123
+126	1017251 189 5852 107066 1.047 8.977 9 0.02 0.02 0.18 0.0036
+127	1017440 25611 5484 123301 1.013 9.308 1216 40 1500 1763939 2639990219
+128	1043051 23489 5478 123574 1.013 9.336 1225 41 791 57047 7681705
+129	1066540 23489 5478 123574 1.013 9.336 1225 40 790 55822 7568836
+130	1090029 25611 5484 123301 1.013 9.308 1216 41 1501 1765155 2643519313
+131	1115640 38325 5487 123348 1.013 9.313 1834 41 4448 3531546 9983794250
+132	1153965 33794 5463 123557 1.01 9.333 1869 0 0 0 0
+133	1187759 16293 5474 123570 1.013 9.336 881 0 1155 57573 31039073
+134	1204052 19083 5474 123570 1.013 9.336 1055 0 0 0 0
+136	1223135 5013 5462 123556 1.01 9.333 263 15 15 3945 59175
+166	1228148 68 5613 14363 1.027 1.323 3 65535 1460000 2985535 4267494836225
+167	1228216 2795 5355 14364 1 1.323 119 65535 1460000 172345535 2.5153309483622e+14
+168	1231011 2817 5355 14364 1 1.323 120 65535 1879393 212450107 3.8151440707813e+14
+169	1233828 22 5617 5617 1.027 1.027 1 250001 250001 250001 62500500001
+170	1233850 2673 5355 14364 1 1.323 119 0 419393 39785787 13705190325677
+171	1236523 2660 5613 14364 1.027 1.323 118 253249 419392 39619643 13593434893229
+172	1239183 2660 5613 14364 1.027 1.323 118 250001 250752 29587870 7419000991124
+173	1241843 72 5617 14363 1.027 1.323 4 0 750 751 562501
+174	1241915 2053 6015 14364 1.061 1.323 117 0 0 0 0
+181	1243968 4083 5355 14364 1 1.323 233 0 0 0 0
+183	1248051 41 6015 14363 1.061 1.323 2 2920 4380 7300 27710800
+185	1248092 21 6015 6015 1.061 1.061 1 0.034 0.034 0.034 0.001156
+186	1248113 23 6015 6015 1.061 1.061 1 0.00425 0.00425 0.00425 1.80625e-05
+187	1248136 22 6015 6015 1.061 1.061 1 0.6605 0.6605 0.6605 0.43626025
+188	1248158 23 6015 6015 1.061 1.061 1 2.64625 2.64625 2.64625 7.0026390625
+214	1248181 68 18681 22273 2.1 2.315 3 65535 1460000 2985535 4267494836225
+215	1248249 818 18425 22274 2.072362846481 2.315 34 65535 1460000 48245535 70347094836225
+216	1249067 839 18425 22274 2.072362846481 2.315 35 65535 2023736 66761536 1.32791237568e+14
+217	1249906 21 18685 18685 2.1 2.1 1 518091 518091 518091 268418284281
+218	1249927 781 18425 22274 2.072362846481 2.315 34 0 563736 17928966 9746951920546
+219	1250708 756 18681 22274 2.1 2.315 33 521499 563735 17886729 9701114849851
+220	1251464 756 18681 22274 2.1 2.315 33 518091 518842 17121005 8882691824639
+221	1252220 72 18685 22273 2.1 2.315 4 0 750 751 562501
+222	1252292 575 19085 22274 2.134 2.315 32 0 0 0 0
+229	1252867 1137 18425 22274 2.072362846481 2.315 63 0 0 0 0
+231	1254004 42 19085 22273 2.134 2.315 2 2920 4380 7300 27710800
+233	1254046 22 19085 19085 2.134 2.134 1 0.034 0.034 0.034 0.001156
+234	1254068 24 19085 19085 2.134 2.134 1 0.00425 0.00425 0.00425 1.80625e-05
+235	1254092 23 19085 19085 2.134 2.134 1 0.6605 0.6605 0.6605 0.43626025
+236	1254115 24 19085 19085 2.134 2.134 1 2.64625 2.64625 2.64625 7.0026390625
+262	1254139 70 23127 34619 2.442 2.763 3 65535 1460000 2985535 4267494836225
+263	1254209 4021 22871 34620 2.41481121888 2.763 168 65535 1460000 243885535 3.5598149483622e+14
+264	1258230 4044 22871 34620 2.41481121888 2.763 169 65535 2303938 365914427 7.9980732943423e+14
+265	1262274 23 23131 23131 2.442 2.442 1 603703 603703 603703 364457312209
+266	1262297 3850 22871 34620 2.41481121888 2.763 168 0 843938 121356356 89012970406706
+267	1266147 3824 23127 34620 2.442 2.763 167 607000 843937 121119418 88669188058862
+268	1269971 3824 23127 34620 2.442 2.763 167 603703 604454 100942903 61014788978717
+269	1273795 74 23131 34619 2.442 2.763 4 0 750 751 562501
+270	1273869 2971 23531 34620 2.476 2.763 166 0 0 0 0
+277	1276840 5932 22871 34620 2.41481121888 2.763 331 0 0 0 0
+279	1282772 42 23531 34619 2.476 2.763 2 2920 4380 7300 27710800
+281	1282814 22 23531 23531 2.476 2.476 1 0.034 0.034 0.034 0.001156
+282	1282836 24 23531 23531 2.476 2.476 1 0.00425 0.00425 0.00425 1.80625e-05
+283	1282860 23 23531 23531 2.476 2.476 1 0.6605 0.6605 0.6605 0.43626025
+284	1282883 24 23531 23531 2.476 2.476 1 2.64625 2.64625 2.64625 7.0026390625
+310	1282907 70 36345 41329 3.054 3.303 3 65535 1460000 2985535 4267494836225
+311	1282977 1297 36089 41330 3.02645944412 3.303 54 65535 1460000 77445535 1.1297909483622e+14
+312	1284274 1320 36089 41330 3.02645944412 3.303 55 65535 2290333 120479078 2.7054725090723e+14
+313	1285594 23 36349 36349 3.054 3.054 1 756615 756615 756615 572466258225
+314	1285617 1240 36089 41330 3.02645944412 3.303 54 0 830333 42208007 33639265943707
+315	1286857 1214 36345 41330 3.054 3.303 53 760000 830332 42137674 33527413052818
+316	1288071 1214 36345 41330 3.054 3.303 53 756615 757366 40139597 30399759935387
+317	1289285 74 36349 41329 3.054 3.303 4 0 750 751 562501
+318	1289359 931 36749 41330 3.088 3.303 52 0 0 0 0
+325	1290290 1852 36089 41330 3.02645944412 3.303 103 0 0 0 0
+327	1292142 42 36749 41329 3.088 3.303 2 2920 4380 7300 27710800
+329	1292184 22 36749 36749 3.088 3.088 1 0.034 0.034 0.034 0.001156
+330	1292206 24 36749 36749 3.088 3.088 1 0.00425 0.00425 0.00425 1.80625e-05
+331	1292230 23 36749 36749 3.088 3.088 1 0.6605 0.6605 0.6605 0.43626025
+332	1292253 24 36749 36749 3.088 3.088 1 2.64625 2.64625 2.64625 7.0026390625
+358	1292277 70 45017 50427 3.962 4.217 3 65535 1460000 2985535 4267494836225
+359	1292347 1465 44759 50428 3.934586431018 4.217 61 65535 1460000 87665535 1.2790029483622e+14
+360	1293812 1489 44759 50428 3.934586431018 4.217 62 65535 2528068 150429730 3.7271602481598e+14
+361	1295301 23 45021 45021 3.962 3.962 1 983647 983647 983647 967561420609
+362	1295324 1451 44759 50428 3.934586431018 4.217 61 0 1068068 61711659 63509853668459
+363	1296775 1423 45017 50428 3.962 4.217 60 987000 1068067 61630591 63343253415835
+364	1298198 1374 45017 50428 3.962 4.217 60 983647 984398 59063072 58140775121130
+365	1299572 74 45021 50427 3.962 4.217 4 0 750 751 562501
+366	1299646 1056 45421 50428 3.996 4.217 59 0 0 0 0
+373	1300702 2103 44759 50428 3.934586431018 4.217 117 0 0 0 0
+375	1302805 42 45421 50427 3.996 4.217 2 2920 4380 7300 27710800
+377	1302847 22 45421 45421 3.996 3.996 1 0.034 0.034 0.034 0.001156
+378	1302869 24 45421 45421 3.996 3.996 1 0.00425 0.00425 0.00425 1.80625e-05
+379	1302893 23 45421 45421 3.996 3.996 1 0.6605 0.6605 0.6605 0.43626025
+380	1302916 24 45421 45421 3.996 3.996 1 2.64625 2.64625 2.64625 7.0026390625
+406	1302940 69 51979 59525 4.475 4.76 3 65535 1460000 2985535 4267494836225
+407	1303009 2321 51721 59526 4.447101079613 4.76 97 65535 1460000 140225535 2.0463789483622e+14
+408	1305330 2345 51721 59526 4.447101079613 4.76 98 65535 2708578 254981956 6.7219796877178e+14
+409	1307675 24 51983 51983 4.475 4.475 1 1111776 1111776 1111776 1236045874176
+410	1307699 2317 51721 59526 4.447101079613 4.76 97 0 1248578 113575635 1.3452496415776e+14
+411	1310016 2289 51979 59526 4.475 4.76 96 1115250 1248577 113442307 1.3420979969817e+14
+412	1312305 2289 51979 59526 4.475 4.76 96 1111776 1112527 106801748 1.188188898885e+14
+413	1314594 73 51983 59525 4.475 4.76 4 0 750 751 562501
+414	1314667 1695 52385 59526 4.509 4.76 95 0 0 0 0
+421	1316362 3384 51721 59526 4.447101079613 4.76 189 0 0 0 0
+423	1319746 41 52385 59525 4.509 4.76 2 2920 4380 7300 27710800
+425	1319787 22 52385 52385 4.509 4.509 1 0.034 0.034 0.034 0.001156
+426	1319809 24 52385 52385 4.509 4.509 1 0.00425 0.00425 0.00425 1.80625e-05
+427	1319833 23 52385 52385 4.509 4.509 1 0.6605 0.6605 0.6605 0.43626025
+428	1319856 24 52385 52385 4.509 4.509 1 2.64625 2.64625 2.64625 7.0026390625
+454	1319880 70 63477 85174 5.468 5.868 3 65535 1460000 2985535 4267494836225
+455	1319950 8533 63219 85175 5.440222080842 5.868 357 65535 1460000 519825535 7.5885389483622e+14
+456	1328483 8557 63219 85175 5.440222080842 5.868 358 65535 3336166 1098391880 3.3897854160284e+15
+457	1337040 24 63481 63481 5.468 5.468 1 1360056 1360056 1360056 1849752323136
+458	1337064 8529 63219 85175 5.440222080842 5.868 357 0 1876166 577137309 9.4364843502288e+14
+459	1345593 8502 63477 85175 5.468 5.868 356 1363500 1876165 576624643 9.4198756841332e+14
+460	1354095 8502 63477 85175 5.468 5.868 356 1360056 1360807 484446188 6.5923626198714e+14
+461	1362597 74 63481 85174 5.468 5.868 4 0 750 751 562501
+462	1362671 6348 63881 85175 5.502 5.868 355 0 0 0 0
+469	1369019 12687 63219 85175 5.440222080842 5.868 709 0 0 0 0
+471	1381706 42 63881 85174 5.502 5.868 2 2920 4380 7300 27710800
+473	1381748 22 63881 63881 5.502 5.502 1 0.034 0.034 0.034 0.001156
+474	1381770 24 63881 63881 5.502 5.502 1 0.00425 0.00425 0.00425 1.80625e-05
+475	1381794 23 63881 63881 5.502 5.502 1 0.6605 0.6605 0.6605 0.43626025
+476	1381817 24 63881 63881 5.502 5.502 1 2.64625 2.64625 2.64625 7.0026390625
+502	1381841 72 99935 106247 8.601 8.881 3 65535 1460000 2985535 4267494836225
+503	1381913 1825 99673 106248 8.573487330223 8.881 73 65535 1460000 105185535 1.5347949483622e+14
+504	1383738 1849 99673 106248 8.573487330223 8.881 74 65535 3705034 265584620 9.6788711407718e+14
+505	1385587 24 99939 99939 8.601 8.601 1 2143372 2143372 2143372 4594043530384
+506	1385611 1821 99673 106248 8.573487330223 8.881 73 0 2245034 158186799 3.4760795681516e+14
+507	1387432 1795 99935 106248 8.601 8.881 72 2146750 2245033 158088515 3.4717631471651e+14
+508	1389227 1795 99935 106248 8.601 8.881 72 2143372 2144123 154376036 3.3099945181964e+14
+509	1391022 77 99939 106247 8.601 8.881 4 0 750 751 562501
+510	1391099 1345 100337 106248 8.635 8.881 71 0 0 0 0
+517	1392444 2677 99673 106248 8.573487330223 8.881 141 0 0 0 0
+519	1395121 44 100337 106247 8.635 8.881 2 2920 4380 7300 27710800
+521	1395165 23 100337 100337 8.635 8.635 1 0.034 0.034 0.034 0.001156
+522	1395188 25 100337 100337 8.635 8.635 1 0.00425 0.00425 0.00425 1.80625e-05
+523	1395213 24 100337 100337 8.635 8.635 1 0.6605 0.6605 0.6605 0.43626025
+524	1395237 25 100337 100337 8.635 8.635 1 2.64625 2.64625 2.64625 7.0026390625
+550	1395262 73 106827 123443 8.957 9.322 3 65535 1460000 2985535 4267494836225
+551	1395335 6533 106569 123444 8.929438620904 9.322 262 65535 1460000 381125535 5.5635189483622e+14
+552	1401868 6558 106569 123444 8.929438620904 9.322 263 65535 4069997 1016108728 3.9458982408042e+15
+553	1408426 25 106831 106831 8.957 8.957 1 2232360 2232360 2232360 4983431169600
+554	1408451 6529 106569 123444 8.929438620904 9.322 262 0 2609997 632681907 1.5368192602742e+15
+555	1414980 6501 106827 123444 8.957 9.322 261 2235750 2609996 632307660 1.5350057539967e+15
+556	1421481 6501 106827 123444 8.957 9.322 261 2232360 2233111 582840962 1.301546310848e+15
+557	1427982 78 106831 123443 8.957 9.322 4 0 750 751 562501
+558	1428060 4916 107233 123444 8.991 9.322 260 0 0 0 0
+565	1432976 9822 106569 123444 8.929438620904 9.322 519 0 0 0 0
+567	1442798 44 107233 123443 8.991 9.322 2 2920 4380 7300 27710800
+569	1442842 23 107233 107233 8.991 8.991 1 0.034 0.034 0.034 0.001156
+570	1442865 25 107233 107233 8.991 8.991 1 0.00425 0.00425 0.00425 1.80625e-05
+571	1442890 24 107233 107233 8.991 8.991 1 0.6605 0.6605 0.6605 0.43626025
+572	1442914 25 107233 107233 8.991 8.991 1 2.64625 2.64625 2.64625 7.0026390625
