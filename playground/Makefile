@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for playground
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -L../d2d-pisa/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -ld2d-pisa -lINET -KD2D_PISA_PROJ=../d2d-pisa -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
+#  opp_makemake -f --deep -O out -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 #
 
 # Name of target to be created (-o option)
@@ -21,8 +21,8 @@ INCLUDE_PATH = -I. -Iresults -Iresults/Cellular -Iresults/D2D
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L../d2d-pisa/out/$(CONFIGNAME)/src -L$(INET_PROJ)/out/$(CONFIGNAME)/src  -ld2d-pisa -lINET
-LIBS += -Wl,-rpath,`abspath ../d2d-pisa/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src`
+LIBS = -L$(INET_PROJ)/out/$(CONFIGNAME)/src -L$(SIMULTE_PROJ)/out/$(CONFIGNAME)/src  -lINET -lsimulte
+LIBS += -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath $(SIMULTE_PROJ)/out/$(CONFIGNAME)/src`
 
 # Output directory
 PROJECT_OUTPUT_DIR = out
@@ -39,8 +39,8 @@ MSGFILES =
 SMFILES =
 
 # Other makefile variables (-K)
-D2D_PISA_PROJ=../d2d-pisa
 INET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
+SIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 
 #------------------------------------------------------------------------------
 

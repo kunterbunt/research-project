@@ -1,0 +1,9 @@
+function values = getValuesFromCSV(filename, titles)
+    observed_values = csvread(filename)
+    values = cell(length(observed_vales), 2);
+    for i = 1:length(titles)
+        values{i, 
+       values = [values; titles(i) observed_values(i)];
+    end
+    
+end

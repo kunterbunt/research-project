@@ -1,4 +1,4 @@
 # Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
-config default-configname	{SinglePair-TCP-D2D}
+config default-configname	{D2D}
 config default-runnumber	{0}
 

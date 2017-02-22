@@ -3,8 +3,8 @@
 	<name>research-project</name>
 	<comment></comment>
 	<projects>
-		<project>d2d-pisa</project>
 		<project>inet</project>
+		<project>simulte-original</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

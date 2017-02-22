@@ -3,8 +3,8 @@
 	<name>playground</name>
 	<comment></comment>
 	<projects>
-		<project>d2d-pisa</project>
 		<project>inet</project>
+		<project>simulte</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

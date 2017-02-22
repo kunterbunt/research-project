@@ -1,0 +1,4 @@
+#!/bin/bash
+parseScalar "../../../results/Cellular/0.sca" cellular
+parseScalar "../../../results/D2D/0.sca" d2d
+parseScalar "../../../results/D2D-ModeSelection-BestCQI/0.sca" d2d-bestcqi

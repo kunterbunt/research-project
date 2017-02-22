@@ -13,46 +13,52 @@ import lte.corenetwork.nodes.eNodeB;
 import lte.world.radio.LteChannelControl;
 import lte.epc.PgwStandardSimplified;
 
+
 network LTECell
 {
-	parameters:
+    parameters:
+        int numUeCell = default(1);
+        int numUeD2DTx = default(0);
+        int numUeD2DRx = default(0);
         @display("i=block/network2;bgb=991,558;bgi=background/budapest");
-    @display("bgb=771,473");
     submodules:
-        channelControl: LteChannelControl { // Mustn't change this name!
-            @display("p=106,33");
+        channelControl: LteChannelControl {
+            @display("p=50,25;is=s");
         }
         routingRecorder: RoutingTableRecorder {
-            @display("p=280,34");
+            @display("p=50,75;is=s");
         }
-        configurator: IPv4NetworkConfigurator { // Mustn't change this name!
-            @display("p=495,34");
-            config = xmldoc("networkconfig.xml");
+        configurator: IPv4NetworkConfigurator {
+            @display("p=50,125");
+            config = xmldoc("demo.xml");
         }
-        binder: LteBinder { // Mustn't change this name!
-            @display("p=699,34");
+        binder: LteBinder {
+            @display("p=50,175;is=s");
         }
-        eNodeB: eNodeB {
-            @display("p=293,239;is=vl");
+        server: StandardHost {
+            @display("p=212,118;is=n;i=device/server");
+        }
+        router: Router {
+            @display("p=321,136;i=device/smallrouter");
         }
         pgw: PgwStandardSimplified {
             nodeType = "PGW";
-            @display("p=448,209");
+            @display("p=519,175;is=l");
         }
-        router: Router {
-            @display("p=549,174");
+        eNodeB: eNodeB {
+            @display("p=391,259;is=vl");
         }
-        server: StandardHost {
-            @display("p=640,150");
+        ueCell[numUeCell]: Ue {
+            @display("p=292,367");
         }
-        UETx: Ue {
-            @display("p=138,375");
+        ueD2DTx[numUeD2DTx]: Ue {
+            @display("p=477,367");
         }
-        UERx: Ue {
-            @display("p=482,375");
+        ueD2DRx[numUeD2DRx]: Ue {
+            @display("p=544,299");
         }
     connections:
-        eNodeB.ppp <--> Eth10G <--> pgw.pppg++;
-        pgw.filterGate <--> Eth10G <--> router.pppg++;
-        router.pppg++ <--> Eth10G <--> server.pppg++;
+        server.pppg++ <--> Eth10G <--> router.pppg++;
+        router.pppg++ <--> Eth10G <--> pgw.filterGate;
+        pgw.pppg++ <--> Eth10G <--> eNodeB.ppp;
 }
