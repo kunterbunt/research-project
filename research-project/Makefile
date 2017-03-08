@@ -66,8 +66,9 @@ INCLUDE_PATH = \
     -Iresults/Cellular \
     -Iresults/D2D \
     -Iresults/D2D-ModeSelection-BestCQI \
+    -Iresults/D2DModeSelection \
     -Isrc \
-    -Isrc/mode-selection
+    -Isrc/omniscient_entity
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -82,7 +83,7 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/src/mode-selection/D2DModeSelectionRandom.o
+OBJS = $O/src/omniscient_entity/OmniscientEntity.o
 
 # Message files
 MSGFILES =
@@ -180,18 +181,19 @@ clean:
 	$(Q)-rm -f results/Cellular/*_m.cc results/Cellular/*_m.h results/Cellular/*_sm.cc results/Cellular/*_sm.h
 	$(Q)-rm -f results/D2D/*_m.cc results/D2D/*_m.h results/D2D/*_sm.cc results/D2D/*_sm.h
 	$(Q)-rm -f results/D2D-ModeSelection-BestCQI/*_m.cc results/D2D-ModeSelection-BestCQI/*_m.h results/D2D-ModeSelection-BestCQI/*_sm.cc results/D2D-ModeSelection-BestCQI/*_sm.h
+	$(Q)-rm -f results/D2DModeSelection/*_m.cc results/D2DModeSelection/*_m.h results/D2DModeSelection/*_sm.cc results/D2DModeSelection/*_sm.h
 	$(Q)-rm -f src/*_m.cc src/*_m.h src/*_sm.cc src/*_sm.h
-	$(Q)-rm -f src/mode-selection/*_m.cc src/mode-selection/*_m.h src/mode-selection/*_sm.cc src/mode-selection/*_sm.h
+	$(Q)-rm -f src/omniscient_entity/*_m.cc src/omniscient_entity/*_m.h src/omniscient_entity/*_sm.cc src/omniscient_entity/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc results/D2D-ModeSelection-BestCQI/*.cc src/*.cc src/mode-selection/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc results/D2D-ModeSelection-BestCQI/*.cc results/D2DModeSelection/*.cc src/*.cc src/omniscient_entity/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/src/mode-selection/D2DModeSelectionRandom.o: src/mode-selection/D2DModeSelectionRandom.cc \
+$O/src/omniscient_entity/OmniscientEntity.o: src/omniscient_entity/OmniscientEntity.cc \
 	$(INET_PROJ)/src/inet/common/Compat.h \
 	$(INET_PROJ)/src/inet/common/INETDefs.h \
 	$(INET_PROJ)/src/inet/common/INETMath.h \
@@ -204,14 +206,12 @@ $O/src/mode-selection/D2DModeSelectionRandom.o: src/mode-selection/D2DModeSelect
 	$(INET_PROJ)/src/inet/networklayer/common/ModulePathAddress.h \
 	$(INET_PROJ)/src/inet/networklayer/contract/ipv4/IPv4Address.h \
 	$(INET_PROJ)/src/inet/networklayer/contract/ipv6/IPv6Address.h \
-	src/mode-selection/D2DModeSelectionRandom.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/common/LteCommon.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/common/lterecorder.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/binder/LteBinder.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/binder/PhyPisaData.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/deployer/LteDeployer.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/nodes/ExtCell.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/d2dModeSelection/D2DModeSelectionBase.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/AmcPilot.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/LteAmc.h \
 	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/LteMcs.h \

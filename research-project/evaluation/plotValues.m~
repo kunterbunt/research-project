@@ -1,7 +1,0 @@
-function plotValues(values, titles)
-figure;
-hold on;
-bar(values);
-set(gca, 'XTickLabel'
-hold off;
-end

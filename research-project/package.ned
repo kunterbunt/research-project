@@ -12,6 +12,7 @@ import lte.corenetwork.nodes.Ue;
 import lte.corenetwork.nodes.eNodeB;
 import lte.world.radio.LteChannelControl;
 import lte.epc.PgwStandardSimplified;
+import research_project.src.omniscient_entity.OmniscientEntity;
 
 
 network LTECell
@@ -56,6 +57,9 @@ network LTECell
         }
         ueD2DRx[numUeD2DRx]: Ue {
             @display("p=544,299");
+        }
+        omniscientEntity: OmniscientEntity {
+            @display("p=844.5062,84.575");
         }
     connections:
         server.pppg++ <--> Eth10G <--> router.pppg++;

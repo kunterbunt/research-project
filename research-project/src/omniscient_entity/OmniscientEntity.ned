@@ -13,18 +13,9 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef SRC_MODE_SELECTION_D2DMODESELECTIONRANDOM_H_
-#define SRC_MODE_SELECTION_D2DMODESELECTIONRANDOM_H_
+package research_project.src.omniscient_entity;
 
-#include "D2DModeSelectionBase.h"
-
-class D2DModeSelectionRandom : public D2DModeSelectionBase {
-public:
-    D2DModeSelectionRandom();
-    virtual ~D2DModeSelectionRandom();
-
-protected:
-    virtual void doModeSelection();
-};
-
-#endif /* SRC_MODE_SELECTION_D2DMODESELECTIONRANDOM_H_ */
+simple OmniscientEntity {
+    @display("i=block/table");
+    @class(OmniscientEntity);    
+}
