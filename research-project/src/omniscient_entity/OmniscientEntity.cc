@@ -42,9 +42,8 @@ public:
 
 /**
  * Implements an omniscient network entity that provides access to the following domains:
- *  channel status
- *  CQIs
- *  ...?
+ *  Current Channel Quality Indicators (CQIs)
+ *  Physical device locations
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
@@ -127,6 +126,10 @@ public:
 
     Coord getPosition(MacNodeId device) {
       return getMobility(device)->getCurrentPosition();
+    }
+
+    Coord getSpeed(MacNodeId device) {
+        return getMobility(device)->getCurrentSpeed();
     }
 
 protected:
