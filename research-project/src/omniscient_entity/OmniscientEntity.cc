@@ -29,7 +29,6 @@
 #include <LteRealisticChannelModel.h>
 #include <LteFeedbackPkt.h>
 #include <LteAirFrame.h>
-#include <LteAirFrame.h>
 
 
 
@@ -53,6 +52,8 @@ public:
  * Implements an omniscient network entity that provides access to the following domains:
  *  Current Channel Quality Indicators (CQIs)
  *  Physical device locations
+ *  Current device speed
+ *  SINR values for UE-UE and UE-BS links in any direction or power level
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
@@ -162,14 +163,24 @@ public:
      */
     std::vector<double> getSINR(MacNodeId from, MacNodeId to, double transmissionPower, Direction direction) {
         UserControlInfo* uinfo = new UserControlInfo();
-        uinfo->setSourceId(from);
-        uinfo->setDestId(to);
         uinfo->setFrameType(FEEDBACKPKT);
         uinfo->setIsCorruptible(false);
-        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+
+        uinfo->setSourceId(from);
+        uinfo->setD2dTxPeerId(from);
+
+        uinfo->setD2dRxPeerId(to);
+        uinfo->setDestId(to);
+
         uinfo->setDirection(direction);
         uinfo->setTxPower(transmissionPower);
-        return mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mEnBId);
+        uinfo->setD2dTxPower(transmissionPower);
+        uinfo->setCoord(getPosition(from));
+
+        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+        std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mEnBId);
+        delete uinfo;
+        return SINRs;
     }
 
     /**
@@ -189,14 +200,20 @@ public:
      */
     std::vector<double> getSINR(MacNodeId id, double transmissionPower, Direction direction) {
         UserControlInfo* uinfo = new UserControlInfo();
-        uinfo->setSourceId(id);
-        uinfo->setDestId(mEnBId);
         uinfo->setFrameType(FEEDBACKPKT);
         uinfo->setIsCorruptible(false);
-        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+
+        uinfo->setSourceId(id);
+        uinfo->setCoord(getPosition(from));
+        uinfo->setDestId(mEnBId);
+
         uinfo->setDirection(direction);
         uinfo->setTxPower(transmissionPower);
-        return mChannelModel->getSINR(frame, uinfo);
+
+        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+        std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
+        delete uinfo;
+        return SINRs;
     }
 
     /**
@@ -205,6 +222,13 @@ public:
      */
     std::vector<double> getSINR(MacNodeId id) {
         return getSINR(id, getDeviceInfo(id)->txPwr, Direction::UL);
+    }
+
+    double getMean(std::vector<double> values) {
+        double sum = 0.0;
+        for (size_t i = 0; i < values.size(); i++)
+            sum += values.at(i);
+        return (sum / ((double) values.size()));
     }
 
 protected:
@@ -252,14 +276,15 @@ protected:
             throw cRuntimeError("OmniscientEntity::configure couldn't find a channel model.");
 
         // Test SINR computation.
-        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id);
+        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id, 24.14973348, Direction::D2D);
         for (size_t i = 0; i < d2dSINRs.size(); i++)
             EV << "SINR_D2D[" << i << "]=" << d2dSINRs[i] << " ";
+        EV << endl << "SINR_D2D_MEAN=" << getMean(d2dSINRs) << std::endl;
 
-        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id);
+        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id, 24.14973348, Direction::UL);
             for (size_t i = 0; i < SINRs.size(); i++)
                 EV << "SINR[" << i << "]=" << SINRs[i] << " ";
-        EV << std::endl;
+        EV << endl << "SINR_MEAN=" << getMean(SINRs) << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
