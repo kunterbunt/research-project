@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for research-project
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/allocator -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/d2dModeSelection -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/handoverManager -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/phy/layer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/layer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/corenetwork/binder -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/corenetwork/lteip -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/mobility/contract -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/rlc/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/rlc -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/mobility/static -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/scheduling_modules -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/buffer/harq_d2d -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/corenetwork/deployer -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/contract/ipv4 -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/phy/das -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/buffer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/rlc/um/entity -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/x2/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/pdcp_rrc/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/corenetwork/nodes -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/common/timer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/rlc/um/buffer -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/amc -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common/geometry/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/world/radio -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/rlc/um -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/transportlayer/tcp_common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/buffer/harq -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/phy/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common/queue -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/phy/feedback -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/transportlayer/udp -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/mac/scheduler -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/ipv4 -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/src/stack/phy/ChannelModel -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original/out/$$\(CONFIGNAME\)/src -lINET -lsimulte-original -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_ORIGINAL_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original
+#  opp_makemake -f --deep -O out -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/common/timer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/scheduling_modules -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/phy/das -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/buffer/harq_d2d -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/world/radio -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/buffer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/allocator -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/mobility/contract -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/phy/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/amc -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/mobility/static -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/corenetwork/binder -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/layer -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/contract/ipv4 -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/rlc/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/d2dModeSelection -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/handoverManager -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/scheduler -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/phy/feedback -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/mac/buffer/harq -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/rlc/um -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/phy/ChannelModel -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common/geometry/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/common -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/transportlayer/tcp_common -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/rlc/um/entity -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/phy/layer -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/common/queue -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/corenetwork/deployer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/rlc/um/buffer -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/corenetwork/lteip -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/transportlayer/udp -I/home/kunterbunt/dev/omnetpp-5.0/samples/inet/src/inet/networklayer/ipv4 -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/corenetwork/nodes -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/x2/packet -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/rlc -I/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/src/stack/pdcp_rrc/packet -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 #
 
 # Name of target to be created (-o option)
@@ -16,48 +16,48 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 
 # C++ include paths (with -I)
 INCLUDE_PATH = \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/allocator \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/d2dModeSelection \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/handoverManager \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/layer \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/layer \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/binder \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/lteip \
+    -I$(SIMULTE_PROJ)/src/common/timer \
+    -I$(SIMULTE_PROJ)/src/stack/mac/packet \
+    -I$(SIMULTE_PROJ)/src/stack/mac/scheduling_modules \
+    -I$(SIMULTE_PROJ)/src/stack/phy/das \
+    -I$(SIMULTE_PROJ)/src/stack/mac/buffer/harq_d2d \
+    -I$(SIMULTE_PROJ)/src/world/radio \
+    -I$(SIMULTE_PROJ)/src/stack/mac/buffer \
+    -I$(SIMULTE_PROJ)/src/stack/mac/allocator \
     -I$(INET_PROJ)/src/inet/mobility/contract \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/rlc/packet \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/rlc \
+    -I$(SIMULTE_PROJ)/src/stack/phy/packet \
+    -I$(SIMULTE_PROJ)/src/stack/mac/amc \
     -I$(INET_PROJ)/src/inet/mobility/static \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/scheduling_modules \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/packet \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/buffer/harq_d2d \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/deployer \
+    -I$(SIMULTE_PROJ)/src/corenetwork/binder \
+    -I$(SIMULTE_PROJ)/src/stack/mac/layer \
     -I$(INET_PROJ)/src/inet/networklayer/contract/ipv4 \
-    -I$(INET_PROJ)/src/inet/common \
     -I$(INET_PROJ)/src/inet/networklayer/common \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/das \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/buffer \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/rlc/um/entity \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/x2/packet \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/pdcp_rrc/packet \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/nodes \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/common/timer \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/rlc/um/buffer \
+    -I$(INET_PROJ)/src/inet/common \
+    -I$(SIMULTE_PROJ)/src/stack/rlc/packet \
+    -I$(SIMULTE_PROJ)/src/stack/d2dModeSelection \
+    -I$(SIMULTE_PROJ)/src/stack/handoverManager \
     -I$(INET_PROJ)/src \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc \
+    -I$(SIMULTE_PROJ)/src/stack/mac/scheduler \
+    -I$(SIMULTE_PROJ)/src/stack/phy/feedback \
+    -I$(SIMULTE_PROJ)/src/stack/mac/buffer/harq \
+    -I$(SIMULTE_PROJ)/src/stack/rlc/um \
+    -I$(SIMULTE_PROJ)/src \
+    -I$(SIMULTE_PROJ)/src/stack/phy/ChannelModel \
     -I$(INET_PROJ)/src/inet/common/geometry/common \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/world/radio \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/rlc/um \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/common \
+    -I$(SIMULTE_PROJ)/src/common \
     -I$(INET_PROJ)/src/inet/transportlayer/tcp_common \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/buffer/harq \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/packet \
+    -I$(SIMULTE_PROJ)/src/stack/rlc/um/entity \
+    -I$(SIMULTE_PROJ)/src/stack/phy/layer \
     -I$(INET_PROJ)/src/inet/common/queue \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/feedback \
+    -I$(SIMULTE_PROJ)/src/corenetwork/deployer \
+    -I$(SIMULTE_PROJ)/src/stack/rlc/um/buffer \
+    -I$(SIMULTE_PROJ)/src/corenetwork/lteip \
     -I$(INET_PROJ)/src/inet/transportlayer/udp \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/scheduler \
     -I$(INET_PROJ)/src/inet/networklayer/ipv4 \
-    -I$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/ChannelModel \
+    -I$(SIMULTE_PROJ)/src/corenetwork/nodes \
+    -I$(SIMULTE_PROJ)/src/x2/packet \
+    -I$(SIMULTE_PROJ)/src/stack/rlc \
+    -I$(SIMULTE_PROJ)/src/stack/pdcp_rrc/packet \
     -I. \
     -Ievaluation \
     -Ievaluation/mode-selection \
@@ -74,8 +74,8 @@ INCLUDE_PATH = \
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L$(INET_PROJ)/out/$(CONFIGNAME)/src -L$(SIMULTE_ORIGINAL_PROJ)/out/$(CONFIGNAME)/src  -lINET -lsimulte-original
-LIBS += -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath $(SIMULTE_ORIGINAL_PROJ)/out/$(CONFIGNAME)/src`
+LIBS = -L$(INET_PROJ)/out/$(CONFIGNAME)/src -L$(SIMULTE_PROJ)/out/$(CONFIGNAME)/src  -lINET -lsimulte
+LIBS += -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath $(SIMULTE_PROJ)/out/$(CONFIGNAME)/src`
 
 # Output directory
 PROJECT_OUTPUT_DIR = out
@@ -93,7 +93,7 @@ SMFILES =
 
 # Other makefile variables (-K)
 INET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet
-SIMULTE_ORIGINAL_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte-original
+SIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 
 #------------------------------------------------------------------------------
 
@@ -198,26 +198,36 @@ $O/src/omniscient_entity/OmniscientEntity.o: src/omniscient_entity/OmniscientEnt
 	$(INET_PROJ)/src/inet/common/INETDefs.h \
 	$(INET_PROJ)/src/inet/common/INETMath.h \
 	$(INET_PROJ)/src/inet/common/InitStages.h \
+	$(INET_PROJ)/src/inet/common/ModuleAccess.h \
+	$(INET_PROJ)/src/inet/common/NotifierConsts.h \
 	$(INET_PROJ)/src/inet/common/geometry/common/Coord.h \
+	$(INET_PROJ)/src/inet/common/geometry/common/EulerAngles.h \
 	$(INET_PROJ)/src/inet/features.h \
 	$(INET_PROJ)/src/inet/linklayer/common/MACAddress.h \
+	$(INET_PROJ)/src/inet/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/inet/networklayer/common/InterfaceEntry.h \
+	$(INET_PROJ)/src/inet/networklayer/common/InterfaceToken.h \
 	$(INET_PROJ)/src/inet/networklayer/common/L3Address.h \
+	$(INET_PROJ)/src/inet/networklayer/common/L3AddressResolver.h \
 	$(INET_PROJ)/src/inet/networklayer/common/ModuleIdAddress.h \
 	$(INET_PROJ)/src/inet/networklayer/common/ModulePathAddress.h \
+	$(INET_PROJ)/src/inet/networklayer/contract/IInterfaceTable.h \
+	$(INET_PROJ)/src/inet/networklayer/contract/IRoute.h \
+	$(INET_PROJ)/src/inet/networklayer/contract/IRoutingTable.h \
 	$(INET_PROJ)/src/inet/networklayer/contract/ipv4/IPv4Address.h \
 	$(INET_PROJ)/src/inet/networklayer/contract/ipv6/IPv6Address.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/common/LteCommon.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/common/lterecorder.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/binder/LteBinder.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/binder/PhyPisaData.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/deployer/LteDeployer.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/corenetwork/nodes/ExtCell.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/AmcPilot.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/LteAmc.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/LteMcs.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/amc/UserTxParams.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/layer/LteMacBase.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/mac/layer/LteMacEnb.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/das/RemoteAntennaSet.h \
-	$(SIMULTE_ORIGINAL_PROJ)/src/stack/phy/feedback/LteFeedback.h
+	$(SIMULTE_PROJ)/src/common/LteCommon.h \
+	$(SIMULTE_PROJ)/src/common/lterecorder.h \
+	$(SIMULTE_PROJ)/src/corenetwork/binder/LteBinder.h \
+	$(SIMULTE_PROJ)/src/corenetwork/binder/PhyPisaData.h \
+	$(SIMULTE_PROJ)/src/corenetwork/deployer/LteDeployer.h \
+	$(SIMULTE_PROJ)/src/corenetwork/nodes/ExtCell.h \
+	$(SIMULTE_PROJ)/src/stack/mac/amc/AmcPilot.h \
+	$(SIMULTE_PROJ)/src/stack/mac/amc/LteAmc.h \
+	$(SIMULTE_PROJ)/src/stack/mac/amc/LteMcs.h \
+	$(SIMULTE_PROJ)/src/stack/mac/amc/UserTxParams.h \
+	$(SIMULTE_PROJ)/src/stack/mac/layer/LteMacBase.h \
+	$(SIMULTE_PROJ)/src/stack/mac/layer/LteMacEnb.h \
+	$(SIMULTE_PROJ)/src/stack/phy/das/RemoteAntennaSet.h \
+	$(SIMULTE_PROJ)/src/stack/phy/feedback/LteFeedback.h
 
