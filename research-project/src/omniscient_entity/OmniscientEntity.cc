@@ -13,16 +13,25 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
+#include <vector>
+
 #include <omnetpp.h>
 #include <LteCommon.h>
 #include <LteBinder.h>
 #include <LteAmc.h>
 #include <LteMacEnb.h>
 #include <LteFeedback.h>
+// For mobility.
 #include <L3AddressResolver.h>
 #include <ModuleAccess.h>
 #include <IMobility.h>
-#include <vector>
+// For SINR.
+#include <LteRealisticChannelModel.h>
+#include <LteFeedbackPkt.h>
+#include <LteAirFrame.h>
+#include <LteAirFrame.h>
+
+
 
 /**
  * Derived Feedback class exposes otherwise hidden members without the need of altering the source code.
@@ -115,21 +124,87 @@ public:
         return getCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
+    /**
+     * @param device The device's node ID.
+     * @return The IMobility that describes this node's mobility. See inet/src/inet/mobility/contract/IMobility.h for implementation.
+     */
     IMobility* getMobility(MacNodeId device) {
         UeInfo* ueInfo = getDeviceInfo(device);
         cModule *host = ueInfo->ue;
-        IMobility* mobilityModule = check_and_cast<IMobility *>(host->getSubmodule("mobility"));
+        IMobility* mobilityModule = check_and_cast<IMobility*>(host->getSubmodule("mobility"));
         if (mobilityModule == nullptr)
             throw cRuntimeError("OmniscientEntity::getMobility couldn't find a mobility module!");
         return mobilityModule;
     }
 
+    /**
+     * @param device The device's node ID.
+     * @return The device's physical position. Coord.{x,y,z} are publicly available.
+     */
     Coord getPosition(MacNodeId device) {
       return getMobility(device)->getCurrentPosition();
     }
 
+    /**
+     * @param device The device's node ID.
+     * @return The device's physical current speed. Coord.{x,y,z} are publicly available.
+     */
     Coord getSpeed(MacNodeId device) {
         return getMobility(device)->getCurrentSpeed();
+    }
+
+    /**
+     * @param from The D2D transmitter's ID.
+     * @param to The D2D receiver's ID.
+     * @param transmissionPower The power level that the node would transmit with.
+     * @param direction The transmission direction (see Direction::x enum).
+     * @return The SINR value for each band.
+     */
+    std::vector<double> getSINR(MacNodeId from, MacNodeId to, double transmissionPower, Direction direction) {
+        UserControlInfo* uinfo = new UserControlInfo();
+        uinfo->setSourceId(from);
+        uinfo->setDestId(to);
+        uinfo->setFrameType(FEEDBACKPKT);
+        uinfo->setIsCorruptible(false);
+        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+        uinfo->setDirection(direction);
+        uinfo->setTxPower(transmissionPower);
+        return mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mEnBId);
+    }
+
+    /**
+     * @param from The D2D transmitter's ID.
+     * @param to The D2D receiver's ID.
+     * @return The SINR value for each band for the D2D channel between the nodes at the current power level.
+     */
+    std::vector<double> getSINR(MacNodeId from, MacNodeId to) {
+        return getSINR(from, to, getDeviceInfo(from)->txPwr, Direction::D2D);
+    }
+
+    /**
+     * @param id The node in question's ID.
+     * @param transmissionPower The power level that the node would transmit with.
+     * @param direction The transmission direction (see Direction::x enum).
+     * @return The SINR value for each band for the uplink channel from the node to the eNodeB.
+     */
+    std::vector<double> getSINR(MacNodeId id, double transmissionPower, Direction direction) {
+        UserControlInfo* uinfo = new UserControlInfo();
+        uinfo->setSourceId(id);
+        uinfo->setDestId(mEnBId);
+        uinfo->setFrameType(FEEDBACKPKT);
+        uinfo->setIsCorruptible(false);
+        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+        uinfo->setDirection(direction);
+        uinfo->setTxPower(transmissionPower);
+        return mChannelModel->getSINR(frame, uinfo);
+    }
+
+    /**
+     * @param id The node in question's ID.
+     * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at its current transmission power.
+     */
+    std::vector<double> getSINR(MacNodeId id) {
+        return getSINR(id, getDeviceInfo(id)->txPwr, Direction::UL);
     }
 
 protected:
@@ -144,26 +219,47 @@ protected:
 
     void configure() {
         EV << "OmniscientEntity::configure" << std::endl;
+        // Get the eNodeB.
         std::vector<EnbInfo*>* enbInfo = getEnbInfo();
         if (enbInfo->size() == 0)
             throw cRuntimeError("OmniscientEntity::configure can't get AMC pointer because I couldn't find an eNodeB!");
-        LteMacEnb *eNodeB = (LteMacEnb*) getMacByMacNodeId(enbInfo->at(0)->id);
-        EV << "CQIStorage=" << ((char) eNodeB->par("cqiStorage").getType()) << std::endl;
+        // -> its ID -> the node -> cast to the eNodeB class
+        mEnBId = enbInfo->at(0)->id;
+        LteMacEnb *eNodeB = (LteMacEnb*) getMacByMacNodeId(mEnBId);
+        // -> get the AMC.
         mAmc = eNodeB->getAmc();
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::configure couldn't find an AMC.");
         EV << "\tFound AMC." << endl;
 
         // Print info about all network devices.
+        // UEs...
         std::vector<UeInfo*>* ueInfo = getUeInfo();
         EV << "\tThere are " << ueInfo->size() << " UEs in the network: " << std::endl;
         for (size_t i = 0; i < ueInfo->size(); i++)
             EV << "\t\t#" << i << ": has MacNodeId " << ueInfo->at(i)->id << " and OmnetID " << getId(ueInfo->at(i)->id) << std::endl;
-
+        // eNodeB...
         std::vector<EnbInfo*>* EnbInfo = getEnbInfo();
         EV << "\tThere are " << EnbInfo->size() << " EnBs in the network: " << std::endl;
         for (size_t i = 0; i < EnbInfo->size(); i++)
             EV << "\t\t#" << i << ": has MacNodeId " << EnbInfo->at(i)->id << " and OmnetID " << getId(ueInfo->at(i)->id) << std::endl;
+
+        // Get a pointer to the channel model.
+        mChannelModel = ueInfo->at(0)->realChan;
+        if (mChannelModel != nullptr)
+            EV << "\tFound channel model." << std::endl;
+        else
+            throw cRuntimeError("OmniscientEntity::configure couldn't find a channel model.");
+
+        // Test SINR computation.
+        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id);
+        for (size_t i = 0; i < d2dSINRs.size(); i++)
+            EV << "SINR_D2D[" << i << "]=" << d2dSINRs[i] << " ";
+
+        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id);
+            for (size_t i = 0; i < SINRs.size(); i++)
+                EV << "SINR[" << i << "]=" << SINRs[i] << " ";
+        EV << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
@@ -228,12 +324,14 @@ protected:
     }
 
 private:
-    LteBinder   *mBinder = nullptr; // LteBinder defined in simulte/src/corenetwork/binder/LteBinder.h
+    LteBinder   *mBinder = nullptr;
     cMessage    *mUpdateNotifyMsg = nullptr,
                 *mConfigMsg = nullptr;
     double      mUpdateInterval,
                 mConfigTimepoint;
-    LteAmc      *mAmc = nullptr; // LteAmc defined in simulte/src/stack/mac/amc/LteAmc.h
+    LteAmc      *mAmc = nullptr;
+    LteRealisticChannelModel    *mChannelModel = nullptr;
+    MacNodeId mEnBId;
 
 };
 
