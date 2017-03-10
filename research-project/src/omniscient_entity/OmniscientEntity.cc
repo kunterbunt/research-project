@@ -18,11 +18,21 @@
 #include <LteBinder.h>
 #include <LteAmc.h>
 #include <LteMacEnb.h>
+#include <LteFeedback.h>
+
+class OmniscientFeedback : public LteSummaryFeedback {
+public:
+    OmniscientFeedback(unsigned char cw, unsigned int b, simtime_t lb, simtime_t ub) {
+        LteFeedback::LteSummaryFeedback(cw, b, lb, ub);
+    }
+
+};
 
 /**
  * Implements an omniscient network entity that provides access to the following domains:
  *  channel status
  *  CQIs
+ *  ...?
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
@@ -47,8 +57,8 @@ public:
     }
 
     /**
-     * @param device The ID of the device whose CQI you are intersted in.
-     * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the xth resource block's CQI.
+     * @param device The ID of the device whose CQI you are interested in.
+     * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the x-th resource block's CQI.
      * @param direction Probably either Direction::UL or Direction::DL.
      * @return The channel quality indicator for the channel from this device to the eNodeB in the specified direction and band.
      */
@@ -59,10 +69,10 @@ public:
     }
 
     /**
-     * @param device The ID of the device whose CQI you are intersted in.
+     * @param device1 The ID of one of the D2D pair's devices.
+     * @param device2 The ID of the other one.
      * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the xth resource block's CQI.
-     * @param direction Probably either Direction::UL or Direction::DL.
-     * @return The channel quality indicator for the channel from this device to the eNodeB in the specified direction and band.
+     * @return The channel quality indicator for the channel between the two devices on the band.
      */
     unsigned short getCqi(MacNodeId device1, MacNodeId device2, uint band) {
         if (mAmc == nullptr)
