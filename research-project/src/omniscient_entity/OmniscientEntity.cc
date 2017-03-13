@@ -106,12 +106,8 @@ public:
         return getReportedCqi(device, band, direction, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
-//    unsigned short getCqi(MacNodeId device, TxMode transmissionMode) {
-//        double snr = getSNR(device);
-//
-//    }
-
     /**
+     * Queries the AMC module for reported CQI value.
      * @param device1 One side of the D2D transmission.
      * @param device2 The other side of the transmission.
      * @param band The collection of resource blocks you're interested in.
@@ -136,8 +132,44 @@ public:
         return getReportedCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
+    /**
+     * Computes the current CQI for the device<->eNodeB link.
+     * @param device Device ID.
+     * @param transmissionMode See TxMode::x enum.
+     * @return device<->eNodeB Channel Quality Indicator.
+     */
     unsigned short getCqi(MacNodeId device, TxMode transmissionMode) {
         return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(device)));
+    }
+
+    /**
+     * Computes the current CQI for the device<->eNodeB link. Assumes TxMode::SINGLE_ANTENNA_PORT0 transmission mode.
+     * @param device Device ID.
+     * @return device<->eNodeB Channel Quality Indicator.
+     */
+    unsigned short getCqi(MacNodeId device) {
+        return getCqi(device, TxMode::SINGLE_ANTENNA_PORT0);
+    }
+
+    /**
+     * Computes the current CQI for the from<->to link.
+     * @param from One side's device ID.
+     * @param to Other side's device ID.
+     * @param transmissionMode See TxMode::x enum.
+     * @return from<->to Channel Quality Indicator.
+     */
+    unsigned short getCqi(MacNodeId from, MacNodeId to, TxMode transmissionMode) {
+        return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(from, to)));
+    }
+
+    /**
+     * Computes the current CQI for the from<->to link. Assumes TxMode::SINGLE_ANTENNA_PORT0 transmission mode.
+     * @param from One side's device ID.
+     * @param to Other side's device ID.
+     * @return from<->to Channel Quality Indicator.
+     */
+    unsigned short getCqi(MacNodeId from, MacNodeId to) {
+        return getCqi(from, to, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
     /**
@@ -328,7 +360,8 @@ protected:
             EV << "\tConstructed feedback computer." << endl;
 
         EV << "SINR_D2D=" << getMean(getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id)) << " SINR=" << getMean(getSINR(ueInfo->at(0)->id)) << std::endl;
-        EV << "CQI_reported=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::UL) << " CQI_calculated=" << getCqi(ueInfo->at(0)->id, TxMode::SINGLE_ANTENNA_PORT0) << std::endl;
+        EV << "CQI_reported=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::UL) << " CQI_calculated=" << getCqi(ueInfo->at(0)->id) << std::endl;
+        EV << "CQI_D2D_reported=" << getReportedCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << " CQI_D2D_calculated=" << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
