@@ -15,7 +15,13 @@
 
 package research_project.src.omniscient_entity;
 
-simple OmniscientEntity {
+simple OmniscientEntity {            	    
+    parameters:
+        // Used for CQI computation. Copy over from your channel.xml.
+        double targetBler = default(0.001);
+        double lambdaMinTh = default(0.02);
+        double lambdaMaxTh = default(0.2);
+        double lambdaRatioTh = default(20);
     @display("i=block/table");
     @class(OmniscientEntity);    
 }

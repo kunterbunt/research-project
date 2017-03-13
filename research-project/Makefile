@@ -234,6 +234,8 @@ $O/src/omniscient_entity/OmniscientEntity.o: src/omniscient_entity/OmniscientEnt
 	$(SIMULTE_PROJ)/src/stack/phy/ChannelModel/LteRealisticChannelModel.h \
 	$(SIMULTE_PROJ)/src/stack/phy/das/RemoteAntennaSet.h \
 	$(SIMULTE_PROJ)/src/stack/phy/feedback/LteFeedback.h \
+	$(SIMULTE_PROJ)/src/stack/phy/feedback/LteFeedbackComputation.h \
+	$(SIMULTE_PROJ)/src/stack/phy/feedback/LteFeedbackComputationRealistic.h \
 	$(SIMULTE_PROJ)/src/stack/phy/packet/AirFrame_m.h \
 	$(SIMULTE_PROJ)/src/stack/phy/packet/LteAirFrame.h \
 	$(SIMULTE_PROJ)/src/stack/phy/packet/LteAirFrame_m.h \

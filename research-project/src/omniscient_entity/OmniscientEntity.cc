@@ -29,23 +29,27 @@
 #include <LteRealisticChannelModel.h>
 #include <LteFeedbackPkt.h>
 #include <LteAirFrame.h>
-
-
+// For feedback computation <-> CQI computation.
+#include <LteFeedbackComputationRealistic.h>
 
 /**
- * Derived Feedback class exposes otherwise hidden members without the need of altering the source code.
+ * Derived class exposes otherwise hidden deployer_ member pointer.
  */
-class OmniscientFeedback : public LteSummaryFeedback {
+class ExposedLteMacEnb : public LteMacEnb {
 public:
-    OmniscientFeedback(unsigned char cw, unsigned int b, simtime_t lb, simtime_t ub)
-        : LteSummaryFeedback(cw, b, lb, ub) {
-
+    LteDeployer* getDeployer() {
+        return LteMacEnb::deployer_;
     }
+};
 
-    std::vector<std::vector<simtime_t>> getElapsedTimeSinceCqiRefresh() {
-        return tCqi_;
+/**
+ * Derived class exposes otherwise hidden CQI computation.
+ */
+class ExposedFeedbackComputer : public LteFeedbackComputationRealistic {
+public:
+    Cqi getCqi(TxMode txmode, double snr) {
+        return LteFeedbackComputationRealistic::getCqi(txmode, snr);
     }
-
 };
 
 /**
@@ -77,6 +81,7 @@ public:
     }
 
     /**
+     * Queries the AMC module for reported CQI value.
      * @param device The device whose CQI you want.
      * @param band The collection of resource blocks you're interested in.
      * @param direction The tranmsission direction, see Direction::x enum.
@@ -84,21 +89,27 @@ public:
      * @param transmissionMode The transmission mode, see TxMode::x enum.
      * @return The CQI of the device <-> eNodeB channel.
      */
-    unsigned short getCqi(MacNodeId device, uint band, Direction direction, Remote antenna, TxMode transmissionMode) {
+    unsigned short getReportedCqi(MacNodeId device, uint band, Direction direction, Remote antenna, TxMode transmissionMode) {
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered with the OmniscientEntity. You should call this method after final configuration is done.");
         return mAmc->getFeedback(device, antenna, transmissionMode, direction).getCqi(0, band);
     }
 
     /**
+     * Queries the AMC module for reported CQI value.
      * @param device The ID of the device whose CQI you are interested in.
      * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the x-th resource block's CQI.
      * @param direction Probably either Direction::UL or Direction::DL.
      * @return The channel quality indicator for the channel from this device to the eNodeB in the specified direction and band.
      */
-    unsigned short getCqi(MacNodeId device, uint band, Direction direction) {
-        return getCqi(device, band, direction, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+    unsigned short getReportedCqi(MacNodeId device, uint band, Direction direction) {
+        return getReportedCqi(device, band, direction, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
+
+//    unsigned short getCqi(MacNodeId device, TxMode transmissionMode) {
+//        double snr = getSNR(device);
+//
+//    }
 
     /**
      * @param device1 One side of the D2D transmission.
@@ -189,7 +200,11 @@ public:
      * @return The SINR value for each band for the D2D channel between the nodes at the current power level.
      */
     std::vector<double> getSINR(MacNodeId from, MacNodeId to) {
-        return getSINR(from, to, /*getDeviceInfo(id)->txPwr*/ 24.14973348, Direction::D2D);
+        // Get a pointer to the device's module.
+        std::string modulePath = getDeviceInfo(from)->ue->getFullPath() + ".nic.phy";
+        cModule *mod = getModuleByPath(modulePath.c_str());
+        // From the module we can access its transmission power.
+        return getSINR(from, to, mod->par("d2dTxPower").doubleValue(), Direction::D2D);
     }
 
     /**
@@ -221,7 +236,11 @@ public:
      * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at its current transmission power.
      */
     std::vector<double> getSINR(MacNodeId id) {
-        return getSINR(id, /*getDeviceInfo(id)->txPwr*/ 26, Direction::UL);
+        // Get a pointer to the device's module.
+        std::string modulePath = getDeviceInfo(id)->ue->getFullPath() + ".nic.phy";
+        cModule *mod = getModuleByPath(modulePath.c_str());
+        // From the module we can access its transmission power.
+        return getSINR(id, mod->par("ueTxPower"), Direction::UL);
     }
 
     double getMean(std::vector<double> values) {
@@ -249,12 +268,19 @@ protected:
             throw cRuntimeError("OmniscientEntity::configure can't get AMC pointer because I couldn't find an eNodeB!");
         // -> its ID -> the node -> cast to the eNodeB class
         mEnBId = enbInfo->at(0)->id;
-        LteMacEnb *eNodeB = (LteMacEnb*) getMacByMacNodeId(mEnBId);
+        ExposedLteMacEnb *eNodeB = (ExposedLteMacEnb*) getMacByMacNodeId(mEnBId);
         // -> get the AMC.
         mAmc = eNodeB->getAmc();
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::configure couldn't find an AMC.");
-        EV << "\tFound AMC." << endl;
+        else
+            EV << "\tFound AMC." << endl;
+
+        // Get deployer pointer.
+        mDeployer = eNodeB->getDeployer();
+        if (mDeployer == nullptr)
+            throw cRuntimeError("OmniscientEntity::configure couldn't find the deployer.");
+        EV << "\tFound deployer." << endl;
 
         // Print info about all network devices.
         // UEs...
@@ -275,16 +301,14 @@ protected:
         else
             throw cRuntimeError("OmniscientEntity::configure couldn't find a channel model.");
 
-        // Test SINR computation.
-        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id);
-        for (size_t i = 0; i < d2dSINRs.size(); i++)
-            EV << "SINR_D2D[" << i << "]=" << d2dSINRs[i] << " ";
-        EV << endl << "SINR_D2D_MEAN=" << getMean(d2dSINRs) << std::endl;
+        // Construct a feedback computer.
+        mFeedbackComputer = getFeedbackComputation();
+        if (mFeedbackComputer == nullptr)
+            throw cRuntimeError("OmniscientEntity::configure couldn't construct the feedback computer.");
+        else
+            EV << "\tConstructed feedback computer." << endl;
 
-        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id);
-            for (size_t i = 0; i < SINRs.size(); i++)
-                EV << "SINR[" << i << "]=" << SINRs[i] << " ";
-        EV << endl << "SINR_MEAN=" << getMean(SINRs) << std::endl;
+        EV << "SINR=" << getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id).at(0) << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
@@ -300,23 +324,7 @@ protected:
         std::vector<UeInfo*>* ueInfo = getUeInfo();
         EV << "\tUE[0]'s CQI=" << getCqi(ueInfo->at(0)->id, 0, Direction::DL) << std::endl;
         EV << "\tUE[0]-D2D-UE[1] CQI=" << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << std::endl;
-        LteSummaryFeedback baseFeedback = mAmc->getFeedback(ueInfo->at(0)->id, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0, Direction::DL);
-        OmniscientFeedback *feedback = static_cast<OmniscientFeedback*>(&baseFeedback);
-        std::vector<std::vector<simtime_t> > tCqi = feedback->getElapsedTimeSinceCqiRefresh();
-        for (size_t i = 0; i < tCqi.size(); i++) {
-            for (size_t j = 0; j < tCqi.at(i).size(); j++) {
-                EV << "i=" << i << " j=" << j << ": " << tCqi.at(i).at(j) << " and it's at " << getCqi(ueInfo->at(0)->id, i, Direction::DL) << std::endl;
-            }
-        }
 
-        LteSummaryFeedback baseFeedbackD2D = mAmc->getFeedbackD2D(ueInfo->at(0)->id, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0, ueInfo->at(1)->id);
-        OmniscientFeedback *feedbackD2D = static_cast<OmniscientFeedback*>(&baseFeedbackD2D);
-        std::vector<std::vector<simtime_t> > tCqiD2D = feedbackD2D->getElapsedTimeSinceCqiRefresh();
-        for (size_t i = 0; i < tCqiD2D.size(); i++) {
-            for (size_t j = 0; j < tCqiD2D.at(i).size(); j++) {
-                EV << "i=" << i << " j=" << j << ": " << tCqiD2D.at(i).at(j) << " and it's at " << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, i) << std::endl;
-            }
-        }
 //      Schedule next update.
         scheduleAt(simTime() + mUpdateInterval, mUpdateNotifyMsg);
 
@@ -348,6 +356,37 @@ protected:
       throw cRuntimeError("OmniscientEntity::getDeviceInfo can't find the requested device ID!");
     }
 
+    ExposedFeedbackComputer* getFeedbackComputation() {
+        // We're construction the feedback computer from a description.
+        // There's REAL and DUMMY. We want REAL.
+        std::string feedbackName = "REAL";
+        // The four needed parameters will be supplied in this map.
+        std::map<std::string, cMsgPar> parameterMap;
+
+        // Each one must be specified in the OmniscientEntity.ned.
+        // @TODO Parse the channel.xml instead because that's the values we want.
+        cMsgPar targetBler("targetBler");
+        targetBler.setDoubleValue(par("targetBler"));
+        parameterMap["targetBler"] = targetBler;
+
+        cMsgPar lambdaMinTh("lambdaMinTh");
+        lambdaMinTh.setDoubleValue(par("lambdaMinTh"));
+        parameterMap["lambdaMinTh"] = lambdaMinTh;
+
+        cMsgPar lambdaMaxTh("lambdaMaxTh");
+        lambdaMaxTh.setDoubleValue(par("lambdaMaxTh"));
+        parameterMap["lambdaMaxTh"] = lambdaMaxTh;
+
+        cMsgPar lambdaRatioTh("lambdaRatioTh");
+        lambdaRatioTh.setDoubleValue(par("lambdaRatioTh"));
+        parameterMap["lambdaRatioTh"] = lambdaRatioTh;
+
+        // Taken from simulte/src/stack/phy/layer/LtePhyEnb.cc line 415.
+        return ((ExposedFeedbackComputer*) new LteFeedbackComputationRealistic(
+                targetBler, mDeployer->getLambda(), lambdaMinTh, lambdaMaxTh,
+                lambdaRatioTh, mDeployer->getNumBands()));
+    }
+
 private:
     LteBinder   *mBinder = nullptr;
     cMessage    *mUpdateNotifyMsg = nullptr,
@@ -357,6 +396,8 @@ private:
     LteAmc      *mAmc = nullptr;
     LteRealisticChannelModel    *mChannelModel = nullptr;
     MacNodeId mEnBId;
+    ExposedFeedbackComputer *mFeedbackComputer = nullptr;
+    LteDeployer *mDeployer = nullptr;
 
 };
 
