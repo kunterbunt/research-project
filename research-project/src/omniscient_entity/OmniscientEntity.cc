@@ -54,10 +54,10 @@ public:
 
 /**
  * Implements an omniscient network entity that provides access to the following domains:
- *  Current Channel Quality Indicators (CQIs)
  *  Physical device locations
  *  Current device speed
  *  SINR values for UE-UE and UE-BS links in any direction or power level
+ *  Channel Quality Indicators both as reported by the nodes and computed for any moment in time
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
