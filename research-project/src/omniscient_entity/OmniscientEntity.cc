@@ -189,7 +189,7 @@ public:
      * @return The SINR value for each band for the D2D channel between the nodes at the current power level.
      */
     std::vector<double> getSINR(MacNodeId from, MacNodeId to) {
-        return getSINR(from, to, getDeviceInfo(from)->txPwr, Direction::D2D);
+        return getSINR(from, to, /*getDeviceInfo(id)->txPwr*/ 24.14973348, Direction::D2D);
     }
 
     /**
@@ -204,7 +204,7 @@ public:
         uinfo->setIsCorruptible(false);
 
         uinfo->setSourceId(id);
-        uinfo->setCoord(getPosition(from));
+        uinfo->setCoord(getPosition(id));
         uinfo->setDestId(mEnBId);
 
         uinfo->setDirection(direction);
@@ -221,7 +221,7 @@ public:
      * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at its current transmission power.
      */
     std::vector<double> getSINR(MacNodeId id) {
-        return getSINR(id, getDeviceInfo(id)->txPwr, Direction::UL);
+        return getSINR(id, /*getDeviceInfo(id)->txPwr*/ 26, Direction::UL);
     }
 
     double getMean(std::vector<double> values) {
@@ -276,12 +276,12 @@ protected:
             throw cRuntimeError("OmniscientEntity::configure couldn't find a channel model.");
 
         // Test SINR computation.
-        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id, 24.14973348, Direction::D2D);
+        std::vector<double> d2dSINRs = getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id);
         for (size_t i = 0; i < d2dSINRs.size(); i++)
             EV << "SINR_D2D[" << i << "]=" << d2dSINRs[i] << " ";
         EV << endl << "SINR_D2D_MEAN=" << getMean(d2dSINRs) << std::endl;
 
-        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id, 24.14973348, Direction::UL);
+        std::vector<double> SINRs = getSINR(ueInfo->at(0)->id);
             for (size_t i = 0; i < SINRs.size(); i++)
                 EV << "SINR[" << i << "]=" << SINRs[i] << " ";
         EV << endl << "SINR_MEAN=" << getMean(SINRs) << std::endl;
