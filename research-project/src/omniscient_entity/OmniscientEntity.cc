@@ -119,7 +119,7 @@ public:
      * @param transmissionMode The transmission mode, see TxMode::x enum.
      * @return The CQI of the direct link between device1 and device2.
      */
-    unsigned short getCqi(MacNodeId device1, MacNodeId device2, uint band, Remote antenna, TxMode transmissionMode) {
+    unsigned short getReportedCqi(MacNodeId device1, MacNodeId device2, uint band, Remote antenna, TxMode transmissionMode) {
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered. You should call this method after final configuration is done.");
         return mAmc->getFeedbackD2D(device1, antenna, transmissionMode, device2).getCqi(0, band);
@@ -132,8 +132,12 @@ public:
      * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the xth resource block's CQI.
      * @return The channel quality indicator for the channel between the two devices on the band.
      */
-    unsigned short getCqi(MacNodeId device1, MacNodeId device2, uint band) {
-        return getCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+    unsigned short getReportedCqi(MacNodeId device1, MacNodeId device2, uint band) {
+        return getReportedCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+    }
+
+    unsigned short getCqi(MacNodeId device, TxMode transmissionMode) {
+        return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(device)));
     }
 
     /**
@@ -141,8 +145,17 @@ public:
      * @return The IMobility that describes this node's mobility. See inet/src/inet/mobility/contract/IMobility.h for implementation.
      */
     IMobility* getMobility(MacNodeId device) {
-        UeInfo* ueInfo = getDeviceInfo(device);
-        cModule *host = ueInfo->ue;
+        cModule *host = nullptr;
+        try {
+            UeInfo* ueInfo = getDeviceInfo(device);
+            host = ueInfo->ue;
+        } catch (const cRuntimeError &e) {
+            // Getting the mobility of an eNodeB?
+            EnbInfo* enbInfo = getENodeBInfo(device);
+            host = enbInfo->eNodeB;
+        }
+        if (host == nullptr)
+            throw cRuntimeError("OmniscientEntity::getMobility couldn't find the device's cModule!");
         IMobility* mobilityModule = check_and_cast<IMobility*>(host->getSubmodule("mobility"));
         if (mobilityModule == nullptr)
             throw cRuntimeError("OmniscientEntity::getMobility couldn't find a mobility module!");
@@ -189,7 +202,7 @@ public:
         uinfo->setCoord(getPosition(from));
 
         LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-        std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mEnBId);
+        std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
         delete uinfo;
         return SINRs;
     }
@@ -197,7 +210,7 @@ public:
     /**
      * @param from The D2D transmitter's ID.
      * @param to The D2D receiver's ID.
-     * @return The SINR value for each band for the D2D channel between the nodes at the current power level.
+     * @return The SINR value for each band for the D2D channel between the nodes, if it transmits at the transmission power set in the .ini.
      */
     std::vector<double> getSINR(MacNodeId from, MacNodeId to) {
         // Get a pointer to the device's module.
@@ -219,8 +232,11 @@ public:
         uinfo->setIsCorruptible(false);
 
         uinfo->setSourceId(id);
-        uinfo->setCoord(getPosition(id));
-        uinfo->setDestId(mEnBId);
+        // I am pretty sure that there's a mistake in the simuLTE source code.
+        // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
+        // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
+        uinfo->setCoord(mENodeBPosition);
+        uinfo->setDestId(mENodeBId);
 
         uinfo->setDirection(direction);
         uinfo->setTxPower(transmissionPower);
@@ -233,7 +249,7 @@ public:
 
     /**
      * @param id The node in question's ID.
-     * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at its current transmission power.
+     * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at the transmission power set in the .ini.
      */
     std::vector<double> getSINR(MacNodeId id) {
         // Get a pointer to the device's module.
@@ -267,14 +283,17 @@ protected:
         if (enbInfo->size() == 0)
             throw cRuntimeError("OmniscientEntity::configure can't get AMC pointer because I couldn't find an eNodeB!");
         // -> its ID -> the node -> cast to the eNodeB class
-        mEnBId = enbInfo->at(0)->id;
-        ExposedLteMacEnb *eNodeB = (ExposedLteMacEnb*) getMacByMacNodeId(mEnBId);
+        mENodeBId = enbInfo->at(0)->id;
+        ExposedLteMacEnb *eNodeB = (ExposedLteMacEnb*) getMacByMacNodeId(mENodeBId);
         // -> get the AMC.
         mAmc = eNodeB->getAmc();
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::configure couldn't find an AMC.");
         else
             EV << "\tFound AMC." << endl;
+
+        // Set eNodeB position.
+        mENodeBPosition = getPosition(mENodeBId);
 
         // Get deployer pointer.
         mDeployer = eNodeB->getDeployer();
@@ -308,7 +327,8 @@ protected:
         else
             EV << "\tConstructed feedback computer." << endl;
 
-        EV << "SINR=" << getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id).at(0) << std::endl;
+        EV << "SINR_D2D=" << getMean(getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id)) << " SINR=" << getMean(getSINR(ueInfo->at(0)->id)) << std::endl;
+        EV << "CQI_reported=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::UL) << " CQI_calculated=" << getCqi(ueInfo->at(0)->id, TxMode::SINGLE_ANTENNA_PORT0) << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
@@ -322,8 +342,8 @@ protected:
     void collectInfo() {
         EV << "OmniscientEntity::collectInfo" << std::endl;
         std::vector<UeInfo*>* ueInfo = getUeInfo();
-        EV << "\tUE[0]'s CQI=" << getCqi(ueInfo->at(0)->id, 0, Direction::DL) << std::endl;
-        EV << "\tUE[0]-D2D-UE[1] CQI=" << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << std::endl;
+        EV << "\tUE[0]'s CQI=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::DL) << std::endl;
+        EV << "\tUE[0]-D2D-UE[1] CQI=" << getReportedCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << std::endl;
 
 //      Schedule next update.
         scheduleAt(simTime() + mUpdateInterval, mUpdateNotifyMsg);
@@ -354,6 +374,16 @@ protected:
           return currentInfo;
       }
       throw cRuntimeError("OmniscientEntity::getDeviceInfo can't find the requested device ID!");
+    }
+
+    EnbInfo* getENodeBInfo(MacNodeId id) {
+      std::vector<EnbInfo*>* enbInfo = getEnbInfo();
+      for (size_t i = 0; i < enbInfo->size(); i++) {
+          EnbInfo* currentInfo = enbInfo->at(i);
+        if (currentInfo->id == id)
+          return currentInfo;
+      }
+      throw cRuntimeError("OmniscientEntity::getENodeBInfo can't find the requested eNodeB ID!");
     }
 
     ExposedFeedbackComputer* getFeedbackComputation() {
@@ -395,9 +425,10 @@ private:
                 mConfigTimepoint;
     LteAmc      *mAmc = nullptr;
     LteRealisticChannelModel    *mChannelModel = nullptr;
-    MacNodeId mEnBId;
+    MacNodeId mENodeBId;
     ExposedFeedbackComputer *mFeedbackComputer = nullptr;
     LteDeployer *mDeployer = nullptr;
+    Coord mENodeBPosition;
 
 };
 
