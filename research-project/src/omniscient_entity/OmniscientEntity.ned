@@ -22,6 +22,7 @@ simple OmniscientEntity {
         double lambdaMinTh = default(0.02);
         double lambdaMaxTh = default(0.2);
         double lambdaRatioTh = default(20);
+        double configTimepoint = default(0.05); // The simulation time at which final configuration takes place.
     @display("i=block/table");
     @class(OmniscientEntity);    
 }

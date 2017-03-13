@@ -65,9 +65,7 @@ public:
         : mBinder(getBinder()), // getBinder() provided LteCommon.h
           mUpdateNotifyMsg(new cMessage("OmniscientEnity::collectInfo")),
           mConfigMsg(new cMessage("OmniscientEntity::config")),
-          mUpdateInterval(0.01),
-          mConfigTimepoint(0.05) {
-        // All work is done in init-list.
+          mUpdateInterval(0.01) {
     }
 
     virtual ~OmniscientEntity() {}
@@ -89,7 +87,7 @@ public:
      * @param transmissionMode The transmission mode, see TxMode::x enum.
      * @return The CQI of the device <-> eNodeB channel.
      */
-    unsigned short getReportedCqi(MacNodeId device, uint band, Direction direction, Remote antenna, TxMode transmissionMode) {
+    Cqi getReportedCqi(const MacNodeId device, const uint band, const Direction direction, const Remote antenna, const TxMode transmissionMode) const {
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered with the OmniscientEntity. You should call this method after final configuration is done.");
         return mAmc->getFeedback(device, antenna, transmissionMode, direction).getCqi(0, band);
@@ -102,7 +100,7 @@ public:
      * @param direction Probably either Direction::UL or Direction::DL.
      * @return The channel quality indicator for the channel from this device to the eNodeB in the specified direction and band.
      */
-    unsigned short getReportedCqi(MacNodeId device, uint band, Direction direction) {
+    Cqi getReportedCqi(const MacNodeId device, const uint band, const Direction direction) const {
         return getReportedCqi(device, band, direction, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
@@ -115,7 +113,7 @@ public:
      * @param transmissionMode The transmission mode, see TxMode::x enum.
      * @return The CQI of the direct link between device1 and device2.
      */
-    unsigned short getReportedCqi(MacNodeId device1, MacNodeId device2, uint band, Remote antenna, TxMode transmissionMode) {
+    Cqi getReportedCqi(const MacNodeId device1, const MacNodeId device2, const uint band, const Remote antenna, const TxMode transmissionMode) const {
         if (mAmc == nullptr)
             throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered. You should call this method after final configuration is done.");
         return mAmc->getFeedbackD2D(device1, antenna, transmissionMode, device2).getCqi(0, band);
@@ -128,7 +126,7 @@ public:
      * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the xth resource block's CQI.
      * @return The channel quality indicator for the channel between the two devices on the band.
      */
-    unsigned short getReportedCqi(MacNodeId device1, MacNodeId device2, uint band) {
+    Cqi getReportedCqi(const MacNodeId device1, const MacNodeId device2, const uint band) const {
         return getReportedCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
@@ -138,7 +136,7 @@ public:
      * @param transmissionMode See TxMode::x enum.
      * @return device<->eNodeB Channel Quality Indicator.
      */
-    unsigned short getCqi(MacNodeId device, TxMode transmissionMode) {
+    Cqi getCqi(const MacNodeId device, const TxMode transmissionMode) const {
         return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(device)));
     }
 
@@ -147,7 +145,7 @@ public:
      * @param device Device ID.
      * @return device<->eNodeB Channel Quality Indicator.
      */
-    unsigned short getCqi(MacNodeId device) {
+    Cqi getCqi(const MacNodeId device) const {
         return getCqi(device, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
@@ -158,7 +156,7 @@ public:
      * @param transmissionMode See TxMode::x enum.
      * @return from<->to Channel Quality Indicator.
      */
-    unsigned short getCqi(MacNodeId from, MacNodeId to, TxMode transmissionMode) {
+    Cqi getCqi(const MacNodeId from, const MacNodeId to, const TxMode transmissionMode) const {
         return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(from, to)));
     }
 
@@ -168,7 +166,7 @@ public:
      * @param to Other side's device ID.
      * @return from<->to Channel Quality Indicator.
      */
-    unsigned short getCqi(MacNodeId from, MacNodeId to) {
+    Cqi getCqi(const MacNodeId from, const MacNodeId to) const {
         return getCqi(from, to, TxMode::SINGLE_ANTENNA_PORT0);
     }
 
@@ -176,7 +174,7 @@ public:
      * @param device The device's node ID.
      * @return The IMobility that describes this node's mobility. See inet/src/inet/mobility/contract/IMobility.h for implementation.
      */
-    IMobility* getMobility(MacNodeId device) {
+    IMobility* getMobility(const MacNodeId device) const {
         cModule *host = nullptr;
         try {
             UeInfo* ueInfo = getDeviceInfo(device);
@@ -198,7 +196,7 @@ public:
      * @param device The device's node ID.
      * @return The device's physical position. Coord.{x,y,z} are publicly available.
      */
-    Coord getPosition(MacNodeId device) {
+    Coord getPosition(const MacNodeId device) const {
       return getMobility(device)->getCurrentPosition();
     }
 
@@ -206,7 +204,7 @@ public:
      * @param device The device's node ID.
      * @return The device's physical current speed. Coord.{x,y,z} are publicly available.
      */
-    Coord getSpeed(MacNodeId device) {
+    Coord getSpeed(const MacNodeId device) const {
         return getMobility(device)->getCurrentSpeed();
     }
 
@@ -217,7 +215,7 @@ public:
      * @param direction The transmission direction (see Direction::x enum).
      * @return The SINR value for each band.
      */
-    std::vector<double> getSINR(MacNodeId from, MacNodeId to, double transmissionPower, Direction direction) {
+    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, const double transmissionPower, const Direction direction) const {
         UserControlInfo* uinfo = new UserControlInfo();
         uinfo->setFrameType(FEEDBACKPKT);
         uinfo->setIsCorruptible(false);
@@ -244,7 +242,7 @@ public:
      * @param to The D2D receiver's ID.
      * @return The SINR value for each band for the D2D channel between the nodes, if it transmits at the transmission power set in the .ini.
      */
-    std::vector<double> getSINR(MacNodeId from, MacNodeId to) {
+    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to) const {
         // Get a pointer to the device's module.
         std::string modulePath = getDeviceInfo(from)->ue->getFullPath() + ".nic.phy";
         cModule *mod = getModuleByPath(modulePath.c_str());
@@ -258,7 +256,7 @@ public:
      * @param direction The transmission direction (see Direction::x enum).
      * @return The SINR value for each band for the uplink channel from the node to the eNodeB.
      */
-    std::vector<double> getSINR(MacNodeId id, double transmissionPower, Direction direction) {
+    std::vector<double> getSINR(const MacNodeId id, const double transmissionPower, const Direction direction) const {
         UserControlInfo* uinfo = new UserControlInfo();
         uinfo->setFrameType(FEEDBACKPKT);
         uinfo->setIsCorruptible(false);
@@ -283,7 +281,7 @@ public:
      * @param id The node in question's ID.
      * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at the transmission power set in the .ini.
      */
-    std::vector<double> getSINR(MacNodeId id) {
+    std::vector<double> getSINR(const MacNodeId id) const {
         // Get a pointer to the device's module.
         std::string modulePath = getDeviceInfo(id)->ue->getFullPath() + ".nic.phy";
         cModule *mod = getModuleByPath(modulePath.c_str());
@@ -291,7 +289,7 @@ public:
         return getSINR(id, mod->par("ueTxPower"), Direction::UL);
     }
 
-    double getMean(std::vector<double> values) {
+    double getMean(const std::vector<double> values) const {
         double sum = 0.0;
         for (size_t i = 0; i < values.size(); i++)
             sum += values.at(i);
@@ -303,6 +301,7 @@ protected:
         EV << "OmniscientEntity::initialize" << std::endl;
         // This entity is being initialized before a lot of other entities, like the eNodeBs and UEs, are deployed.
         // That's why final configuration needs to take place a bit later.
+        mConfigTimepoint = par("configTimepoint").doubleValue();
         scheduleAt(mConfigTimepoint, mConfigMsg);
         // Schedule first update.
         scheduleAt(mConfigTimepoint + mUpdateInterval, mUpdateNotifyMsg);
@@ -392,14 +391,14 @@ protected:
         return mBinder->getUeList();
     }
 
-    OmnetId getId(MacNodeId id) {
+    OmnetId getId(const MacNodeId id) const {
         return mBinder->getOmnetId(id);
     }
-    MacNodeId getId(OmnetId id) {
+    MacNodeId getId(const OmnetId id) const {
         return mBinder->getMacNodeIdFromOmnetId(id);
     }
 
-    UeInfo* getDeviceInfo(MacNodeId device) {
+    UeInfo* getDeviceInfo(const MacNodeId device) const {
       std::vector<UeInfo*>* ueInfo = getUeInfo();
       for (size_t i = 0; i < ueInfo->size(); i++) {
         UeInfo* currentInfo = ueInfo->at(i);
@@ -409,7 +408,7 @@ protected:
       throw cRuntimeError("OmniscientEntity::getDeviceInfo can't find the requested device ID!");
     }
 
-    EnbInfo* getENodeBInfo(MacNodeId id) {
+    EnbInfo* getENodeBInfo(MacNodeId id) const {
       std::vector<EnbInfo*>* enbInfo = getEnbInfo();
       for (size_t i = 0; i < enbInfo->size(); i++) {
           EnbInfo* currentInfo = enbInfo->at(i);
@@ -419,7 +418,7 @@ protected:
       throw cRuntimeError("OmniscientEntity::getENodeBInfo can't find the requested eNodeB ID!");
     }
 
-    ExposedFeedbackComputer* getFeedbackComputation() {
+    ExposedFeedbackComputer* getFeedbackComputation() const {
         // We're construction the feedback computer from a description.
         // There's REAL and DUMMY. We want REAL.
         std::string feedbackName = "REAL";
@@ -462,6 +461,29 @@ private:
     ExposedFeedbackComputer *mFeedbackComputer = nullptr;
     LteDeployer *mDeployer = nullptr;
     Coord mENodeBPosition;
+
+    /**
+     * The OmniscientEntity's memory holds information values that update periodically.
+     */
+    class Memory {
+    public:
+        Memory(double resolution) : mResolution(resolution) {}
+        virtual ~Memory() {}
+
+
+
+    private:
+        /** The update resolution. Memory will hold 1 timepoint entry every mResolution simulation time steps. */
+        double mResolution;
+        class Timepoint {
+            MacNodeId mFrom;
+            std::map<MacNodeId, Cqi> mCqiMap;
+        };
+
+    protected:
+        std::vector<Memory::Timepoint> memory;
+
+    };
 
 };
 
