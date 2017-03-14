@@ -76,113 +76,150 @@ public:
     }
 
     /**
-     * Queries the AMC module for reported CQI value.
-     * @param device The device whose CQI you want.
-     * @param band The collection of resource blocks you're interested in.
-     * @param direction The tranmsission direction, see Direction::x enum.
-     * @param antenna See Remote::x enum.
-     * @param transmissionMode The transmission mode, see TxMode::x enum.
-     * @return The CQI of the device <-> eNodeB channel.
+     * @param from Channel starting point.
+     * @param to Channel end point.
+     * @param band A specific band.
+     * @param direction Transmission direction.
+     * @param antenna
+     * @param transmissionMode
+     * @return The current CQI as stored by the AMC.
      */
-    Cqi getReportedCqi(const MacNodeId device, const uint band, const Direction direction, const Remote antenna, const TxMode transmissionMode) const {
+    Cqi getReportedCqi(const MacNodeId from, const MacNodeId to, const uint band, const Direction direction, const Remote antenna, const TxMode transmissionMode) const {
+        if (from == to)
+            throw cRuntimeError(std::string("OmniscientEntity::getReportedCqi shouldn't be called for from==to!").c_str());
         if (mAmc == nullptr)
-            throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered with the OmniscientEntity. You should call this method after final configuration is done.");
-        return mAmc->getFeedback(device, antenna, transmissionMode, direction).getCqi(0, band);
+            throw cRuntimeError(std::string("OmniscientEntity::getCqi called before the AMC was registered. You should call this method after final configuration is done.").c_str());
+
+        // Cellular link.
+        if (from == mENodeBId) {
+            return mAmc->getFeedback(to, antenna, transmissionMode, direction).getCqi(0, band);
+        } else if (to == mENodeBId) {
+            return mAmc->getFeedback(from, antenna, transmissionMode, direction).getCqi(0, band);
+        // D2D link.
+        } else {
+            return mAmc->getFeedbackD2D(from, antenna, transmissionMode, to).getCqi(0, band);
+        }
     }
 
     /**
-     * Queries the AMC module for reported CQI value.
-     * @param device The ID of the device whose CQI you are interested in.
-     * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the x-th resource block's CQI.
-     * @param direction Probably either Direction::UL or Direction::DL.
-     * @return The channel quality indicator for the channel from this device to the eNodeB in the specified direction and band.
+     * @return The computed CQI.
      */
-    Cqi getReportedCqi(const MacNodeId device, const uint band, const Direction direction) const {
-        return getReportedCqi(device, band, direction, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+    Cqi getCqi(const TxMode transmissionMode, const double sinr) const {
+        return mFeedbackComputer->getCqi(transmissionMode, sinr);
     }
 
     /**
-     * Queries the AMC module for reported CQI value.
-     * @param device1 One side of the D2D transmission.
-     * @param device2 The other side of the transmission.
-     * @param band The collection of resource blocks you're interested in.
-     * @param antenna See Remote::x enum.
-     * @param transmissionMode The transmission mode, see TxMode::x enum.
-     * @return The CQI of the direct link between device1 and device2.
+     * @param from Channel starting point.
+     * @param to Channel end point.
+     * @param time Moment in time.
+     * @param transmissionMode Transmitter's transmission mode.
+     * @return Channel Quality Indicator as computed right now if time>=NOW, or as stored in memory if earlier.
      */
-    Cqi getReportedCqi(const MacNodeId device1, const MacNodeId device2, const uint band, const Remote antenna, const TxMode transmissionMode) const {
-        if (mAmc == nullptr)
-            throw cRuntimeError("OmniscientEntity::getCqi called before the AMC was registered. You should call this method after final configuration is done.");
-        return mAmc->getFeedbackD2D(device1, antenna, transmissionMode, device2).getCqi(0, band);
+    Cqi getCqi(const MacNodeId from, const MacNodeId to, const SimTime time, const TxMode transmissionMode) const {
+        if (from == to)
+            throw cRuntimeError(std::string("OmniscientEntity::getCqi shouldn't be called for from==to!").c_str());
+        // getSINR handles distinction of computing a current value or querying the memory.
+        double meanSINR = getMean(getSINR(from, to, time));
+        return getCqi(transmissionMode, meanSINR);
+    }
+
+
+    /**
+     * @param from Transmitter ID.
+     * @param to Receiver ID.
+     * @param time Moment in time.
+     * @param transmissionPower The transmitter's transmission power.
+     * @param direction The transmission direction.
+     * @return If time>=NOW the current value is computed. For earlier moments the memory is queried.
+     */
+    std::vector<double> getSINR(MacNodeId from, MacNodeId to, const SimTime time, const double transmissionPower, const Direction direction) const {
+        if (from == to)
+            throw cRuntimeError(std::string("OmniscientEntity::getSINR shouldn't be called for from==to!").c_str());
+        // Make sure eNodeB is the target.
+        if (from == mENodeBId) {
+            MacNodeId temp = from;
+            from = to;
+            to = temp;
+        }
+        // Compute current value.
+        if (time >= NOW) {
+            // UE <-> eNodeB channel.
+            if (to == mENodeBId) {
+                UserControlInfo* uinfo = new UserControlInfo();
+                uinfo->setFrameType(FEEDBACKPKT);
+                uinfo->setIsCorruptible(false);
+
+                uinfo->setSourceId(from);
+                // I am pretty sure that there's a mistake in the simuLTE source code.
+                // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
+                // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
+                uinfo->setCoord(mENodeBPosition);
+                uinfo->setDestId(mENodeBId);
+
+                uinfo->setDirection(direction);
+                uinfo->setTxPower(transmissionPower);
+
+                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+                std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
+                delete uinfo;
+                delete frame;
+                return SINRs;
+            // UE <-> UE channel.
+            } else {
+                UserControlInfo* uinfo = new UserControlInfo();
+                uinfo->setFrameType(FEEDBACKPKT);
+                uinfo->setIsCorruptible(false);
+
+                uinfo->setSourceId(from);
+                uinfo->setD2dTxPeerId(from);
+
+                uinfo->setD2dRxPeerId(to);
+                uinfo->setDestId(to);
+
+                uinfo->setDirection(direction);
+                uinfo->setTxPower(transmissionPower);
+                uinfo->setD2dTxPower(transmissionPower);
+                uinfo->setCoord(getPosition(from));
+
+                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+                std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
+                delete uinfo;
+                delete frame;
+                return SINRs;
+            }
+        // Retrieve from memory.
+        } else {
+            return mMemory->get(time, from, to);
+        }
     }
 
     /**
-     * Convenience method that sets antenna as Remote::MACRO and transmission mode as TxMode::SINGLE_ANTENNA_PORT0
-     * @param device1 The ID of one of the D2D pair's devices.
-     * @param device2 The ID of the other one.
-     * @param band A band is a logical collection of resource blocks. If numBands==numRbs then you are asking for the xth resource block's CQI.
-     * @return The channel quality indicator for the channel between the two devices on the band.
+     * Determines direction and transmission power automatically.
+     * @param from Transmitter ID.
+     * @param to Receiver ID.
+     * @param time Moment in time.
+     * @return If time>=NOW the current value is computed. For earlier moments the memory is queried.
      */
-    Cqi getReportedCqi(const MacNodeId device1, const MacNodeId device2, const uint band) const {
-        return getReportedCqi(device1, device2, band, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
-    }
+    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, SimTime time) const {
+        // Determine direction.
+        Direction dir;
+        if (from == mENodeBId)
+            dir = Direction::DL; // eNodeB -DL-> UE.
+        else if (to == mENodeBId)
+            dir = Direction::UL; // UE -UL-> eNodeB.
+        else
+            dir = Direction::D2D; // UE -D2D-> UE.
 
-    /**
-     * Computes the current CQI for the device<->eNodeB link.
-     * @param device Device ID.
-     * @param transmissionMode See TxMode::x enum.
-     * @return device<->eNodeB Channel Quality Indicator.
-     */
-    Cqi getCqi(const MacNodeId device, const TxMode transmissionMode) const {
-        return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(device)));
-    }
+        // Determine transmission power because it's not set correctly in a device's associated UeInfo object.
+        double transmissionPower;
+        std::string modulePath = getDeviceInfo(from)->ue->getFullPath() + ".nic.phy";
+        cModule *mod = getModuleByPath(modulePath.c_str()); // Get a pointer to the device's module.
+        if (dir == Direction::D2D)
+            transmissionPower = mod->par("d2dTxPower");
+        else
+            transmissionPower = mod->par("ueTxPower");
 
-    /**
-     * Computes the current CQI for the device<->eNodeB link. Assumes TxMode::SINGLE_ANTENNA_PORT0 transmission mode.
-     * @param device Device ID.
-     * @return device<->eNodeB Channel Quality Indicator.
-     */
-    Cqi getCqi(const MacNodeId device) const {
-        return getCqi(device, TxMode::SINGLE_ANTENNA_PORT0);
-    }
-
-    /**
-     * Computes the current CQI for the from<->to link.
-     * @param from One side's device ID.
-     * @param to Other side's device ID.
-     * @param transmissionMode See TxMode::x enum.
-     * @return from<->to Channel Quality Indicator.
-     */
-    Cqi getCqi(const MacNodeId from, const MacNodeId to, const TxMode transmissionMode) const {
-        return mFeedbackComputer->getCqi(transmissionMode, getMean(getSINR(from, to)));
-    }
-
-    /**
-     * Computes the current CQI for the from<->to link. Assumes TxMode::SINGLE_ANTENNA_PORT0 transmission mode.
-     * @param from One side's device ID.
-     * @param to Other side's device ID.
-     * @return from<->to Channel Quality Indicator.
-     */
-    Cqi getCqi(const MacNodeId from, const MacNodeId to) const {
-        return getCqi(from, to, TxMode::SINGLE_ANTENNA_PORT0);
-    }
-
-    /**
-     * @param from Node ID of one side of the link.
-     * @param to Node ID of the other link side.
-     * @param simTime The simulation time you're interested in. Due to choice of the resolution it might not be exactly accurate. Won't work for times in the future.
-     * @return The saved CQI.
-     */
-    Cqi getCqi(const MacNodeId from, const MacNodeId to, double simTime) const {
-        double sinr = getMean(mMemory->get(simTime, from, to));
-        return mFeedbackComputer->getCqi(TxMode::SINGLE_ANTENNA_PORT0, sinr);
-    }
-
-    /**
-     * @return The CQI as computetd for the given SINR and TxMode::SINGLE_ANTENNA_PORT0.
-     */
-    Cqi getCqiFromSinr(double sinr) {
-        return mFeedbackComputer->getCqi(TxMode::SINGLE_ANTENNA_PORT0, sinr);
+        return getSINR(from, to, time, transmissionPower, dir);
     }
 
     /**
@@ -200,10 +237,10 @@ public:
             host = enbInfo->eNodeB;
         }
         if (host == nullptr)
-            throw cRuntimeError("OmniscientEntity::getMobility couldn't find the device's cModule!");
+            throw cRuntimeError(std::string("OmniscientEntity::getMobility couldn't find the device's cModule!").c_str());
         IMobility* mobilityModule = check_and_cast<IMobility*>(host->getSubmodule("mobility"));
         if (mobilityModule == nullptr)
-            throw cRuntimeError("OmniscientEntity::getMobility couldn't find a mobility module!");
+            throw cRuntimeError(std::string("OmniscientEntity::getMobility couldn't find a mobility module!").c_str());
         return mobilityModule;
     }
 
@@ -222,149 +259,6 @@ public:
     Coord getSpeed(const MacNodeId device) const {
         return getMobility(device)->getCurrentSpeed();
     }
-
-    /**
-     * @param from The D2D transmitter's ID.
-     * @param to The D2D receiver's ID.
-     * @param transmissionPower The power level that the node would transmit with.
-     * @param direction The transmission direction (see Direction::x enum).
-     * @return The SINR value for each band.
-     */
-    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, const double transmissionPower, const Direction direction) const {
-        UserControlInfo* uinfo = new UserControlInfo();
-        uinfo->setFrameType(FEEDBACKPKT);
-        uinfo->setIsCorruptible(false);
-
-        uinfo->setSourceId(from);
-        uinfo->setD2dTxPeerId(from);
-
-        uinfo->setD2dRxPeerId(to);
-        uinfo->setDestId(to);
-
-        uinfo->setDirection(direction);
-        uinfo->setTxPower(transmissionPower);
-        uinfo->setD2dTxPower(transmissionPower);
-        uinfo->setCoord(getPosition(from));
-
-        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-        std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
-        delete uinfo;
-        delete frame;
-        return SINRs;
-    }
-
-    /**
-     * @param from The D2D transmitter's ID.
-     * @param to The D2D receiver's ID.
-     * @return The SINR value for each band for the D2D channel between the nodes, if it transmits at the transmission power set in the .ini.
-     */
-    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to) const {
-        // Get a pointer to the device's module.
-        std::string modulePath = getDeviceInfo(from)->ue->getFullPath() + ".nic.phy";
-        cModule *mod = getModuleByPath(modulePath.c_str());
-        // From the module we can access its transmission power.
-        return getSINR(from, to, mod->par("d2dTxPower").doubleValue(), Direction::D2D);
-    }
-
-    /**
-     * @param id The node in question's ID.
-     * @param transmissionPower The power level that the node would transmit with.
-     * @param direction The transmission direction (see Direction::x enum).
-     * @return The SINR value for each band for the uplink channel from the node to the eNodeB.
-     */
-    std::vector<double> getSINR(const MacNodeId id, const double transmissionPower, const Direction direction) const {
-        UserControlInfo* uinfo = new UserControlInfo();
-        uinfo->setFrameType(FEEDBACKPKT);
-        uinfo->setIsCorruptible(false);
-
-        uinfo->setSourceId(id);
-        // I am pretty sure that there's a mistake in the simuLTE source code.
-        // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
-        // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
-        uinfo->setCoord(mENodeBPosition);
-        uinfo->setDestId(mENodeBId);
-
-        uinfo->setDirection(direction);
-        uinfo->setTxPower(transmissionPower);
-
-        LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-        std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
-        delete uinfo;
-        delete frame;
-        return SINRs;
-    }
-
-    /**
-     * @param id The node in question's ID.
-     * @return The SINR value for each band for the uplink channel from the node to the eNodeB, if it transmits at the transmission power set in the .ini.
-     */
-    std::vector<double> getSINR(const MacNodeId id) const {
-        // Get a pointer to the device's module.
-        std::string modulePath = getDeviceInfo(id)->ue->getFullPath() + ".nic.phy";
-        cModule *mod = getModuleByPath(modulePath.c_str());
-        // From the module we can access its transmission power.
-        return getSINR(id, mod->par("ueTxPower"), Direction::UL);
-    }
-
-    /**
-     * @return The saved SINR value.
-     */
-    double getSINR(const MacNodeId from, const MacNodeId to, double simTime) {
-        return getMean(mMemory->get(simTime, from, to));
-    }
-
-//    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, double time, const double transmissionPower, const Direction direction) const {
-//        // Compute current value.
-//        if (time >= NOW) {
-//            // UE <-> eNodeB channel.
-//            if (to == mENodeBId) {
-//                UserControlInfo* uinfo = new UserControlInfo();
-//                uinfo->setFrameType(FEEDBACKPKT);
-//                uinfo->setIsCorruptible(false);
-//
-//                uinfo->setSourceId(id);
-//                // I am pretty sure that there's a mistake in the simuLTE source code.
-//                // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
-//                // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
-//                uinfo->setCoord(mENodeBPosition);
-//                uinfo->setDestId(mENodeBId);
-//
-//                uinfo->setDirection(direction);
-//                uinfo->setTxPower(transmissionPower);
-//
-//                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-//                std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
-//                delete uinfo;
-//                delete frame;
-//                return SINRs;
-//            // UE <-> UE channel.
-//            } else {
-//                UserControlInfo* uinfo = new UserControlInfo();
-//                uinfo->setFrameType(FEEDBACKPKT);
-//                uinfo->setIsCorruptible(false);
-//
-//                uinfo->setSourceId(from);
-//                uinfo->setD2dTxPeerId(from);
-//
-//                uinfo->setD2dRxPeerId(to);
-//                uinfo->setDestId(to);
-//
-//                uinfo->setDirection(direction);
-//                uinfo->setTxPower(transmissionPower);
-//                uinfo->setD2dTxPower(transmissionPower);
-//                uinfo->setCoord(getPosition(from));
-//
-//                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-//                std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
-//                delete uinfo;
-//                delete frame;
-//                return SINRs;
-//            }
-//        // Retrieve from memory.
-//        } else {
-//
-//        }
-//    }
 
     double getMean(const std::vector<double> values) const {
         double sum = 0.0;
@@ -440,10 +334,15 @@ protected:
         else
             EV << "\tConstructed feedback computer." << endl;
 
-        // Testing...
-        EV << "SINR_D2D=" << getMean(getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id)) << " SINR=" << getMean(getSINR(ueInfo->at(0)->id)) << std::endl;
-        EV << "CQI_reported=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::UL) << " CQI_calculated=" << getCqi(ueInfo->at(0)->id) << std::endl;
-        EV << "CQI_D2D_reported=" << getReportedCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << " CQI_D2D_calculated=" << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
+        // Test the different interfaces.
+        MacNodeId from = ueInfo->at(0)->id,
+                  to = ueInfo->at(1)->id;
+        Cqi cqi_computed = getCqi(from, to, NOW, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_reported = getReportedCqi(from, to, 0, Direction::D2D, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+        EV << "CQI_computed=" << cqi_computed << " CQI_reported=" << cqi_reported << std::endl;
+        if (cqi_computed != cqi_reported)
+            throw cRuntimeError(std::string("OmniscientEntity::configure didn't find the same values for reported and calculated CQI!").c_str());
+        EV << "SINR_mean=" << getMean(getSINR(from, to, NOW)) << std::endl;
     }
 
     void handleMessage(cMessage *msg) {
@@ -464,7 +363,7 @@ protected:
         for (size_t i = 0; i < ueInfo->size(); i++) {
             MacNodeId from = ueInfo->at(i)->id;
             // Find SINR to the eNodeB (cellular uplink).
-            std::vector<double> sinrs_eNodeB = getSINR(from);
+            std::vector<double> sinrs_eNodeB = getSINR(from, mENodeBId, NOW);
             mMemory->put(simTime().dbl(), from, mENodeBId, sinrs_eNodeB);
             // And for all other UEs...
             for (size_t j = 0; j < ueInfo->size(); j++) {
@@ -473,7 +372,7 @@ protected:
                 if (from == to)
                     continue;
                 // Calculate and save the current SINR for the D2D link.
-                std::vector<double> sinrs = getSINR(from, to);
+                std::vector<double> sinrs = getSINR(from, to, NOW);
                 mMemory->put(simTime().dbl(), from, to, sinrs);
             }
         }
@@ -597,23 +496,21 @@ private:
                 std::string err = "OmniscientEntity::Memory::put Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
                 throw cRuntimeError(err.c_str());
             }
-//            EV_STATICCONTEXT;
-//            EV << "OmniscientEntity::Memory::put(time=" << time << ", from=" << from << ", to=" << to << ", sinr=" << sinr << ") pos=" << position << std::endl;
             Timepoint *timepoint = &(mTimepoints.at(position));
             timepoint->put(from, to, sinrs);
         }
 
         /**
-         * @return A <to, sinr> map holding the values of all SINRs to all devices.
+         * @param time Moment in the past you're interested in. Will be rounded to the nearest entry.
+         * @param from One channel endpoint.
+         * @return A <to, sinrs> map holding the values of all SINRs in all bands to all devices.
          */
-        const std::map<MacNodeId, std::vector<double>>* get(const double time, const MacNodeId from) const {
-            double position = time / mResolution;
+        const std::map<MacNodeId, std::vector<double>>* get(const SimTime time, const MacNodeId from) const {
+            double position = time.dbl() / mResolution;
             if (position >= mTimepoints.size()) {
                 std::string err = "OmniscientEntity::Memory::get Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
                 throw cRuntimeError(err.c_str());
             }
-//            EV_STATICCONTEXT;
-//            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ")" << std::endl;
             const Timepoint* timepoint = &(mTimepoints.at(position));
             const std::map<MacNodeId, std::vector<double>>* map = nullptr;
             try {
@@ -625,9 +522,13 @@ private:
             return map;
         }
 
-        std::vector<double> get(const double time, const MacNodeId from, const MacNodeId to) const {
-//            EV_STATICCONTEXT;
-//            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ", " << to << ")" << std::endl;
+        /**
+         * @param time Moment in the past you're interested in. Will be rounded to the nearest entry.
+         * @param from One channel endpoint.
+         * @param to The other channel endpoint.
+         * @return SINR values for all bands.
+         */
+        std::vector<double> get(const SimTime time, const MacNodeId from, const MacNodeId to) const {
             const std::map<MacNodeId, std::vector<double>>* sinrMap = nullptr;
             try {
                 sinrMap = Memory::get(time, from);
@@ -655,7 +556,7 @@ private:
                     } catch (const cRuntimeError& err) {
                         throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
                     }
-                    description += "UE[" + std::to_string(from) + "]\n\t\t-> eNodeB CQI=" + std::to_string(mParent->getCqiFromSinr(mParent->getMean(sinrs_eNodeB))) + " " + mParent->vectorToString(sinrs_eNodeB, "SINR") + "\n";
+                    description += "UE[" + std::to_string(from) + "]\n\t\t-> eNodeB CQI=" + std::to_string(mParent->getCqi(TxMode::SINGLE_ANTENNA_PORT0, mParent->getMean(sinrs_eNodeB))) + " " + mParent->vectorToString(sinrs_eNodeB, "SINR") + "\n";
                     // And do the same for all UE end points...
                     for (size_t j = 0; j < ueInfo->size(); j++) {
                         MacNodeId to = ueInfo->at(j)->id;
@@ -667,7 +568,7 @@ private:
                         } catch (const cRuntimeError& err) {
                             throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
                         }
-                        description += "\t\t-> UE[" + std::to_string(to) + "] CQI=" + std::to_string(mParent->getCqiFromSinr(mParent->getMean(sinrs))) + " " + mParent->vectorToString(sinrs, "SINR") + "\n";
+                        description += "\t\t-> UE[" + std::to_string(to) + "] CQI=" + std::to_string(mParent->getCqi(TxMode::SINGLE_ANTENNA_PORT0, mParent->getMean(sinrs))) + " " + mParent->vectorToString(sinrs, "SINR") + "\n";
                     }
                 }
             }
@@ -709,7 +610,7 @@ private:
 
         protected:
             /**
-             * A map that looks like this: <from, <to, sinrs>>.
+             * A map that looks like this: <from, <to, sinrs>>. Only SINRs are kept because CQIs can be computed from them directly.
              */
             std::map<MacNodeId, std::map<MacNodeId, std::vector<double>>> mSinrMap;
         };
