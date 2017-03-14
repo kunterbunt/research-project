@@ -364,7 +364,7 @@ protected:
             MacNodeId from = ueInfo->at(i)->id;
             // Find SINR to the eNodeB (cellular uplink).
             std::vector<double> sinrs_eNodeB = getSINR(from, mENodeBId, NOW);
-            mMemory->put(simTime().dbl(), from, mENodeBId, sinrs_eNodeB);
+            mMemory->put(NOW, from, mENodeBId, sinrs_eNodeB);
             // And for all other UEs...
             for (size_t j = 0; j < ueInfo->size(); j++) {
                 MacNodeId to = ueInfo->at(j)->id;
@@ -373,17 +373,15 @@ protected:
                     continue;
                 // Calculate and save the current SINR for the D2D link.
                 std::vector<double> sinrs = getSINR(from, to, NOW);
-                mMemory->put(simTime().dbl(), from, to, sinrs);
+                mMemory->put(NOW, from, to, sinrs);
             }
         }
-
-//        EV << "SINR=" << mMemory->get(simTime().dbl(), ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
 
         // Print current memory.
         EV << mMemory->toString() << std::endl;
 
         // Schedule next snapshot.
-        scheduleAt(simTime() + mUpdateInterval, mSnapshotMsg);
+        scheduleAt(NOW + mUpdateInterval, mSnapshotMsg);
     }
 
     std::vector<EnbInfo*>* getEnbInfo() const {
@@ -487,11 +485,11 @@ private:
         virtual ~Memory() {}
 
         /**
-         * @param Point in time when the SINR was computed.
+         * @param time Point in time when the SINR was computed.
          * @param sinr SINR value.
          */
-        void put(const double time, const MacNodeId from, const MacNodeId to, const std::vector<double> sinrs) {
-            double position = (time / mResolution);
+        void put(const SimTime time, const MacNodeId from, const MacNodeId to, const std::vector<double> sinrs) {
+            double position = (time.dbl() / mResolution);
             if (position >= mTimepoints.size()) {
                 std::string err = "OmniscientEntity::Memory::put Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
                 throw cRuntimeError(err.c_str());
