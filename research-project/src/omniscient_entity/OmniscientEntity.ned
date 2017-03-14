@@ -22,7 +22,10 @@ simple OmniscientEntity {
         double lambdaMinTh = default(0.02);
         double lambdaMaxTh = default(0.2);
         double lambdaRatioTh = default(20);
-        double configTimepoint = default(0.05); // The simulation time at which final configuration takes place.
+        // The simulation time at which final configuration takes place.
+        double configTimepoint = default(0.05); 
+        // The entity will take a snapshot of the some network statistics every x seconds.
+        double updateInterval = default(0.05); 
     @display("i=block/table");
     @class(OmniscientEntity);    
 }

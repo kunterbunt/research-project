@@ -63,12 +63,17 @@ class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
     OmniscientEntity()
         : mBinder(getBinder()), // getBinder() provided LteCommon.h
-          mUpdateNotifyMsg(new cMessage("OmniscientEnity::collectInfo")),
+          mSnapshotMsg(new cMessage("OmniscientEnity::snapshot")),
           mConfigMsg(new cMessage("OmniscientEntity::config")),
           mUpdateInterval(0.01) {
     }
 
-    virtual ~OmniscientEntity() {}
+    virtual ~OmniscientEntity() {
+        if (mMemory != nullptr)
+            delete mMemory;
+        if (mFeedbackComputer != nullptr)
+            delete mFeedbackComputer;
+    }
 
     void setUpdateInterval(const double value) {
         mUpdateInterval = value;
@@ -168,6 +173,24 @@ public:
      */
     Cqi getCqi(const MacNodeId from, const MacNodeId to) const {
         return getCqi(from, to, TxMode::SINGLE_ANTENNA_PORT0);
+    }
+
+    /**
+     * @param from Node ID of one side of the link.
+     * @param to Node ID of the other link side.
+     * @param simTime The simulation time you're interested in. Due to choice of the resolution it might not be exactly accurate. Won't work for times in the future.
+     * @return The saved CQI.
+     */
+    Cqi getCqi(const MacNodeId from, const MacNodeId to, double simTime) const {
+        double sinr = mMemory->get(simTime, from, to);
+        return mFeedbackComputer->getCqi(TxMode::SINGLE_ANTENNA_PORT0, sinr);
+    }
+
+    /**
+     * @return The CQI as computetd for the given SINR and TxMode::SINGLE_ANTENNA_PORT0.
+     */
+    Cqi getCqiFromSinr(double sinr) {
+        return mFeedbackComputer->getCqi(TxMode::SINGLE_ANTENNA_PORT0, sinr);
     }
 
     /**
@@ -289,6 +312,13 @@ public:
         return getSINR(id, mod->par("ueTxPower"), Direction::UL);
     }
 
+    /**
+     * @return The saved SINR value.
+     */
+    double getSINR(const MacNodeId from, const MacNodeId to, double simTime) {
+        return mMemory->get(simTime, from, to);
+    }
+
     double getMean(const std::vector<double> values) const {
         double sum = 0.0;
         for (size_t i = 0; i < values.size(); i++)
@@ -302,11 +332,16 @@ protected:
         // This entity is being initialized before a lot of other entities, like the eNodeBs and UEs, are deployed.
         // That's why final configuration needs to take place a bit later.
         mConfigTimepoint = par("configTimepoint").doubleValue();
+        mUpdateInterval = par("updateInterval").doubleValue();
+        mMemory = new Memory(mUpdateInterval, 15.0, this);
         scheduleAt(mConfigTimepoint, mConfigMsg);
         // Schedule first update.
-        scheduleAt(mConfigTimepoint + mUpdateInterval, mUpdateNotifyMsg);
+        scheduleAt(mConfigTimepoint + mUpdateInterval, mSnapshotMsg);
     }
 
+    /**
+     * Final configuration at some time point when other network devices are deployed and accessible.
+     */
     void configure() {
         EV << "OmniscientEntity::configure" << std::endl;
         // Get the eNodeB.
@@ -323,7 +358,7 @@ protected:
         else
             EV << "\tFound AMC." << endl;
 
-        // Set eNodeB position.
+        // Remember eNodeB position.
         mENodeBPosition = getPosition(mENodeBId);
 
         // Get deployer pointer.
@@ -358,6 +393,7 @@ protected:
         else
             EV << "\tConstructed feedback computer." << endl;
 
+        // Testing...
         EV << "SINR_D2D=" << getMean(getSINR(ueInfo->at(0)->id, ueInfo->at(1)->id)) << " SINR=" << getMean(getSINR(ueInfo->at(0)->id)) << std::endl;
         EV << "CQI_reported=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::UL) << " CQI_calculated=" << getCqi(ueInfo->at(0)->id) << std::endl;
         EV << "CQI_D2D_reported=" << getReportedCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << " CQI_D2D_calculated=" << getCqi(ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
@@ -365,23 +401,43 @@ protected:
 
     void handleMessage(cMessage *msg) {
         EV << "OmniscientEntity::handleMessage" << std::endl;
-        if (msg == mUpdateNotifyMsg)
-            collectInfo();
+        if (msg == mSnapshotMsg)
+            snapshot();
         else if (msg == mConfigMsg)
             configure();
     }
 
-    void collectInfo() {
-        EV << "OmniscientEntity::collectInfo" << std::endl;
+    /**
+     * Takes snapshot of network statistics and puts them into memory.
+     */
+    void snapshot() {
+        EV << "OmniscientEntity::snapshot" << std::endl;
         std::vector<UeInfo*>* ueInfo = getUeInfo();
-        EV << "\tUE[0]'s CQI=" << getReportedCqi(ueInfo->at(0)->id, 0, Direction::DL) << std::endl;
-        EV << "\tUE[0]-D2D-UE[1] CQI=" << getReportedCqi(ueInfo->at(0)->id, ueInfo->at(1)->id, 0) << std::endl;
+        // For all UEs...
+        for (size_t i = 0; i < ueInfo->size(); i++) {
+            MacNodeId from = ueInfo->at(i)->id;
+            // Find SINR to the eNodeB (cellular uplink).
+            double sinr_eNodeB = getMean(getSINR(from));
+            mMemory->put(simTime().dbl(), from, mENodeBId, sinr_eNodeB);
+            // And for all other UEs...
+            for (size_t j = 0; j < ueInfo->size(); j++) {
+                MacNodeId to = ueInfo->at(j)->id;
+                // Ignore link to current node.
+                if (from == to)
+                    continue;
+                // Calculate and save the current SINR for the D2D link.
+                double sinr = getMean(getSINR(from, to));
+                mMemory->put(simTime().dbl(), from, to, sinr);
+            }
+        }
 
-//      Schedule next update.
-        scheduleAt(simTime() + mUpdateInterval, mUpdateNotifyMsg);
+        EV << "SINR=" << mMemory->get(simTime().dbl(), ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
 
-        Coord position = getPosition(ueInfo->at(0)->id);
-        EV << "Position: " << position.x << "," << position.y << "," << position.z << std::endl;
+        // Print current memory.
+        EV << mMemory->toString() << std::endl;
+
+        // Schedule next snapshot.
+        scheduleAt(simTime() + mUpdateInterval, mSnapshotMsg);
     }
 
     std::vector<EnbInfo*>* getEnbInfo() const {
@@ -451,7 +507,7 @@ protected:
 
 private:
     LteBinder   *mBinder = nullptr;
-    cMessage    *mUpdateNotifyMsg = nullptr,
+    cMessage    *mSnapshotMsg = nullptr,
                 *mConfigMsg = nullptr;
     double      mUpdateInterval,
                 mConfigTimepoint;
@@ -467,23 +523,142 @@ private:
      */
     class Memory {
     public:
-        Memory(double resolution) : mResolution(resolution) {}
+        Memory(double resolution, double maxSimTime, OmniscientEntity *parent)
+                : mResolution(resolution), mMaxSimTime(maxSimTime), mParent(parent),
+                  mTimepoints((unsigned int) (maxSimTime / resolution)) {
+        }
         virtual ~Memory() {}
 
+        /**
+         * @param Point in time when the SINR was computed.
+         * @param sinr SINR value.
+         */
+        void put(const double time, const MacNodeId from, const MacNodeId to, const double sinr) {
+            double position = (time / mResolution);
+            if (position >= mTimepoints.size()) {
+                std::string err = "OmniscientEntity::Memory::put Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
+                throw cRuntimeError(err.c_str());
+            }
+//            EV_STATICCONTEXT;
+//            EV << "OmniscientEntity::Memory::put(time=" << time << ", from=" << from << ", to=" << to << ", sinr=" << sinr << ") pos=" << position << std::endl;
+            Timepoint *timepoint = &(mTimepoints.at(position));
+            timepoint->put(from, to, sinr);
+        }
 
+        /**
+         * @return A <to, sinr> map holding the values of all SINRs to all devices.
+         */
+        const std::map<MacNodeId, double>* get(const double time, const MacNodeId from) const {
+            double position = time / mResolution;
+            if (position >= mTimepoints.size()) {
+                std::string err = "OmniscientEntity::Memory::get Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
+                throw cRuntimeError(err.c_str());
+            }
+//            EV_STATICCONTEXT;
+//            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ")" << std::endl;
+            const Timepoint* timepoint = &(mTimepoints.at(position));
+            const std::map<MacNodeId, double>* map = nullptr;
+            try {
+                map = timepoint->get(from);
+            } catch (const cRuntimeError& err) {
+                throw; // Forward exception.
+            }
+
+            return map;
+        }
+
+        double get(const double time, const MacNodeId from, const MacNodeId to) const {
+//            EV_STATICCONTEXT;
+//            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ", " << to << ")" << std::endl;
+            const std::map<MacNodeId, double>* sinrMap = nullptr;
+            try {
+                sinrMap = Memory::get(time, from);
+            } catch (const cRuntimeError& err) {
+                throw;
+            }
+            return sinrMap->at(to);
+        }
+
+        /**
+         * @return A string representation of all saved values up to the current moment in time.
+         */
+        std::string toString() {
+            std::string description = "";
+            std::vector<UeInfo*>* ueInfo = mParent->getUeInfo();
+            for (SimTime time(mParent->mConfigTimepoint + mParent->mUpdateInterval); time <= NOW; time += mResolution) {
+                description += "Time " + std::to_string(time.dbl()) + ":\n";
+                // Go through all channel starting points...
+                for (size_t i = 0; i < ueInfo->size(); i++) {
+                    MacNodeId from = ueInfo->at(i)->id;
+                    // Find statistics to eNodeB.
+                    double sinr_eNodeB = -1;
+                    try {
+                        sinr_eNodeB = get(time.dbl(), from, mParent->mENodeBId);
+                    } catch (const cRuntimeError& err) {
+                        throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
+                    }
+                    description += "UE[" + std::to_string(from) + "]\n\t\t-> eNodeB SINR=" + std::to_string(sinr_eNodeB) + " CQI=" + std::to_string(mParent->getCqiFromSinr(sinr_eNodeB)) +"\n";
+                    // And do the same for all UE end points...
+                    for (size_t j = 0; j < ueInfo->size(); j++) {
+                        MacNodeId to = ueInfo->at(j)->id;
+                        if (from == to)
+                            continue;
+                        double sinr = -1;
+                        try {
+                            sinr = get(time.dbl(), from, to);
+                        } catch (const cRuntimeError& err) {
+                            throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
+                        }
+                        description += "\t\t-> UE[" + std::to_string(to) + "] SINR=" + std::to_string(sinr) + " CQI=" + std::to_string(mParent->getCqiFromSinr(sinr)) +"\n";
+                    }
+                }
+            }
+            return description;
+        }
 
     private:
         /** The update resolution. Memory will hold 1 timepoint entry every mResolution simulation time steps. */
-        double mResolution;
+        const double mResolution;
+        const double mMaxSimTime;
+        OmniscientEntity *mParent = nullptr;
+
+        /**
+         * For each point in time, keep values for every (device, device) pair.
+         */
         class Timepoint {
-            MacNodeId mFrom;
-            std::map<MacNodeId, Cqi> mCqiMap;
+        public:
+            Timepoint() {}
+            virtual ~Timepoint() {}
+
+            void put(const MacNodeId from, const MacNodeId to, const double sinr) {
+                std::map<MacNodeId, double>& map = mSinrMap[from];
+                map[to] = sinr;
+            }
+            /**
+             * @return A <to, sinr> map.
+             */
+            const std::map<MacNodeId, double>* get(const MacNodeId from) const {
+                if (mSinrMap.size() == 0) {
+                    throw cRuntimeError(std::string("Memory::Timepoint::get(" + std::to_string(from) + ") called but there's no entries for this timepoint.").c_str());
+                }
+                const std::map<MacNodeId, double>* map = &(mSinrMap.at(from));
+                return map;
+            }
+
+            const std::map<MacNodeId, std::map<MacNodeId, double>>* get() const {
+                return &(mSinrMap);
+            }
+
+        protected:
+            /**
+             * A map that looks like this: <from, <to, sinr>>.
+             */
+            std::map<MacNodeId, std::map<MacNodeId, double>> mSinrMap;
         };
 
-    protected:
-        std::vector<Memory::Timepoint> memory;
-
+        std::vector<Timepoint> mTimepoints;
     };
+    OmniscientEntity::Memory *mMemory = nullptr;
 
 };
 
