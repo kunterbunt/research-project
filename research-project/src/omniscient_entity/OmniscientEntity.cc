@@ -200,7 +200,14 @@ public:
      * @param time Moment in time.
      * @return If time>=NOW the current value is computed. For earlier moments the memory is queried.
      */
-    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, SimTime time) const {
+    std::vector<double> getSINR(MacNodeId from, MacNodeId to, SimTime time) const {
+        // Make sure eNodeB is the target.
+        if (from == mENodeBId) {
+            MacNodeId temp = from;
+            from = to;
+            to = temp;
+        }
+
         // Determine direction.
         Direction dir;
         if (from == mENodeBId)
@@ -337,10 +344,16 @@ protected:
         // Test the different interfaces.
         MacNodeId from = ueInfo->at(0)->id,
                   to = ueInfo->at(1)->id;
-        Cqi cqi_computed = getCqi(from, to, NOW, TxMode::SINGLE_ANTENNA_PORT0),
-            cqi_reported = getReportedCqi(from, to, 0, Direction::D2D, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
-        EV << "CQI_computed=" << cqi_computed << " CQI_reported=" << cqi_reported << std::endl;
-        if (cqi_computed != cqi_reported)
+        Cqi cqi_computed_d2d = getCqi(from, to, NOW, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_reported_d2d = getReportedCqi(from, to, 0, Direction::D2D, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_computed_cellular = getCqi(from, mENodeBId, NOW, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_reported_cellular = getReportedCqi(from, mENodeBId, 0, Direction::UL, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_computed_cellular2 = getCqi(mENodeBId, to, NOW, TxMode::SINGLE_ANTENNA_PORT0),
+            cqi_reported_cellular2 = getReportedCqi(mENodeBId, to, 0, Direction::DL, Remote::MACRO, TxMode::SINGLE_ANTENNA_PORT0);
+        EV << "CQI_computed_d2d=" << cqi_computed_d2d << " CQI_reported_d2d=" << cqi_reported_d2d << std::endl;
+        EV << "CQI_computed_cellular=" << cqi_computed_cellular << " CQI_reported_cellular=" << cqi_reported_cellular << std::endl;
+        EV << "CQI_computed_cellular2=" << cqi_computed_cellular2 << " CQI_reported_cellular2=" << cqi_reported_cellular2 << std::endl;
+        if (cqi_computed_d2d != cqi_reported_d2d || cqi_computed_cellular != cqi_reported_cellular || cqi_computed_cellular2 != cqi_reported_cellular2)
             throw cRuntimeError(std::string("OmniscientEntity::configure didn't find the same values for reported and calculated CQI!").c_str());
         EV << "SINR_mean=" << getMean(getSINR(from, to, NOW)) << std::endl;
     }
@@ -405,7 +418,7 @@ protected:
         if (currentInfo->id == device)
           return currentInfo;
       }
-      throw cRuntimeError("OmniscientEntity::getDeviceInfo can't find the requested device ID!");
+      throw cRuntimeError(std::string("OmniscientEntity::getDeviceInfo can't find the requested device ID \"" + std::to_string(device) + "\"").c_str());
     }
 
     EnbInfo* getENodeBInfo(MacNodeId id) const {
