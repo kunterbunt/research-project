@@ -54,10 +54,10 @@ public:
 
 /**
  * Implements an omniscient network entity that provides access to the following domains:
- *  Physical device locations
+ *  Current physical device locations
  *  Current device speed
- *  SINR values for UE-UE and UE-BS links in any direction or power level
- *  Channel Quality Indicators both as reported by the nodes and computed for any moment in time
+ *  SINR values for UE-UE and UE-BS links in any direction or power level (periodically saved)
+ *  Channel Quality Indicators both as reported by the nodes and computed (periodically saved)
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
@@ -65,22 +65,14 @@ public:
         : mBinder(getBinder()), // getBinder() provided LteCommon.h
           mSnapshotMsg(new cMessage("OmniscientEnity::snapshot")),
           mConfigMsg(new cMessage("OmniscientEntity::config")),
-          mUpdateInterval(0.01) {
-    }
+          mUpdateInterval(0.01) // Will be properly set to provided .NED value in initialize()
+    {}
 
     virtual ~OmniscientEntity() {
         if (mMemory != nullptr)
             delete mMemory;
         if (mFeedbackComputer != nullptr)
             delete mFeedbackComputer;
-    }
-
-    void setUpdateInterval(const double value) {
-        mUpdateInterval = value;
-    }
-
-    double getUpdateInterval() const {
-        return mUpdateInterval;
     }
 
     /**
@@ -182,7 +174,7 @@ public:
      * @return The saved CQI.
      */
     Cqi getCqi(const MacNodeId from, const MacNodeId to, double simTime) const {
-        double sinr = mMemory->get(simTime, from, to);
+        double sinr = getMean(mMemory->get(simTime, from, to));
         return mFeedbackComputer->getCqi(TxMode::SINGLE_ANTENNA_PORT0, sinr);
     }
 
@@ -257,6 +249,7 @@ public:
         LteAirFrame* frame = new LteAirFrame("feedback_pkt");
         std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
         delete uinfo;
+        delete frame;
         return SINRs;
     }
 
@@ -297,6 +290,7 @@ public:
         LteAirFrame* frame = new LteAirFrame("feedback_pkt");
         std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
         delete uinfo;
+        delete frame;
         return SINRs;
     }
 
@@ -316,8 +310,61 @@ public:
      * @return The saved SINR value.
      */
     double getSINR(const MacNodeId from, const MacNodeId to, double simTime) {
-        return mMemory->get(simTime, from, to);
+        return getMean(mMemory->get(simTime, from, to));
     }
+
+//    std::vector<double> getSINR(const MacNodeId from, const MacNodeId to, double time, const double transmissionPower, const Direction direction) const {
+//        // Compute current value.
+//        if (time >= NOW) {
+//            // UE <-> eNodeB channel.
+//            if (to == mENodeBId) {
+//                UserControlInfo* uinfo = new UserControlInfo();
+//                uinfo->setFrameType(FEEDBACKPKT);
+//                uinfo->setIsCorruptible(false);
+//
+//                uinfo->setSourceId(id);
+//                // I am pretty sure that there's a mistake in the simuLTE source code.
+//                // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
+//                // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
+//                uinfo->setCoord(mENodeBPosition);
+//                uinfo->setDestId(mENodeBId);
+//
+//                uinfo->setDirection(direction);
+//                uinfo->setTxPower(transmissionPower);
+//
+//                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+//                std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
+//                delete uinfo;
+//                delete frame;
+//                return SINRs;
+//            // UE <-> UE channel.
+//            } else {
+//                UserControlInfo* uinfo = new UserControlInfo();
+//                uinfo->setFrameType(FEEDBACKPKT);
+//                uinfo->setIsCorruptible(false);
+//
+//                uinfo->setSourceId(from);
+//                uinfo->setD2dTxPeerId(from);
+//
+//                uinfo->setD2dRxPeerId(to);
+//                uinfo->setDestId(to);
+//
+//                uinfo->setDirection(direction);
+//                uinfo->setTxPower(transmissionPower);
+//                uinfo->setD2dTxPower(transmissionPower);
+//                uinfo->setCoord(getPosition(from));
+//
+//                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+//                std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
+//                delete uinfo;
+//                delete frame;
+//                return SINRs;
+//            }
+//        // Retrieve from memory.
+//        } else {
+//
+//        }
+//    }
 
     double getMean(const std::vector<double> values) const {
         double sum = 0.0;
@@ -417,8 +464,8 @@ protected:
         for (size_t i = 0; i < ueInfo->size(); i++) {
             MacNodeId from = ueInfo->at(i)->id;
             // Find SINR to the eNodeB (cellular uplink).
-            double sinr_eNodeB = getMean(getSINR(from));
-            mMemory->put(simTime().dbl(), from, mENodeBId, sinr_eNodeB);
+            std::vector<double> sinrs_eNodeB = getSINR(from);
+            mMemory->put(simTime().dbl(), from, mENodeBId, sinrs_eNodeB);
             // And for all other UEs...
             for (size_t j = 0; j < ueInfo->size(); j++) {
                 MacNodeId to = ueInfo->at(j)->id;
@@ -426,12 +473,12 @@ protected:
                 if (from == to)
                     continue;
                 // Calculate and save the current SINR for the D2D link.
-                double sinr = getMean(getSINR(from, to));
-                mMemory->put(simTime().dbl(), from, to, sinr);
+                std::vector<double> sinrs = getSINR(from, to);
+                mMemory->put(simTime().dbl(), from, to, sinrs);
             }
         }
 
-        EV << "SINR=" << mMemory->get(simTime().dbl(), ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
+//        EV << "SINR=" << mMemory->get(simTime().dbl(), ueInfo->at(0)->id, ueInfo->at(1)->id) << std::endl;
 
         // Print current memory.
         EV << mMemory->toString() << std::endl;
@@ -505,6 +552,18 @@ protected:
                 lambdaRatioTh, mDeployer->getNumBands()));
     }
 
+    /**
+     * @param vec Vector holding values.
+     * @param name Name for values, e.g. UE_SINR
+     * @return e.g. UE_SINR[0]=12 UE_SINR[1]=42
+     */
+    std::string vectorToString(const std::vector<double>& vec, const std::string& name) const {
+        std::string description = "";
+        for (size_t i = 0; i < vec.size(); i++)
+            description += name + "[" + std::to_string(i) + "]=" + std::to_string(vec.at(i)) + " ";
+        return description;
+    }
+
 private:
     LteBinder   *mBinder = nullptr;
     cMessage    *mSnapshotMsg = nullptr,
@@ -525,15 +584,14 @@ private:
     public:
         Memory(double resolution, double maxSimTime, OmniscientEntity *parent)
                 : mResolution(resolution), mMaxSimTime(maxSimTime), mParent(parent),
-                  mTimepoints((unsigned int) (maxSimTime / resolution)) {
-        }
+                  mTimepoints((unsigned int) (maxSimTime / resolution)) {}
         virtual ~Memory() {}
 
         /**
          * @param Point in time when the SINR was computed.
          * @param sinr SINR value.
          */
-        void put(const double time, const MacNodeId from, const MacNodeId to, const double sinr) {
+        void put(const double time, const MacNodeId from, const MacNodeId to, const std::vector<double> sinrs) {
             double position = (time / mResolution);
             if (position >= mTimepoints.size()) {
                 std::string err = "OmniscientEntity::Memory::put Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
@@ -542,13 +600,13 @@ private:
 //            EV_STATICCONTEXT;
 //            EV << "OmniscientEntity::Memory::put(time=" << time << ", from=" << from << ", to=" << to << ", sinr=" << sinr << ") pos=" << position << std::endl;
             Timepoint *timepoint = &(mTimepoints.at(position));
-            timepoint->put(from, to, sinr);
+            timepoint->put(from, to, sinrs);
         }
 
         /**
          * @return A <to, sinr> map holding the values of all SINRs to all devices.
          */
-        const std::map<MacNodeId, double>* get(const double time, const MacNodeId from) const {
+        const std::map<MacNodeId, std::vector<double>>* get(const double time, const MacNodeId from) const {
             double position = time / mResolution;
             if (position >= mTimepoints.size()) {
                 std::string err = "OmniscientEntity::Memory::get Position " + std::to_string(position) + " > maxPosition " + std::to_string(mTimepoints.size()) + "\n";
@@ -557,7 +615,7 @@ private:
 //            EV_STATICCONTEXT;
 //            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ")" << std::endl;
             const Timepoint* timepoint = &(mTimepoints.at(position));
-            const std::map<MacNodeId, double>* map = nullptr;
+            const std::map<MacNodeId, std::vector<double>>* map = nullptr;
             try {
                 map = timepoint->get(from);
             } catch (const cRuntimeError& err) {
@@ -567,10 +625,10 @@ private:
             return map;
         }
 
-        double get(const double time, const MacNodeId from, const MacNodeId to) const {
+        std::vector<double> get(const double time, const MacNodeId from, const MacNodeId to) const {
 //            EV_STATICCONTEXT;
 //            EV << "OmniscientEntity::Memory::get(" << time << ", " << from << ", " << to << ")" << std::endl;
-            const std::map<MacNodeId, double>* sinrMap = nullptr;
+            const std::map<MacNodeId, std::vector<double>>* sinrMap = nullptr;
             try {
                 sinrMap = Memory::get(time, from);
             } catch (const cRuntimeError& err) {
@@ -591,25 +649,25 @@ private:
                 for (size_t i = 0; i < ueInfo->size(); i++) {
                     MacNodeId from = ueInfo->at(i)->id;
                     // Find statistics to eNodeB.
-                    double sinr_eNodeB = -1;
+                    std::vector<double> sinrs_eNodeB;
                     try {
-                        sinr_eNodeB = get(time.dbl(), from, mParent->mENodeBId);
+                        sinrs_eNodeB = get(time.dbl(), from, mParent->mENodeBId);
                     } catch (const cRuntimeError& err) {
                         throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
                     }
-                    description += "UE[" + std::to_string(from) + "]\n\t\t-> eNodeB SINR=" + std::to_string(sinr_eNodeB) + " CQI=" + std::to_string(mParent->getCqiFromSinr(sinr_eNodeB)) +"\n";
+                    description += "UE[" + std::to_string(from) + "]\n\t\t-> eNodeB CQI=" + std::to_string(mParent->getCqiFromSinr(mParent->getMean(sinrs_eNodeB))) + " " + mParent->vectorToString(sinrs_eNodeB, "SINR") + "\n";
                     // And do the same for all UE end points...
                     for (size_t j = 0; j < ueInfo->size(); j++) {
                         MacNodeId to = ueInfo->at(j)->id;
                         if (from == to)
                             continue;
-                        double sinr = -1;
+                        std::vector<double> sinrs;
                         try {
-                            sinr = get(time.dbl(), from, to);
+                            sinrs = get(time.dbl(), from, to);
                         } catch (const cRuntimeError& err) {
                             throw cRuntimeError(std::string("OmniscientEntity::Memory::toString() encountered an exception when it tried to fetch a saved entry: " + std::string(err.what())).c_str());
                         }
-                        description += "\t\t-> UE[" + std::to_string(to) + "] SINR=" + std::to_string(sinr) + " CQI=" + std::to_string(mParent->getCqiFromSinr(sinr)) +"\n";
+                        description += "\t\t-> UE[" + std::to_string(to) + "] CQI=" + std::to_string(mParent->getCqiFromSinr(mParent->getMean(sinrs))) + " " + mParent->vectorToString(sinrs, "SINR") + "\n";
                     }
                 }
             }
@@ -630,30 +688,30 @@ private:
             Timepoint() {}
             virtual ~Timepoint() {}
 
-            void put(const MacNodeId from, const MacNodeId to, const double sinr) {
-                std::map<MacNodeId, double>& map = mSinrMap[from];
-                map[to] = sinr;
+            void put(const MacNodeId from, const MacNodeId to, const std::vector<double> sinrs) {
+                std::map<MacNodeId, std::vector<double>>& map = mSinrMap[from];
+                map[to] = sinrs;
             }
             /**
-             * @return A <to, sinr> map.
+             * @return A <to, sinrs> map.
              */
-            const std::map<MacNodeId, double>* get(const MacNodeId from) const {
+            const std::map<MacNodeId, std::vector<double>>* get(const MacNodeId from) const {
                 if (mSinrMap.size() == 0) {
                     throw cRuntimeError(std::string("Memory::Timepoint::get(" + std::to_string(from) + ") called but there's no entries for this timepoint.").c_str());
                 }
-                const std::map<MacNodeId, double>* map = &(mSinrMap.at(from));
+                const std::map<MacNodeId, std::vector<double>>* map = &(mSinrMap.at(from));
                 return map;
             }
 
-            const std::map<MacNodeId, std::map<MacNodeId, double>>* get() const {
+            const std::map<MacNodeId, std::map<MacNodeId, std::vector<double>>>* get() const {
                 return &(mSinrMap);
             }
 
         protected:
             /**
-             * A map that looks like this: <from, <to, sinr>>.
+             * A map that looks like this: <from, <to, sinrs>>.
              */
-            std::map<MacNodeId, std::map<MacNodeId, double>> mSinrMap;
+            std::map<MacNodeId, std::map<MacNodeId, std::vector<double>>> mSinrMap;
         };
 
         std::vector<Timepoint> mTimepoints;
