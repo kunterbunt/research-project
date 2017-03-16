@@ -12,7 +12,7 @@ import lte.corenetwork.nodes.Ue;
 import lte.corenetwork.nodes.eNodeB;
 import lte.world.radio.LteChannelControl;
 import lte.epc.PgwStandardSimplified;
-import research_project.src.omniscient_entity.OmniscientEntity;
+import lte.corenetwork.omniscientEntity.OmniscientEntity;
 
 
 network LTECell
