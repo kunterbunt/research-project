@@ -56,8 +56,8 @@ public:
  * Implements an omniscient network entity that provides access to the following domains:
  *  Current physical device locations
  *  Current device speed
- *  SINR values for UE-UE and UE-BS links in any direction or power level (periodically saved)
- *  Channel Quality Indicators both as reported by the nodes and computed (periodically saved)
+ *  SINR values for UE-UE and UE-BS links in any direction or power level (periodically saved and current)
+ *  Channel Quality Indicators both as reported by the nodes and computed (periodically saved and current)
  */
 class OmniscientEntity : public omnetpp::cSimpleModule {
 public:
@@ -73,6 +73,10 @@ public:
             delete mMemory;
         if (mFeedbackComputer != nullptr)
             delete mFeedbackComputer;
+        if (!mConfigMsg->isScheduled())
+            delete mConfigMsg;
+        if (!mSnapshotMsg->isScheduled())
+            delete mSnapshotMsg;
     }
 
     /**
@@ -143,50 +147,37 @@ public:
         }
         // Compute current value.
         if (time >= NOW) {
-            // UE <-> eNodeB channel.
-            if (to == mENodeBId) {
-                UserControlInfo* uinfo = new UserControlInfo();
-                uinfo->setFrameType(FEEDBACKPKT);
-                uinfo->setIsCorruptible(false);
+            LteAirFrame* frame = new LteAirFrame("feedback_pkt");
+            UserControlInfo* uinfo = new UserControlInfo();
+            uinfo->setFrameType(FEEDBACKPKT);
+            uinfo->setIsCorruptible(false);
+            uinfo->setSourceId(from);
+            uinfo->setDirection(direction);
+            uinfo->setTxPower(transmissionPower);
+            std::vector<double> SINRs;
 
-                uinfo->setSourceId(from);
+            // UE <-> eNodeB cellular channel.
+            if (to == mENodeBId) {
                 // I am pretty sure that there's a mistake in the simuLTE source code.
                 // It incorrectly sets the eNodeB's position for its calculations. I am here setting the UE's position as the eNodeB's,
                 // so that the distance is correct which is all that matters. (or maybe this is how you're supposed to do it...)
                 uinfo->setCoord(mENodeBPosition);
                 uinfo->setDestId(mENodeBId);
 
-                uinfo->setDirection(direction);
-                uinfo->setTxPower(transmissionPower);
-
-                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-                std::vector<double> SINRs = mChannelModel->getSINR(frame, uinfo);
-                delete uinfo;
-                delete frame;
-                return SINRs;
-            // UE <-> UE channel.
+                SINRs = mChannelModel->getSINR(frame, uinfo);
+            // UE <-> UE D2D channel.
             } else {
-                UserControlInfo* uinfo = new UserControlInfo();
-                uinfo->setFrameType(FEEDBACKPKT);
-                uinfo->setIsCorruptible(false);
-
-                uinfo->setSourceId(from);
-                uinfo->setD2dTxPeerId(from);
-
-                uinfo->setD2dRxPeerId(to);
-                uinfo->setDestId(to);
-
-                uinfo->setDirection(direction);
-                uinfo->setTxPower(transmissionPower);
-                uinfo->setD2dTxPower(transmissionPower);
                 uinfo->setCoord(getPosition(from));
+                uinfo->setD2dTxPeerId(from);
+                uinfo->setD2dRxPeerId(to);
+                uinfo->setD2dTxPower(transmissionPower);
 
-                LteAirFrame* frame = new LteAirFrame("feedback_pkt");
-                std::vector<double> SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
-                delete uinfo;
-                delete frame;
-                return SINRs;
+                SINRs = mChannelModel->getSINR_D2D(frame, uinfo, to, getPosition(to), mENodeBId);
             }
+
+            delete uinfo;
+            delete frame;
+            return SINRs;
         // Retrieve from memory.
         } else {
             return mMemory->get(time, from, to);
