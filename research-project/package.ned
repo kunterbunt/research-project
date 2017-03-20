@@ -37,26 +37,26 @@ network LTECell
             @display("p=50,175;is=s");
         }
         server: StandardHost {
-            @display("p=212,118;is=n;i=device/server");
+            @display("p=614.4125,59.7;is=n;i=device/server");
         }
         router: Router {
-            @display("p=321,136;i=device/smallrouter");
+            @display("p=416.65625,135.56876;i=device/smallrouter");
         }
         pgw: PgwStandardSimplified {
             nodeType = "PGW";
-            @display("p=519,175;is=l");
+            @display("p=614.4125,174.125;is=l");
         }
         eNodeB: eNodeB {
-            @display("p=391,259;is=vl");
+            @display("p=486.30624,258.7;is=vl");
         }
         ueCell[numUeCell]: Ue {
-            @display("p=292,367");
+            @display("p=335.8125,344.51874");
         }
         ueD2DTx[numUeD2DTx]: Ue {
-            @display("p=477,367");
+            @display("p=608.1937,434.06876");
         }
         ueD2DRx[numUeD2DRx]: Ue {
-            @display("p=544,299");
+            @display("p=723.8625,258.7");
         }
         omniscientEntity: OmniscientEntity {
             @display("p=844.5062,84.575");
