@@ -9352,3 +9352,11 @@ Tcl error: loginspector.cc#140: bad text index "I"
 Tcl error: loginspector.cc#140: bad text index "I"
 
 
+---- 20170320-17:39:08 ---------------------------------------------------------
+
+
+Tcl error: moduleinspector.cc#232: tagOrId "f2" doesn't match any items
+    while executing
+".network.c raise submodext f2"
+
+
