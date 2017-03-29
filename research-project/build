@@ -1,0 +1,3 @@
+#!/bin/bash
+opp_makemake -f
+make

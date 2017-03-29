@@ -1,0 +1,2 @@
+#!/bin/bash
+./research-project -r 0 -u Cmdenv -c PositionCircle-D2D-MaxDatarate -n .:../../inet/examples:../../inet/src:../../inet/tutorials:../../simulte/simulations:../../simulte/src --image-path=../../simulte/images -l ../../inet/src/INET -l ../../simulte/src/lte --debug-on-errors=false omnetpp.ini
