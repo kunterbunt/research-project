@@ -1,0 +1,15 @@
+#!/bin/bash
+declare -a configs=("PositionOptimal-Cellular"
+                    "PositionOptimal-D2D-RoundRobin"
+                    "PositionOptimal-D2D-ProportionalFair"
+                    "PositionOptimal-D2D-MaxDatarate"
+                    "PositionCircle-Cellular"
+                    "PositionCircle-D2D-RoundRobin]"
+                    "PositionCircle-D2D-ProportionalFair"
+                    "PositionCircle-D2D-MaxDatarate"
+                    )
+
+for i in "${configs[@]}"
+do
+   ./research-project -r 0 -u Cmdenv -c $i -n .:../../inet/examples:../../inet/src:../../inet/tutorials:../../simulte/simulations:../../simulte/src --image-path=../../simulte/images -l ../../inet/src/INET -l ../../simulte/src/simulte --debug-on-errors=false omnetpp.ini
+done
