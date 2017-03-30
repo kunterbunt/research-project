@@ -26,6 +26,7 @@ INCLUDE_PATH = \
     -Iresults/MaxDatarate \
     -Iresults/PositionCircle-Cellular \
     -Iresults/PositionCircle-D2D-MaxDatarate \
+    -Iresults/PositionCircle-D2D-ProportionalFair \
     -Iresults/PositionOptimal-Cellular \
     -Iresults/PositionOptimal-D2D-MaxDatarate \
     -Iresults/PositionOptimal-D2D-ProportionalFair \
@@ -146,6 +147,7 @@ clean:
 	$(Q)-rm -f results/MaxDatarate/*_m.cc results/MaxDatarate/*_m.h results/MaxDatarate/*_sm.cc results/MaxDatarate/*_sm.h
 	$(Q)-rm -f results/PositionCircle-Cellular/*_m.cc results/PositionCircle-Cellular/*_m.h results/PositionCircle-Cellular/*_sm.cc results/PositionCircle-Cellular/*_sm.h
 	$(Q)-rm -f results/PositionCircle-D2D-MaxDatarate/*_m.cc results/PositionCircle-D2D-MaxDatarate/*_m.h results/PositionCircle-D2D-MaxDatarate/*_sm.cc results/PositionCircle-D2D-MaxDatarate/*_sm.h
+	$(Q)-rm -f results/PositionCircle-D2D-ProportionalFair/*_m.cc results/PositionCircle-D2D-ProportionalFair/*_m.h results/PositionCircle-D2D-ProportionalFair/*_sm.cc results/PositionCircle-D2D-ProportionalFair/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-Cellular/*_m.cc results/PositionOptimal-Cellular/*_m.h results/PositionOptimal-Cellular/*_sm.cc results/PositionOptimal-Cellular/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-D2D-MaxDatarate/*_m.cc results/PositionOptimal-D2D-MaxDatarate/*_m.h results/PositionOptimal-D2D-MaxDatarate/*_sm.cc results/PositionOptimal-D2D-MaxDatarate/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-D2D-ProportionalFair/*_m.cc results/PositionOptimal-D2D-ProportionalFair/*_m.h results/PositionOptimal-D2D-ProportionalFair/*_sm.cc results/PositionOptimal-D2D-ProportionalFair/*_sm.h
@@ -158,7 +160,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc results/MaxDatarate/*.cc results/PositionCircle-Cellular/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/PositionOptimal-Cellular/*.cc results/PositionOptimal-D2D-MaxDatarate/*.cc results/PositionOptimal-D2D-ProportionalFair/*.cc results/PositionOptimal-D2D-RoundRobin/*.cc results/ProportionalFair/*.cc results/RoundRobin/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc results/MaxDatarate/*.cc results/PositionCircle-Cellular/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/PositionCircle-D2D-ProportionalFair/*.cc results/PositionOptimal-Cellular/*.cc results/PositionOptimal-D2D-MaxDatarate/*.cc results/PositionOptimal-D2D-ProportionalFair/*.cc results/PositionOptimal-D2D-RoundRobin/*.cc results/ProportionalFair/*.cc results/RoundRobin/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 
