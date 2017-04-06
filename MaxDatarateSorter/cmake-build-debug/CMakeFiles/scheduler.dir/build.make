@@ -43,10 +43,10 @@ RM = /opt/clion/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kunterbunt/dev/MaxDatarateSorter
+CMAKE_SOURCE_DIR = /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug
+CMAKE_BINARY_DIR = /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug
 
 # Utility rule file for scheduler.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug
 include CMakeFiles/scheduler.dir/progress.make
 
 CMakeFiles/scheduler:
-	$(MAKE) -C /home/kunterbunt/dev/MaxDatarateSorter CLION_EXE_DIR=/home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug
+	$(MAKE) -C /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter CLION_EXE_DIR=/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug
 
 scheduler: CMakeFiles/scheduler
 scheduler: CMakeFiles/scheduler.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/scheduler.dir/clean:
 .PHONY : CMakeFiles/scheduler.dir/clean
 
 CMakeFiles/scheduler.dir/depend:
-	cd /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kunterbunt/dev/MaxDatarateSorter /home/kunterbunt/dev/MaxDatarateSorter /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug /home/kunterbunt/dev/MaxDatarateSorter/cmake-build-debug/CMakeFiles/scheduler.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug /home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/cmake-build-debug/CMakeFiles/scheduler.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/scheduler.dir/depend
 

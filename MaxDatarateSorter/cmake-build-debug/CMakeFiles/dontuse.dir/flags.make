@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/kunterbunt/dev/MaxDatarateSorter/. 
+CXX_INCLUDES = -I/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/. 
 

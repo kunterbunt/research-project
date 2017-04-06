@@ -1,0 +1,4 @@
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/SchedulingMemory/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/SchedulingMemory/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/SchedulingMemory/cmake-build-debug/CMakeFiles/dontuse.dir
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/SchedulingMemory/cmake-build-debug/CMakeFiles/SchedulingMemory.dir

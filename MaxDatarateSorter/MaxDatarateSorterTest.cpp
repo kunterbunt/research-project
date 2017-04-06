@@ -8,7 +8,7 @@ using namespace std;
 class MaxDatarateSorterTest : public CppUnit::TestFixture {
   private:
     MaxDatarateSorter *mSorter;
-    int numBands = 2;
+    int numBands = 5;
   
   public:
     void setUp() override {
@@ -47,26 +47,37 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
       mSorter->remove(1025);
       // Make sure there's no node 1025 left.
       for (size_t i = 0; i < mSorter->size(); i++) {
-        const std::vector<IdRatePair>& currentBandVec = mSorter->get(i);
+        const std::vector<IdRatePair>& currentBandVec = mSorter->at(i);
         for (size_t j = 0; j < currentBandVec.size(); j++)
           CPPUNIT_ASSERT(currentBandVec.at(j).from != MacNodeId(1025));
       }
       mSorter->remove(1026);
       // Make sure there's no node 1025 left.
       for (size_t i = 0; i < mSorter->size(); i++) {
-        const std::vector<IdRatePair>& currentBandVec = mSorter->get(i);
+        const std::vector<IdRatePair>& currentBandVec = mSorter->at(i);
         for (size_t j = 0; j < currentBandVec.size(); j++)
           CPPUNIT_ASSERT(currentBandVec.at(j).from != MacNodeId(1026));
       }
       mSorter->remove(1027);
       for (size_t i = 0; i < mSorter->size(); i++) {
-        const std::vector<IdRatePair>& currentBandVec = mSorter->get(i);
+        const std::vector<IdRatePair>& currentBandVec = mSorter->at(i);
         CPPUNIT_ASSERT_EQUAL(size_t(0), currentBandVec.size());
       }
+    }
+    
+    void testFindBestBand() {
+      cout << "[MaxDatarateSorterTest/testFindBestBand]" << endl;
+      mSorter->put(0, IdRatePair(1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(1, IdRatePair(1025, 1, 26, 1001, Direction::UL));
+      mSorter->put(2, IdRatePair(1025, 1, 26, 1002, Direction::UL));
+      mSorter->put(3, IdRatePair(1025, 1, 26, 1003, Direction::UL)); // <-- Largest rate!
+      mSorter->put(4, IdRatePair(1025, 1, 26, 999, Direction::UL));
+      CPPUNIT_ASSERT_EQUAL(Band(3), mSorter->getBestBand(MacNodeId(1025)));
     }
     
     CPPUNIT_TEST_SUITE(MaxDatarateSorterTest);
     CPPUNIT_TEST(testPut);
     CPPUNIT_TEST(testRemove);
+    CPPUNIT_TEST(testFindBestBand);
     CPPUNIT_TEST_SUITE_END();
 };

@@ -21,18 +21,14 @@ INCLUDE_PATH = \
     -Ievaluation/mode-selection \
     -Ievaluation/mode-selection/test \
     -Iresults \
-    -Iresults/Cellular \
-    -Iresults/D2D \
-    -Iresults/MaxDatarate \
     -Iresults/PositionCircle-Cellular \
     -Iresults/PositionCircle-D2D-MaxDatarate \
     -Iresults/PositionCircle-D2D-ProportionalFair \
+    -Iresults/PositionCircle-D2D-RoundRobin \
     -Iresults/PositionOptimal-Cellular \
     -Iresults/PositionOptimal-D2D-MaxDatarate \
     -Iresults/PositionOptimal-D2D-ProportionalFair \
-    -Iresults/PositionOptimal-D2D-RoundRobin \
-    -Iresults/ProportionalFair \
-    -Iresults/RoundRobin
+    -Iresults/PositionOptimal-D2D-RoundRobin
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -142,25 +138,21 @@ clean:
 	$(Q)-rm -f evaluation/mode-selection/*_m.cc evaluation/mode-selection/*_m.h evaluation/mode-selection/*_sm.cc evaluation/mode-selection/*_sm.h
 	$(Q)-rm -f evaluation/mode-selection/test/*_m.cc evaluation/mode-selection/test/*_m.h evaluation/mode-selection/test/*_sm.cc evaluation/mode-selection/test/*_sm.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h results/*_sm.cc results/*_sm.h
-	$(Q)-rm -f results/Cellular/*_m.cc results/Cellular/*_m.h results/Cellular/*_sm.cc results/Cellular/*_sm.h
-	$(Q)-rm -f results/D2D/*_m.cc results/D2D/*_m.h results/D2D/*_sm.cc results/D2D/*_sm.h
-	$(Q)-rm -f results/MaxDatarate/*_m.cc results/MaxDatarate/*_m.h results/MaxDatarate/*_sm.cc results/MaxDatarate/*_sm.h
 	$(Q)-rm -f results/PositionCircle-Cellular/*_m.cc results/PositionCircle-Cellular/*_m.h results/PositionCircle-Cellular/*_sm.cc results/PositionCircle-Cellular/*_sm.h
 	$(Q)-rm -f results/PositionCircle-D2D-MaxDatarate/*_m.cc results/PositionCircle-D2D-MaxDatarate/*_m.h results/PositionCircle-D2D-MaxDatarate/*_sm.cc results/PositionCircle-D2D-MaxDatarate/*_sm.h
 	$(Q)-rm -f results/PositionCircle-D2D-ProportionalFair/*_m.cc results/PositionCircle-D2D-ProportionalFair/*_m.h results/PositionCircle-D2D-ProportionalFair/*_sm.cc results/PositionCircle-D2D-ProportionalFair/*_sm.h
+	$(Q)-rm -f results/PositionCircle-D2D-RoundRobin/*_m.cc results/PositionCircle-D2D-RoundRobin/*_m.h results/PositionCircle-D2D-RoundRobin/*_sm.cc results/PositionCircle-D2D-RoundRobin/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-Cellular/*_m.cc results/PositionOptimal-Cellular/*_m.h results/PositionOptimal-Cellular/*_sm.cc results/PositionOptimal-Cellular/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-D2D-MaxDatarate/*_m.cc results/PositionOptimal-D2D-MaxDatarate/*_m.h results/PositionOptimal-D2D-MaxDatarate/*_sm.cc results/PositionOptimal-D2D-MaxDatarate/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-D2D-ProportionalFair/*_m.cc results/PositionOptimal-D2D-ProportionalFair/*_m.h results/PositionOptimal-D2D-ProportionalFair/*_sm.cc results/PositionOptimal-D2D-ProportionalFair/*_sm.h
 	$(Q)-rm -f results/PositionOptimal-D2D-RoundRobin/*_m.cc results/PositionOptimal-D2D-RoundRobin/*_m.h results/PositionOptimal-D2D-RoundRobin/*_sm.cc results/PositionOptimal-D2D-RoundRobin/*_sm.h
-	$(Q)-rm -f results/ProportionalFair/*_m.cc results/ProportionalFair/*_m.h results/ProportionalFair/*_sm.cc results/ProportionalFair/*_sm.h
-	$(Q)-rm -f results/RoundRobin/*_m.cc results/RoundRobin/*_m.h results/RoundRobin/*_sm.cc results/RoundRobin/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Cellular/*.cc results/D2D/*.cc results/MaxDatarate/*.cc results/PositionCircle-Cellular/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/PositionCircle-D2D-ProportionalFair/*.cc results/PositionOptimal-Cellular/*.cc results/PositionOptimal-D2D-MaxDatarate/*.cc results/PositionOptimal-D2D-ProportionalFair/*.cc results/PositionOptimal-D2D-RoundRobin/*.cc results/ProportionalFair/*.cc results/RoundRobin/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/PositionCircle-Cellular/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/PositionCircle-D2D-ProportionalFair/*.cc results/PositionCircle-D2D-RoundRobin/*.cc results/PositionOptimal-Cellular/*.cc results/PositionOptimal-D2D-MaxDatarate/*.cc results/PositionOptimal-D2D-ProportionalFair/*.cc results/PositionOptimal-D2D-RoundRobin/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

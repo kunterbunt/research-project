@@ -42,12 +42,12 @@ void MaxDatarateSorter::put(const Band &band, const IdRatePair& idRatePair) {
   list.push_back(idRatePair);
 }
 
-const std::vector<IdRatePair> &MaxDatarateSorter::get(const Band &band) const {
+const std::vector<IdRatePair>& MaxDatarateSorter::at(const Band &band) const {
   return mBandToIdRate.at(band);
 }
 
 const IdRatePair& MaxDatarateSorter::get(const Band& band, const size_t& position) const {
-  return get(band).at(position);
+  return at(band).at(position);
 }
 
 string MaxDatarateSorter::toString() const {
@@ -70,4 +70,27 @@ void MaxDatarateSorter::remove(const MacNodeId id) {
         currentBandVec.erase(currentBandVec.begin() + j);
     }
   }
+}
+
+const Band MaxDatarateSorter::getBestBand(const MacNodeId& id) const {
+  Band bestBand(0);
+  double bestRate = -1;
+  // Go through all bands.
+  for (Band band(0); band < mNumBands; band++) {
+    // Grab all <id, rate> pairs.
+    const vector<IdRatePair>& ratesVec = at(band);
+    // Find the right pair.
+    for (size_t i = 0; i < ratesVec.size(); i++) {
+      if (ratesVec.at(i).from == id) {
+        // Is this the best rate yet?
+        if (ratesVec.at(i).rate > bestRate) {
+          bestBand = band;
+          bestRate = ratesVec.at(i).rate;
+        }
+        // Stop looking for this band.
+        break;
+      }
+    }
+  }
+  return bestBand;
 }
