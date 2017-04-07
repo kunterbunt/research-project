@@ -6,14 +6,17 @@
 
 typedef unsigned short MacNodeId;
 typedef unsigned short Band;
+typedef unsigned int MacCid;
 enum Direction {
   DL, UL, D2D, D2D_MULTI, UNKNOWN_DIRECTION
 };
 
 class IdRatePair {
   public:
-    IdRatePair(const MacNodeId& from, const MacNodeId& to, double txPower, const double rate, const Direction& dir)
-        : from(from), to(to), rate(rate), txPower(txPower), dir(dir) {}
+    IdRatePair(const MacCid& connectionId, const MacNodeId& from, const MacNodeId& to, double txPower, const double rate, const Direction& dir)
+        : connectionId(connectionId), from(from), to(to), rate(rate), txPower(txPower), dir(dir) {}
+    
+    MacCid connectionId;
     MacNodeId from, to;
     double rate, txPower;
     Direction dir;
@@ -50,6 +53,12 @@ class MaxDatarateSorter {
      * @return The xth best node according to throughput.
      */
     const IdRatePair& get(const Band& band, const size_t& position) const;
+    
+    /**
+     *
+     * @param band
+     * @return
+     */
     const std::vector<IdRatePair>& at(const Band &band) const;
     
     /**
