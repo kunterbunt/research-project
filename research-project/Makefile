@@ -23,7 +23,9 @@ INCLUDE_PATH = \
     -Iresults \
     -Iresults/PositionCircle-D2D-MaxDatarate \
     -Iresults/UnitTest-CellularFirst \
-    -Iresults/UnitTest-Reassignment
+    -Iresults/UnitTest-Reassignment \
+    -Iresults/UnitTest-Sorting \
+    -Iresults/UnitTest-SortingD2D
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -136,13 +138,15 @@ clean:
 	$(Q)-rm -f results/PositionCircle-D2D-MaxDatarate/*_m.cc results/PositionCircle-D2D-MaxDatarate/*_m.h results/PositionCircle-D2D-MaxDatarate/*_sm.cc results/PositionCircle-D2D-MaxDatarate/*_sm.h
 	$(Q)-rm -f results/UnitTest-CellularFirst/*_m.cc results/UnitTest-CellularFirst/*_m.h results/UnitTest-CellularFirst/*_sm.cc results/UnitTest-CellularFirst/*_sm.h
 	$(Q)-rm -f results/UnitTest-Reassignment/*_m.cc results/UnitTest-Reassignment/*_m.h results/UnitTest-Reassignment/*_sm.cc results/UnitTest-Reassignment/*_sm.h
+	$(Q)-rm -f results/UnitTest-Sorting/*_m.cc results/UnitTest-Sorting/*_m.h results/UnitTest-Sorting/*_sm.cc results/UnitTest-Sorting/*_sm.h
+	$(Q)-rm -f results/UnitTest-SortingD2D/*_m.cc results/UnitTest-SortingD2D/*_m.h results/UnitTest-SortingD2D/*_sm.cc results/UnitTest-SortingD2D/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/UnitTest-CellularFirst/*.cc results/UnitTest-Reassignment/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/UnitTest-CellularFirst/*.cc results/UnitTest-Reassignment/*.cc results/UnitTest-Sorting/*.cc results/UnitTest-SortingD2D/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

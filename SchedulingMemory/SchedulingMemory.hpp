@@ -25,8 +25,9 @@ class SchedulingMemory {
      * Notify a 'band' being assigned to 'id'.
      * @param id
      * @param band
+     * @param isReassigned
      */
-    void put(const MacNodeId id, const Band band);
+    void put(const MacNodeId id, const Band band, const bool isReassigned);
     
     /**
      * Notify that 'id' transmits in 'dir' direction.
@@ -42,6 +43,7 @@ class SchedulingMemory {
     std::size_t getNumberAssignedBands(const MacNodeId& id) const;
     
     const std::vector<Band>& getBands(const MacNodeId& id) const;
+    const std::vector<bool>& getReassignments(const MacNodeId& id) const;
     
     const Direction& getDirection(const MacNodeId& id) const;
     
@@ -54,14 +56,18 @@ class SchedulingMemory {
       public:
         MemoryItem(MacNodeId id) : _id(id), _dir(UNKNOWN_DIRECTION) {}
         
-        void putBand(Band band) {
+        void putBand(Band band, bool reassigned) {
           _assignedBands.push_back(band);
+          _reassigned.push_back(reassigned);
         }
         std::size_t getNumberOfAssignedBands() const {
           return _assignedBands.size();
         }
         const std::vector<Band>& getBands() const {
           return _assignedBands;
+        }
+        const std::vector<bool>& getReassignments() const {
+          return _reassigned;
         }
         
         void setDir(Direction dir) {
@@ -78,6 +84,7 @@ class SchedulingMemory {
       private:
         MacNodeId _id;
         std::vector<Band> _assignedBands;
+        std::vector<bool> _reassigned;
         Direction _dir;
     };
     
