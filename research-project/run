@@ -4,7 +4,7 @@ declare -a configs=("PositionOptimal-Cellular"
                     "PositionOptimal-D2D-ProportionalFair"
                     "PositionOptimal-D2D-MaxDatarate"
                     "PositionCircle-Cellular"
-                    "PositionCircle-D2D-RoundRobin]"
+                    "PositionCircle-D2D-RoundRobin"
                     "PositionCircle-D2D-ProportionalFair"
                     "PositionCircle-D2D-MaxDatarate"
                     )

@@ -9,6 +9,23 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
   private:
     MaxDatarateSorter *mSorter;
     int numBands = 5;
+    
+    const std::string dirToA(Direction dir)
+    {
+      switch (dir)
+      {
+        case DL:
+          return "DL";
+        case UL:
+          return "UL";
+        case D2D:
+          return "D2D";
+        case D2D_MULTI:
+          return "D2D_MULTI";
+        default:
+          return "Unrecognized";
+      }
+    }
   
   public:
     void setUp() override {
@@ -21,12 +38,13 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
     
     void testPut() {
       cout << "[MaxDatarateSorterTest/testPut]" << endl;
-      mSorter->put(0, IdRatePair(1025, 1, 26, 1000, Direction::UL));
-      mSorter->put(0, IdRatePair(1026, 1026, 24, 600, Direction::D2D));
-      mSorter->put(0, IdRatePair(1027, 1025, 24, 700, Direction::D2D));
-      mSorter->put(1, IdRatePair(1025, 1026, 24, 700, Direction::D2D));
-      mSorter->put(1, IdRatePair(1026, 1025, 24, 800, Direction::D2D));
-      mSorter->put(1, IdRatePair(1027, 1, 26, 1000, Direction::UL));
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(0, IdRatePair(dummyCid, 1026, 1026, 24, 600, Direction::D2D));
+      mSorter->put(0, IdRatePair(dummyCid, 1027, 1025, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1026, 1025, 24, 800, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1027, 1, 26, 1000, Direction::UL));
       CPPUNIT_ASSERT_EQUAL(MacNodeId(1025), mSorter->get(0, 0).from);
       CPPUNIT_ASSERT_EQUAL(MacNodeId(1027), mSorter->get(0, 1).from);
       CPPUNIT_ASSERT_EQUAL(MacNodeId(1026), mSorter->get(0, 2).from);
@@ -38,12 +56,13 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
     void testRemove() {
       cout << "[MaxDatarateSorterTest/testRemove]" << endl;
       // Add some nodes.
-      mSorter->put(0, IdRatePair(1025, 1, 26, 1000, Direction::UL));
-      mSorter->put(0, IdRatePair(1026, 1026, 24, 600, Direction::D2D));
-      mSorter->put(0, IdRatePair(1027, 1025, 24, 700, Direction::D2D));
-      mSorter->put(1, IdRatePair(1025, 1026, 24, 700, Direction::D2D));
-      mSorter->put(1, IdRatePair(1026, 1025, 24, 800, Direction::D2D));
-      mSorter->put(1, IdRatePair(1027, 1, 26, 1000, Direction::UL));
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(0, IdRatePair(dummyCid, 1026, 1026, 24, 600, Direction::D2D));
+      mSorter->put(0, IdRatePair(dummyCid, 1027, 1025, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1026, 1025, 24, 800, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1027, 1, 26, 1000, Direction::UL));
       mSorter->remove(1025);
       // Make sure there's no node 1025 left.
       for (size_t i = 0; i < mSorter->size(); i++) {
@@ -67,17 +86,70 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
     
     void testFindBestBand() {
       cout << "[MaxDatarateSorterTest/testFindBestBand]" << endl;
-      mSorter->put(0, IdRatePair(1025, 1, 26, 1000, Direction::UL));
-      mSorter->put(1, IdRatePair(1025, 1, 26, 1001, Direction::UL));
-      mSorter->put(2, IdRatePair(1025, 1, 26, 1002, Direction::UL));
-      mSorter->put(3, IdRatePair(1025, 1, 26, 1003, Direction::UL)); // <-- Largest rate!
-      mSorter->put(4, IdRatePair(1025, 1, 26, 999, Direction::UL));
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1, 26, 1001, Direction::UL));
+      mSorter->put(2, IdRatePair(dummyCid, 1025, 1, 26, 1002, Direction::UL));
+      mSorter->put(3, IdRatePair(dummyCid, 1025, 1, 26, 1003, Direction::UL)); // <-- Largest rate!
+      mSorter->put(4, IdRatePair(dummyCid, 1025, 1, 26, 999, Direction::UL));
       CPPUNIT_ASSERT_EQUAL(Band(3), mSorter->getBestBand(MacNodeId(1025)));
     }
     
+    void testGetForDirection() {
+      cout << "[MaxDatarateSorterTest/testGetForDirection]" << endl;
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(0, IdRatePair(dummyCid, 1026, 1026, 24, 600, Direction::D2D));
+      mSorter->put(0, IdRatePair(dummyCid, 1027, 1025, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1026, 1025, 24, 800, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1027, 1, 26, 1000, Direction::UL));
+      Direction dir = Direction::UL;
+      std::vector<IdRatePair> pairs = mSorter->at(0, dir);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT_EQUAL(dir, pairs.at(i).dir);
+      
+      dir = Direction::D2D;
+      pairs = mSorter->at(0, dir);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT_EQUAL(dir, pairs.at(i).dir);
+  
+      dir = Direction::UL;
+      pairs = mSorter->at(1, dir);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT_EQUAL(dir, pairs.at(i).dir);
+  
+      dir = Direction::D2D;
+      pairs = mSorter->at(1, dir);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT_EQUAL(dir, pairs.at(i).dir);
+    }
+    
+    void testGetForNonD2D() {
+      cout << "[MaxDatarateSorterTest/testGetForNonD2D]" << endl;
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
+      mSorter->put(0, IdRatePair(dummyCid, 1026, 1026, 24, 600, Direction::D2D));
+      mSorter->put(0, IdRatePair(dummyCid, 1027, 1025, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1026, 1025, 24, 800, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1027, 1, 26, 1000, Direction::UL));
+      Direction dir = Direction::D2D;
+      
+      std::vector<IdRatePair> pairs = mSorter->at_nonD2D(0);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT(dir != pairs.at(i).dir);
+      
+      pairs = mSorter->at_nonD2D(1);
+      for (size_t i = 0; i < pairs.size(); i++)
+        CPPUNIT_ASSERT(dir != pairs.at(i).dir);
+    }
+    
     CPPUNIT_TEST_SUITE(MaxDatarateSorterTest);
-    CPPUNIT_TEST(testPut);
-    CPPUNIT_TEST(testRemove);
-    CPPUNIT_TEST(testFindBestBand);
+      CPPUNIT_TEST(testPut);
+      CPPUNIT_TEST(testRemove);
+      CPPUNIT_TEST(testFindBestBand);
+      CPPUNIT_TEST(testGetForDirection);
+      CPPUNIT_TEST(testGetForNonD2D);
     CPPUNIT_TEST_SUITE_END();
 };
