@@ -8,6 +8,11 @@
 
 using namespace std;
 
+SchedulingMemory::SchedulingMemory() {}
+
+SchedulingMemory::SchedulingMemory(const SchedulingMemory &other)
+  : _memory(other._memory) {}
+
 void SchedulingMemory::put(const MacNodeId id, const Band band) {
   // Is there an item for 'id' already?
   try {
