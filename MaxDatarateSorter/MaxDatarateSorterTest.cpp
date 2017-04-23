@@ -86,6 +86,15 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
     
     void testFindBestBand() {
       cout << "[MaxDatarateSorterTest/testFindBestBand]" << endl;
+      bool seenException = false;
+      try {
+        mSorter->getBestBand(MacNodeId(1025));
+      } catch (const exception& e) {
+        seenException = true;
+      }
+      // Finding a best band on an empty container should throw an exception.
+      CPPUNIT_ASSERT_EQUAL(true, seenException);
+      
       MacCid dummyCid = 1;
       mSorter->put(0, IdRatePair(dummyCid, 1025, 1, 26, 1000, Direction::UL));
       mSorter->put(1, IdRatePair(dummyCid, 1025, 1, 26, 1001, Direction::UL));
@@ -145,11 +154,33 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
         CPPUNIT_ASSERT(dir != pairs.at(i).dir);
     }
     
+    void testRemoveBand() {
+      cout << "[MaxDatarateSorterTest/testRemoveBand]" << endl;
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 800, Direction::D2D));
+      mSorter->put(2, IdRatePair(dummyCid, 1025, 1026, 24, 900, Direction::D2D));
+      CPPUNIT_ASSERT_EQUAL(Band(2), mSorter->getBestBand(MacNodeId(1025)));
+      mSorter->markBand(2, true);
+      CPPUNIT_ASSERT_EQUAL(Band(1), mSorter->getBestBand(MacNodeId(1025)));
+      mSorter->markBand(1, true);
+      CPPUNIT_ASSERT_EQUAL(Band(0), mSorter->getBestBand(MacNodeId(1025)));
+      mSorter->markBand(0, true);
+      bool seenException = false;
+      try {
+        mSorter->getBestBand(MacNodeId(1025));
+      } catch (const exception& e) {
+        seenException = true;
+      }
+      CPPUNIT_ASSERT_EQUAL(true, seenException);
+    }
+    
     CPPUNIT_TEST_SUITE(MaxDatarateSorterTest);
       CPPUNIT_TEST(testPut);
       CPPUNIT_TEST(testRemove);
       CPPUNIT_TEST(testFindBestBand);
       CPPUNIT_TEST(testGetForDirection);
       CPPUNIT_TEST(testGetForNonD2D);
+      CPPUNIT_TEST(testRemoveBand);
     CPPUNIT_TEST_SUITE_END();
 };

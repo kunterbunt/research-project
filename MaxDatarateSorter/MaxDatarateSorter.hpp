@@ -20,6 +20,7 @@ class IdRatePair {
     MacNodeId from, to;
     double rate, txPower;
     Direction dir;
+    bool reassigned = false;
     
     bool operator>(const IdRatePair& other) {
       return rate > other.rate;
@@ -45,6 +46,12 @@ class MaxDatarateSorter {
      * @param id
      */
     void remove(const MacNodeId id);
+    
+    /**
+     * Marks 'band' as 'reassigned'. Reassigned bands are not considered when looking for a best band.
+     * @param band
+     */
+    void markBand(const Band &band, const bool reassigned);
     
     /**
      *
@@ -75,7 +82,8 @@ class MaxDatarateSorter {
     
     /**
      * @param id
-     * @return The best band datarate-wise for 'id'.
+     * @return The best band datarate-wise for 'id'. Bands marked as 'reassigned' are not considered.
+     * @throws If no best band can be found.
      */
     const Band getBestBand(const MacNodeId& id) const;
     

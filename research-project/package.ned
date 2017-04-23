@@ -18,10 +18,9 @@ import lte.common.omniscientEntity.OmniscientEntity;
 network LTECell
 {
     parameters:
-        int numUeCell = default(1);
-        int numUeD2DTx = default(0);
-        int numUeD2DRx = default(0);
-        @display("i=block/network2;bgb=991,558;bgi=background/budapest");
+        int numUeCellPairs = default(0);
+        int numUeD2DPairs = default(0);
+        //@display("i=block/network2;bgb=991,558;bgi=background/budapest");
     submodules:
         channelControl: LteChannelControl {
             @display("p=50,25;is=s");
@@ -37,29 +36,32 @@ network LTECell
             @display("p=50,175;is=s");
         }
         server: StandardHost {
-            @display("p=614.4125,59.7;is=n;i=device/server");
+            @display("p=897.9875,94.525;is=n;i=device/server");
         }
         router: Router {
-            @display("p=416.65625,135.56876;i=device/smallrouter");
+            @display("p=897.9875,180.34375;i=device/smallrouter");
         }
         pgw: PgwStandardSimplified {
             nodeType = "PGW";
-            @display("p=614.4125,174.125;is=l");
+            @display("p=896.7437,271.1375;is=l");
         }
         eNodeB: eNodeB {
             @display("p=486.30624,258.7;is=vl");
         }
-        ueCell[numUeCell]: Ue {
-            @display("p=335.8125,344.51874");
-        }
-        ueD2DTx[numUeD2DTx]: Ue {
+        ueD2DTx[numUeD2DPairs]: Ue {
             @display("p=608.1937,434.06876");
         }
-        ueD2DRx[numUeD2DRx]: Ue {
+        ueD2DRx[numUeD2DPairs]: Ue {
             @display("p=723.8625,258.7");
         }
+        ueCellTx[numUeCellPairs]: Ue {
+            @display("p=369.39374,405.4625");
+        }
+        ueCellRx[numUeCellPairs]: Ue {
+            @display("p=266.1625,221.3875");
+        }
         omniscientEntity: OmniscientEntity {
-            @display("p=844.5062,84.575");
+            @display("p=49.75,238.8");
         }
     connections:
         server.pppg++ <--> Eth10G <--> router.pppg++;

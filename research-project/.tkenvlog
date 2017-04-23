@@ -9374,3 +9374,11 @@ Tcl error: moduleinspector.cc#652: ptr0x4697370 not found
 "ModuleInspector:drawNextEventMarker .network.c ptr0x4697370 1"
 
 
+---- 20170423-14:11:46 ---------------------------------------------------------
+
+
+Tcl error: moduleinspector.cc#232: tagOrId "f2" doesn't match any items
+    while executing
+".network.c raise submodext f2"
+
+
