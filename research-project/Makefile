@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for research-project
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
+#  opp_makemake -f --deep -O out -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -DINET_IMPORT -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 #
 
 # Name of target to be created (-o option)
@@ -22,24 +22,11 @@ INCLUDE_PATH = \
     -Ievaluation/mode-selection \
     -Ievaluation/mode-selection/test \
     -Iresults \
-    -Iresults/Complex-Circle-CELLULAR \
-    -Iresults/Complex-Circle-DRR \
-    -Iresults/Complex-Circle-MD \
-    -Iresults/Complex-Circle-PF \
-    -Iresults/ComplexSim \
-    -Iresults/PositionCircle-Cellular \
     -Iresults/PositionCircle-D2D-MaxDatarate \
-    -Iresults/PositionCircle-D2D-ProportionalFair \
-    -Iresults/PositionCircle-D2D-RoundRobin \
-    -Iresults/PositionOptimal-Cellular \
-    -Iresults/PositionOptimal-D2D-MaxDatarate \
-    -Iresults/PositionOptimal-D2D-ProportionalFair \
-    -Iresults/PositionOptimal-D2D-RoundRobin \
+    -Iresults/UnitTest-CellularFirst \
     -Iresults/UnitTest-Reassignment \
-    -Iresults/UnitTest-ReassignmentOfBandZero \
-    -Iresults/UnitTest-ReassignmentOfBandZeroD2D \
-    -Iresults/UnitTest-SortingD2D \
-    -Iresults/UnitTests-MoreBandsThanDevices
+    -Iresults/UnitTest-Sorting \
+    -Iresults/UnitTest-SortingD2D
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -90,7 +77,7 @@ include $(CONFIGFILE)
 OMNETPP_LIB_SUBDIR = $(OMNETPP_LIB_DIR)/$(TOOLCHAIN_NAME)
 OMNETPP_LIBS = -L"$(OMNETPP_LIB_SUBDIR)" -L"$(OMNETPP_LIB_DIR)" -loppmain$D $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 
-COPTS = $(CFLAGS)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 SMCOPTS =
 
@@ -150,31 +137,18 @@ clean:
 	$(Q)-rm -f evaluation/mode-selection/*_m.cc evaluation/mode-selection/*_m.h evaluation/mode-selection/*_sm.cc evaluation/mode-selection/*_sm.h
 	$(Q)-rm -f evaluation/mode-selection/test/*_m.cc evaluation/mode-selection/test/*_m.h evaluation/mode-selection/test/*_sm.cc evaluation/mode-selection/test/*_sm.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h results/*_sm.cc results/*_sm.h
-	$(Q)-rm -f results/Complex-Circle-CELLULAR/*_m.cc results/Complex-Circle-CELLULAR/*_m.h results/Complex-Circle-CELLULAR/*_sm.cc results/Complex-Circle-CELLULAR/*_sm.h
-	$(Q)-rm -f results/Complex-Circle-DRR/*_m.cc results/Complex-Circle-DRR/*_m.h results/Complex-Circle-DRR/*_sm.cc results/Complex-Circle-DRR/*_sm.h
-	$(Q)-rm -f results/Complex-Circle-MD/*_m.cc results/Complex-Circle-MD/*_m.h results/Complex-Circle-MD/*_sm.cc results/Complex-Circle-MD/*_sm.h
-	$(Q)-rm -f results/Complex-Circle-PF/*_m.cc results/Complex-Circle-PF/*_m.h results/Complex-Circle-PF/*_sm.cc results/Complex-Circle-PF/*_sm.h
-	$(Q)-rm -f results/ComplexSim/*_m.cc results/ComplexSim/*_m.h results/ComplexSim/*_sm.cc results/ComplexSim/*_sm.h
-	$(Q)-rm -f results/PositionCircle-Cellular/*_m.cc results/PositionCircle-Cellular/*_m.h results/PositionCircle-Cellular/*_sm.cc results/PositionCircle-Cellular/*_sm.h
 	$(Q)-rm -f results/PositionCircle-D2D-MaxDatarate/*_m.cc results/PositionCircle-D2D-MaxDatarate/*_m.h results/PositionCircle-D2D-MaxDatarate/*_sm.cc results/PositionCircle-D2D-MaxDatarate/*_sm.h
-	$(Q)-rm -f results/PositionCircle-D2D-ProportionalFair/*_m.cc results/PositionCircle-D2D-ProportionalFair/*_m.h results/PositionCircle-D2D-ProportionalFair/*_sm.cc results/PositionCircle-D2D-ProportionalFair/*_sm.h
-	$(Q)-rm -f results/PositionCircle-D2D-RoundRobin/*_m.cc results/PositionCircle-D2D-RoundRobin/*_m.h results/PositionCircle-D2D-RoundRobin/*_sm.cc results/PositionCircle-D2D-RoundRobin/*_sm.h
-	$(Q)-rm -f results/PositionOptimal-Cellular/*_m.cc results/PositionOptimal-Cellular/*_m.h results/PositionOptimal-Cellular/*_sm.cc results/PositionOptimal-Cellular/*_sm.h
-	$(Q)-rm -f results/PositionOptimal-D2D-MaxDatarate/*_m.cc results/PositionOptimal-D2D-MaxDatarate/*_m.h results/PositionOptimal-D2D-MaxDatarate/*_sm.cc results/PositionOptimal-D2D-MaxDatarate/*_sm.h
-	$(Q)-rm -f results/PositionOptimal-D2D-ProportionalFair/*_m.cc results/PositionOptimal-D2D-ProportionalFair/*_m.h results/PositionOptimal-D2D-ProportionalFair/*_sm.cc results/PositionOptimal-D2D-ProportionalFair/*_sm.h
-	$(Q)-rm -f results/PositionOptimal-D2D-RoundRobin/*_m.cc results/PositionOptimal-D2D-RoundRobin/*_m.h results/PositionOptimal-D2D-RoundRobin/*_sm.cc results/PositionOptimal-D2D-RoundRobin/*_sm.h
+	$(Q)-rm -f results/UnitTest-CellularFirst/*_m.cc results/UnitTest-CellularFirst/*_m.h results/UnitTest-CellularFirst/*_sm.cc results/UnitTest-CellularFirst/*_sm.h
 	$(Q)-rm -f results/UnitTest-Reassignment/*_m.cc results/UnitTest-Reassignment/*_m.h results/UnitTest-Reassignment/*_sm.cc results/UnitTest-Reassignment/*_sm.h
-	$(Q)-rm -f results/UnitTest-ReassignmentOfBandZero/*_m.cc results/UnitTest-ReassignmentOfBandZero/*_m.h results/UnitTest-ReassignmentOfBandZero/*_sm.cc results/UnitTest-ReassignmentOfBandZero/*_sm.h
-	$(Q)-rm -f results/UnitTest-ReassignmentOfBandZeroD2D/*_m.cc results/UnitTest-ReassignmentOfBandZeroD2D/*_m.h results/UnitTest-ReassignmentOfBandZeroD2D/*_sm.cc results/UnitTest-ReassignmentOfBandZeroD2D/*_sm.h
+	$(Q)-rm -f results/UnitTest-Sorting/*_m.cc results/UnitTest-Sorting/*_m.h results/UnitTest-Sorting/*_sm.cc results/UnitTest-Sorting/*_sm.h
 	$(Q)-rm -f results/UnitTest-SortingD2D/*_m.cc results/UnitTest-SortingD2D/*_m.h results/UnitTest-SortingD2D/*_sm.cc results/UnitTest-SortingD2D/*_sm.h
-	$(Q)-rm -f results/UnitTests-MoreBandsThanDevices/*_m.cc results/UnitTests-MoreBandsThanDevices/*_m.h results/UnitTests-MoreBandsThanDevices/*_sm.cc results/UnitTests-MoreBandsThanDevices/*_sm.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/Complex-Circle-CELLULAR/*.cc results/Complex-Circle-DRR/*.cc results/Complex-Circle-MD/*.cc results/Complex-Circle-PF/*.cc results/ComplexSim/*.cc results/PositionCircle-Cellular/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/PositionCircle-D2D-ProportionalFair/*.cc results/PositionCircle-D2D-RoundRobin/*.cc results/PositionOptimal-Cellular/*.cc results/PositionOptimal-D2D-MaxDatarate/*.cc results/PositionOptimal-D2D-ProportionalFair/*.cc results/PositionOptimal-D2D-RoundRobin/*.cc results/UnitTest-Reassignment/*.cc results/UnitTest-ReassignmentOfBandZero/*.cc results/UnitTest-ReassignmentOfBandZeroD2D/*.cc results/UnitTest-SortingD2D/*.cc results/UnitTests-MoreBandsThanDevices/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc results/*.cc results/PositionCircle-D2D-MaxDatarate/*.cc results/UnitTest-CellularFirst/*.cc results/UnitTest-Reassignment/*.cc results/UnitTest-Sorting/*.cc results/UnitTest-SortingD2D/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

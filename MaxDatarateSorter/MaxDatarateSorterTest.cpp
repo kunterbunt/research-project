@@ -175,6 +175,15 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
       CPPUNIT_ASSERT_EQUAL(true, seenException);
     }
     
+    void testToStringWithPrefix() {
+      cout << "[MaxDatarateSorterTest/testToStringWithPrefix]" << endl;
+      MacCid dummyCid = 1;
+      mSorter->put(0, IdRatePair(dummyCid, 1025, 1026, 24, 700, Direction::D2D));
+      mSorter->put(1, IdRatePair(dummyCid, 1025, 1026, 24, 800, Direction::D2D));
+      mSorter->put(2, IdRatePair(dummyCid, 1025, 1026, 24, 900, Direction::D2D));
+      cout << mSorter->toString("LteMaxDatarate ") << endl;
+    }
+    
     CPPUNIT_TEST_SUITE(MaxDatarateSorterTest);
       CPPUNIT_TEST(testPut);
       CPPUNIT_TEST(testRemove);
@@ -182,5 +191,6 @@ class MaxDatarateSorterTest : public CppUnit::TestFixture {
       CPPUNIT_TEST(testGetForDirection);
       CPPUNIT_TEST(testGetForNonD2D);
       CPPUNIT_TEST(testRemoveBand);
+      CPPUNIT_TEST(testToStringWithPrefix);
     CPPUNIT_TEST_SUITE_END();
 };

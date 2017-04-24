@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././MaxDatarateSorter.hpp
+map
+-
+vector
+-
+
+.././MaxDatarateSorterTest.cpp
+cppunit/TestFixture.h
+-
+cppunit/extensions/HelperMacros.h
+-
+iostream
+-
+MaxDatarateSorter.hpp
+.././MaxDatarateSorter.hpp
+
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/MaxDatarateSorter.cpp
+iostream
+-
+MaxDatarateSorter.hpp
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/MaxDatarateSorter.hpp
+
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/MaxDatarateSorter.hpp
+map
+-
+vector
+-
+
+/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/MaxDatarateSorter/scheduler.cpp
+iostream
+-
+MaxDatarateSorterTest.cpp
+-
+cppunit/ui/text/TestRunner.h
+-
+
