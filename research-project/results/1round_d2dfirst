@@ -1,0 +1,416 @@
+[INFO]	4.968 LteReassignment::prepareSchedule [forward] for 2 connections.
+[INFO]	4.968 LteReassignment::prepareSchedule Considerung node 1025.
+[INFO]	4.968 LteReassignment::prepareSchedule Scheduling node 1025 on band 0.
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1025
+[INFO]	4.968 LteAmc::computeTxParams Direction: D2D
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1025, direction D2D
+[INFO]	4.968 AmcPilotD2D::computeTxParams     LteSummaryFeedback
+[INFO]	4.968 AmcPilotD2D::computeTxParams CellId: 0
+[INFO]	4.968 AmcPilotD2D::computeTxParams NodeId: 1025
+[INFO]	4.968 AmcPilotD2D::computeTxParams Direction: D2D
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams -------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI = 1 [1]
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI[0] = {2} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI = {1} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams NEW values assigned! - CQI =2
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams           UserTxParams
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI = {2}
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams Bands = {0}
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 LteAmc::setTxParams DAS antenna set for user 1025 is 	[MACRO]	
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	LteSchedulerEnb::grant(67174401,4294967295,0,1,1,BAND_LIMIT_SPECIFIED,MACRO)
+[INFO]	LteSchedulerEnb::grant --------------------::[ START GRANT ]::--------------------
+[INFO]	LteSchedulerEnb::grant Cell: 1
+[INFO]	LteSchedulerEnb::grant CID: 67174401(UE: 1025, Flow: 1) current Antenna [MACRO]
+[INFO]	4.968 LteAllocationModule::computeTotalRbs UL - total 1, allocated 0, 1 blocks available
+[INFO]	LteSchedulerEnb::grant blocks: 4294967295
+[INFO]	LteSchedulerEnb::grant Bytes: 4294967295
+[INFO]	LteSchedulerEnb::grant Bands: {0}
+[INFO]	LteSchedulerEnb::grant TxMode: TRANSMIT_DIVERSITY
+[INFO]	LteSchedulerEnb::grant Available codewords: 1
+[INFO]	LteSchedulerEnb::grant @@@@@ CODEWORD 0 @@@@@
+[INFO]	LteSchedulerEnb::grant --- BAND 0 LIMIT -1---
+[INFO]	LteSchedulerEnb::availableBytes MacNodeId 1025 Antenna MACRO band 0 cw 0
+[INFO]	4.968 LteAllocator::availableBlocks UL - Band 0 has 1 blocks available [total 1, allocated 0]
+[INFO]	4.968 LteAmc::blocks2bytes Node 1025, Band 0, Codeword 0,  direction D2D, blocks 1
+[INFO]	4.968 LteAmc::blocks2bits Node: 1025
+[INFO]	4.968 LteAmc::blocks2bits Band: 0
+[INFO]	4.968 LteAmc::blocks2bits Codeword: 0
+[INFO]	4.968 LteAmc::blocks2bits Direction: D2D
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1025
+[INFO]	4.968 LteAmc::computeTxParams Direction: D2D
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1025, direction D2D
+[INFO]	4.968 AmcPilotD2D::computeTxParams The Information for this user have been already assigned 
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteAmc::blocks2bits Modulation: QPSK
+[INFO]	4.968 LteAmc::blocks2bits iTbs: 0
+[INFO]	4.968 LteAmc::blocks2bits i: 0
+[INFO]	4.968 LteAmc::blocks2bits Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bits Available space: 16
+[INFO]	4.968 LteAmc::blocks2bytes Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 16
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 2
+[INFO]	LteSchedulerEnb::availableBytes MacNodeId 1025 blocks [1], bytes [2]
+[INFO]	4.968 LteAllocator::availableBlocks UL - Band 0 has 1 blocks available [total 1, allocated 0]
+[INFO]	LteSchedulerEnb::grant Available Bytes: 2 available blocks 1
+[INFO]	LteSchedulerEnb::grant scheduled connection is no more active . Exiting grant 
+[INFO]	LteSchedulerEnb::grant Codeword allocation: 0bytes
+[INFO]	LteSchedulerEnb::grant CODEWORD IS FREE: NO ALLOCATION IS POSSIBLE IN NEXT CODEWORD.
+[INFO]	LteSchedulerEnb::grant Total allocation: 0 bytes, 0 blocks
+[INFO]	LteSchedulerEnb::grant --------------------::[  END GRANT  ]::--------------------
+[INFO]	 0 bytes granted.
+[INFO]	4.968 LteReassignment::prepareSchedule Scheduled node 1025 on band 0: INACTIVE
+[INFO]	4.968 LteReassignment::prepareSchedule removing node 1025 because it is now INACTIVE
+[INFO]	4.968 LteReassignment::prepareSchedule BEFORE DELETE SIZE=2
+[INFO]	4.968 LteReassignment::prepareSchedule AFTER DELETE SIZE=1 i=-1
+[INFO]	4.968 LteReassignment::prepareSchedule Considerung node 1027.
+[INFO]	4.968 LteReassignment::prepareSchedule Scheduling node 1027 on band 0.
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1027
+[INFO]	4.968 LteAmc::computeTxParams Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1027, direction UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams     LteSummaryFeedback
+[INFO]	4.968 AmcPilotD2D::computeTxParams CellId: 0
+[INFO]	4.968 AmcPilotD2D::computeTxParams NodeId: 1027
+[INFO]	4.968 AmcPilotD2D::computeTxParams Direction: UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams -------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI = 1 [1]
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI[0] = {15} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI = {1} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams NEW values assigned! - CQI =15
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams           UserTxParams
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI = {15}
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams Bands = {0}
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 LteAmc::setTxParams DAS antenna set for user 1027 is 	[MACRO]	
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	LteSchedulerEnb::grant(67305472,4294967295,0,1,1,BAND_LIMIT_SPECIFIED,MACRO)
+[INFO]	LteSchedulerEnb::grant --------------------::[ START GRANT ]::--------------------
+[INFO]	LteSchedulerEnb::grant Cell: 1
+[INFO]	LteSchedulerEnb::grant CID: 67305472(UE: 1027, Flow: 0) current Antenna [MACRO]
+[INFO]	4.968 LteAllocationModule::computeTotalRbs UL - total 1, allocated 0, 1 blocks available
+[INFO]	LteSchedulerEnb::grant blocks: 4294967295
+[INFO]	LteSchedulerEnb::grant Bytes: 4294967295
+[INFO]	LteSchedulerEnb::grant Bands: {0}
+[INFO]	LteSchedulerEnb::grant TxMode: TRANSMIT_DIVERSITY
+[INFO]	LteSchedulerEnb::grant Available codewords: 1
+[INFO]	LteSchedulerEnb::grant @@@@@ CODEWORD 0 @@@@@
+[INFO]	LteSchedulerEnb::grant --- BAND 0 LIMIT -1---
+[INFO]	LteSchedulerEnb::availableBytes MacNodeId 1027 Antenna MACRO band 0 cw 0
+[INFO]	4.968 LteAllocator::availableBlocks UL - Band 0 has 1 blocks available [total 1, allocated 0]
+[INFO]	4.968 LteAmc::blocks2bytes Node 1027, Band 0, Codeword 0,  direction UL, blocks 1
+[INFO]	4.968 LteAmc::blocks2bits Node: 1027
+[INFO]	4.968 LteAmc::blocks2bits Band: 0
+[INFO]	4.968 LteAmc::blocks2bits Codeword: 0
+[INFO]	4.968 LteAmc::blocks2bits Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1027
+[INFO]	4.968 LteAmc::computeTxParams Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1027, direction UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams The Information for this user have been already assigned 
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteAmc::blocks2bits Modulation: 64-QAM
+[INFO]	4.968 LteAmc::blocks2bits iTbs: 26
+[INFO]	4.968 LteAmc::blocks2bits i: 15
+[INFO]	4.968 LteAmc::blocks2bits Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bits Available space: 712
+[INFO]	4.968 LteAmc::blocks2bytes Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 712
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 89
+[INFO]	LteSchedulerEnb::availableBytes MacNodeId 1027 blocks [1], bytes [89]
+[INFO]	4.968 LteAllocator::availableBlocks UL - Band 0 has 1 blocks available [total 1, allocated 0]
+[INFO]	LteSchedulerEnb::grant Available Bytes: 89 available blocks 1
+[INFO]	LteSchedulerEnb::grant servicing 4 bytes with 89 own bytes and 0 booked bytes 
+[INFO]	LteSchedulerEnb::grant band 0 scheduled  4 bytes  using 0 resources on other bands and 4 on its own space which was 89
+[INFO]	LteSchedulerEnb::grant Consumed: 1 MAC-SDU (2 bytes) [Available: 85 bytes] [Allocated: 4 bytes]
+[INFO]	4.968 LteAmc::getRbs Node 1027, Band 0, Codeword 0, direction UL
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1027
+[INFO]	4.968 LteAmc::computeTxParams Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1027, direction UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams The Information for this user have been already assigned 
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteAmc::getRbs Occupation: 4 bytes , CQI : 15 
+[INFO]	4.968 LteAmc::getRbs Number of RBs: 1
+[INFO]	4.968 LteAllocator::availableBlocks UL - Band 0 has 1 blocks available [total 1, allocated 0]
+[INFO]	4.968 LteAllocator::addBlocks UL - Node 1027, the request of 1 blocks on band 0 satisfied
+[INFO]	LteSchedulerEnb::grant Codeword allocation: 4bytes
+[INFO]	LteSchedulerEnb::grant CODEWORD IS NOW BUSY: GO TO NEXT CODEWORD.
+[INFO]	LteSchedulerEnb::grant Total allocation: 4 bytes, 1 blocks
+[INFO]	LteSchedulerEnb::grant --------------------::[  END GRANT  ]::--------------------
+[INFO]	 4 bytes granted.
+[INFO]	4.968 LteReassignment::prepareSchedule Scheduled node 1027 on band 0: OK
+[INFO]	4.968 OmniscientEntity::recordSchedulingRound
+[INFO]	4.968 LteReassignment::commitSchedule
+[INFO]	____________________________ end SCHED ________________________________
+[INFO]	LteSchedulerEnb::resourceBlockStatistics collecting utilization for plane0antennaMACRO allocated blocks 1 depletedPower 0
+[INFO]	4.968LteMacEnbRealisticD2D::sendGrants 
+[INFO]	4.968 LteMacEnbRealisticD2D::sendGrants Node[1] - 1 blocks to grant for user 1027 on 1 codewords. CW[0\2]
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1027
+[INFO]	4.968 LteAmc::computeTxParams Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1027, direction UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams The Information for this user have been already assigned 
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteAmc::blocks2bytes Node 1027, Band 0, Codeword 0,  direction UL, blocks 1
+[INFO]	4.968 LteAmc::blocks2bits Node: 1027
+[INFO]	4.968 LteAmc::blocks2bits Band: 0
+[INFO]	4.968 LteAmc::blocks2bits Codeword: 0
+[INFO]	4.968 LteAmc::blocks2bits Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1027
+[INFO]	4.968 LteAmc::computeTxParams Direction: UL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1027, direction UL
+[INFO]	4.968 AmcPilotD2D::computeTxParams The Information for this user have been already assigned 
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteAmc::blocks2bits Modulation: 64-QAM
+[INFO]	4.968 LteAmc::blocks2bits iTbs: 26
+[INFO]	4.968 LteAmc::blocks2bits i: 15
+[INFO]	4.968 LteAmc::blocks2bits Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bits Available space: 712
+[INFO]	4.968 LteAmc::blocks2bytes Resource Blocks: 1
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 712
+[INFO]	4.968 LteAmc::blocks2bytes Available space: 89
+[INFO]	4.968 LteMacEnbRealisticD2D::sendGrants - granting 89 on cw 0
+[INFO]	LteMacBase : Sending packet LteGrant on port MAC_to_PHY
+[INFO]	============================================ END UPLINK ============================================
+[INFO]	============================================ DOWNLINK ==============================================
+[INFO]	LteSchedulerEnb::schedule performed by Node: 1
+[INFO]	4.968 LteAmc::cleanAmcStructures. Direction DL
+[INFO]	___________________________start RTX __________________________________
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule --------------------::[ START RTX-SCHEDULE ]::--------------------
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule Cell:  1
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule Direction: DL
+[INFO]	4.968 LteAmc::computeTxParams --------------::[ START ]::--------------
+[INFO]	4.968 LteAmc::computeTxParams CellId: 1
+[INFO]	4.968 LteAmc::computeTxParams NodeId: 1028
+[INFO]	4.968 LteAmc::computeTxParams Direction: DL
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 LteAmc::computeTxParams RB allocation type: localized
+[INFO]	4.968 LteAmc::computeTxParams - - - - - - - - - - - - - - - - - - - - -
+[INFO]	4.968 AmcPilotD2D::computeTxParams for UE 1028, direction DL
+[INFO]	4.968 AmcPilotD2D::computeTxParams     LteSummaryFeedback
+[INFO]	4.968 AmcPilotD2D::computeTxParams CellId: 0
+[INFO]	4.968 AmcPilotD2D::computeTxParams NodeId: 1028
+[INFO]	4.968 AmcPilotD2D::computeTxParams Direction: DL
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams -------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI = 1 [1]
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI[0] = {15} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI = {1} [{1}]
+[INFO]	4.968 AmcPilotD2D::computeTxParams NEW values assigned! - CQI =15
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams           UserTxParams
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 AmcPilotD2D::computeTxParams TxMode: TRANSMIT_DIVERSITY
+[INFO]	4.968 AmcPilotD2D::computeTxParams RI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams CQI = {15}
+[INFO]	4.968 AmcPilotD2D::computeTxParams PMI: 1
+[INFO]	4.968 AmcPilotD2D::computeTxParams Bands = {0}
+[INFO]	4.968 AmcPilotD2D::computeTxParams --------------------------
+[INFO]	4.968 LteAmc::setTxParams DAS antenna set for user 1028 is 	[MACRO]	
+[INFO]	4.968 LteAmc::computeTxParams --------------::[  END  ]::--------------
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule  UE: 1028
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule Number of codewords: 1
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 1
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 3
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 4
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 5
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 6
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule process 7
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule ------- CODEWORD 0
+[INFO]	4.968 LteSchedulerEnbDl::rtxschedule detected Acid:  in status 2
+[INFO]	4.968 LteAllocationModule::computeTotalRbs DL - total 1, allocated 0, 1 blocks available
+[INFO]	 LteSchedulerEnbDl::rtxschedule OFDM Space: 1
+[INFO]	    LteSchedulerEnbDl::rtxschedule --------------------::[  END RTX-SCHEDULE  ]::-------------------- 
+[INFO]	____________________________ end RTX __________________________________
+[INFO]	___________________________start SCHED ________________________________
+[INFO]	4.968 LteReassignment::prepareSchedule [forward] for 0 connections.
+[INFO]	4.968 LteReassignment::commitSchedule
+[INFO]	____________________________ end SCHED ________________________________
+[INFO]	LteSchedulerEnb::resourceBlockStatistics collecting utilization for plane0antennaMACRO allocated blocks 0 depletedPower 260
+[INFO]	----- START LteMacEnbRealistic::macSduRequest -----
+[INFO]	------ END LteMacEnbRealistic::macSduRequest ------
+[INFO]	========================================== END DOWNLINK ============================================
+[INFO]	--- END MACRO ENB MAIN LOOP ---
+** Event #118144  t=4.968  99% completed   LTECell.eNodeB.nic.phy (LtePhyEnbD2D, id=138)
+[INFO]	 LtePhyBase::handleMessage - new message received
+[INFO]	LtePhy: message from stack
+[INFO]	LtePhy: ENODEB with id 1 sending message to the air channel. Dest=1027
+** Event #118145  t=4.968  99% completed   LTECell.eNodeB.nic.rlc.mux (LteRlcMux, id=145)
+[INFO]	LteRlcMux : Received packet  from port MAC_to_RLC
+[INFO]	LteRlcMux : Sending packet  to port UM_Sap$o
+** Event #118146  t=4.968  99% completed   LTECell.eNodeB.nic.phy (LtePhyEnbD2D, id=138)
+[INFO]	 LtePhyBase::handleMessage - new message received
+[INFO]	LtePhy: message from stack
+[INFO]	LtePhy: ENODEB with id 1 sending message to the air channel. Dest=1027
+** Event #118147  t=4.968  99% completed   LTECell.eNodeB.nic.rlc.um (LteRlcUmRealisticD2D, id=143)
+[INFO]	LteRlcUm : Received packet  from port UM_Sap_down$i
+[INFO]	LteRlcUmRealistic::handleLowerMessage - Received packet  from lower layer
+[INFO]	LteRlcUmRealistic : Using old UmRxEntity: 273 for node: 1027 for Lcid: 1
+[INFO]	LteRlcUmRealistic::handleLowerMessage - Enque packet  into the Rx Buffer
+[INFO]	4.968 UmRxEntity::enque - buffering new PDU
+[INFO]	4.968 UmRxEntity::enque - tsn 1276, the corresponding index in the buffer is 16
+[INFO]	4.968 UmRxEntity::reassemble PDU at index 0 has not been received or already delivered
+[INFO]	4.968 UmRxEntity::moveRxWindow moving forth of 1 locations
+[INFO]	4.968 UmRxEntity::moveRxWindow first sequence number updated to 1261
+[INFO]	4.968 UmRxEntity::enque - tsn 1276, the corresponding index after shift in the buffer is 15
+[INFO]	4.968 UmRxEntity::enque - firstSnoReordering 1276
+[INFO]	4.968 UmRxEntity::reassemble Consider PDU at index 15 for reassembly
+[INFO]	4.968 UmRxEntity::reassemble The PDU includes the mid part [85 B] of a SDU [sno=98]
+[INFO]	4.968 UmRxEntity::reassemble The waiting SDU has size 255 bytes, was 170 bytes
+[INFO]	4.968 UmRxEntity::reassemble Wait for the missing part...
+[INFO]	4.968 UmRxEntity::reassemble Removed PDU from position 15
+** Event #118148  t=4.968  99% completed   LTECell.ueD2DTx[0].nic.mac (LteMacUeRealisticD2D, id=172)
+[INFO]	----- UE MAIN LOOP -----
+[INFO]	4.968LteMacUeRealisticD2D::handleSelfMessage 1025 - HARQ process 0
+[INFO]		 (LteSchedulingGrant)LteGrant
+[INFO]	4.968 LteMacUeRealisticD2D::handleSelfMessage 1025 entered scheduling
+[INFO]		 Looking for retx in acid 0
+[INFO]		 [process=0] , [retx=false] , [n=0]
+[INFO]		 Looking for retx in acid 0
+[INFO]		 [process=0] , [retx=false] , [n=0]
+[INFO]	4.968 LteSchedulerUeUl::schedule - Scheduling node 1025
+[INFO]	4.968 LteSchedulerUeUl::schedule - Node 1025 available data from grant are  blocks 1 [2 - Bytes]  on codeword 0
+[INFO]	4.968 LcgSchedulerRealistic::schedule - Node  1025, Starting priority service for traffic class 0
+[INFO]	4.968 LcgSchedulerRealistic::schedule - Node  1025, Starting priority service for traffic class 1
+[INFO]	4.968 LcgSchedulerRealistic::schedule - Node  1025, Starting priority service for traffic class 2
+[INFO]	4.968 LcgSchedulerRealistic::schedule - Node  1025, Starting priority service for traffic class 3
+[INFO]	LcgSchedulerRealistic::schedule scheduled connection is no more active 
+[INFO]	----- START LteMacUeRealistic::macSduRequest -----
+[INFO]	------ END LteMacUeRealistic::macSduRequest ------
+[INFO]	
+[INFO]	 htxbuf.size 2
+[INFO]		 cicloOuter 0 - bufferStatus.size=8
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]		 cicloOuter 0 - bufferStatus.size=8
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=1/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=1/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=1/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]	4.968 LteMacUeRealisticD2D::handleSelfMessage Purged 0 PDUS
+[INFO]	--- END UE MAIN LOOP ---
+** Event #118149  t=4.968  99% completed   LTECell.ueD2DRx[0].nic.mac (LteMacUeRealisticD2D, id=199)
+[INFO]	----- UE MAIN LOOP -----
+[INFO]	4.968LteMacUeRealisticD2D::handleSelfMessage 1026 - HARQ process 7
+[INFO]	4.968 LteMacUeRealisticD2D::handleSelfMessage 1026 NO configured grant
+[INFO]	4.968 LteMacUe::checkRAC , Ue  1026, racTimer : 0 maxRacTryOuts : 0, raRespTimer:0
+[INFO]	4.968Ue 1026,RAC aborted, no data in queues 
+[INFO]	
+[INFO]	 htxbuf.size 0
+[INFO]	4.968 LteMacUeRealisticD2D::handleSelfMessage Purged 0 PDUS
+[INFO]	--- END UE MAIN LOOP ---
+** Event #118150  t=4.968  99% completed   LTECell.ueCellTx[0].nic.mac (LteMacUeRealistic, id=226)
+[INFO]	----- UE MAIN LOOP -----
+[INFO]	4.968LteMacUeRealistic::handleSelfMessage 1027 - HARQ process 6
+[INFO]	4.968 LteMacUeRealistic::handleSelfMessage 1027 NO configured grant
+[INFO]	4.968 LteMacUe::checkRAC , Ue  1027, racTimer : 0 maxRacTryOuts : 0, raRespTimer:1
+[INFO]	4.968 LteMacUe::checkRAC - waiting for previous RAC requests to complete (timer=0)
+[INFO]	
+[INFO]	 htxbuf.size 1
+[INFO]		 cicloOuter 0 - bufferStatus.size=8
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=1/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]			 cicloInner 0 - jt->size=2 - statusCw(0/1)=2/2
+[INFO]	4.968 LteMacUeRealistic::handleSelfMessage Purged 0 PDUS
+[INFO]	--- END UE MAIN LOOP ---
+** Event #118151  t=4.968  99% completed   LTECell.ueCellRx[0].nic.mac (LteMacUeRealistic, id=253)
+[INFO]	----- UE MAIN LOOP -----
+[INFO]	4.968LteMacUeRealistic::handleSelfMessage 1028 - HARQ process 7
+[INFO]	4.968 LteMacUeRealistic::handleSelfMessage 1028 NO configured grant
+[INFO]	4.968 LteMacUe::checkRAC , Ue  1028, racTimer : 0 maxRacTryOuts : 0, raRespTimer:0
+[INFO]	4.968Ue 1028,RAC aborted, no data in queues 
+[INFO]	
+[INFO]	 htxbuf.size 0
+[INFO]	4.968 LteMacUeRealistic::handleSelfMessage Purged 0 PDUS
+[INFO]	--- END UE MAIN LOOP ---
+** Event #118152  t=4.968  99% completed   LTECell.eNodeB.nic.mac (LteMacEnbRealisticD2D, id=137)
+[INFO]	LteHarqBufferTx::sendSelectedDown - no process selected in H-ARQ buffer, nothing to do
+** Event #118153  t=4.968  99% completed   LTECell.ueD2DTx[0].nic.mac (LteMacUeRealisticD2D, id=172)
+[INFO]	LteHarqBufferTx::sendSelectedDown - no process selected in H-ARQ buffer, nothing to do
+[INFO]	LteHarqBufferTx::sendSelectedDown - no process selected in H-ARQ buffer, nothing to do
+** Event #118154  t=4.968  99% completed   LTECell.ueCellTx[0].nic.phy (LtePhyUe, id=227)
+[INFO]	 LtePhyBase::handleMessage - new message received
+[INFO]	LtePhy: received new LteAirFrame with ID 79263 from channel
+** Event #118155  t=4.968  99% completed   LTECell.ueCellTx[0].nic.mac (LteMacUeRealistic, id=226)
+[INFO]	LteMacBase : Received packet LteGrant from port PHY_to_MAC
+[INFO]	4.968Mac::fromPhy: node 1027 Received Scheduling Grant pkt
+[INFO]	4.968 LteMacUe::macHandleGrant - UE [1027] - Grant received
+[INFO]	4.968 LteMacUe::macHandleGrant - Direction: UL
+[INFO]	4.968Node 1027 received grant of blocks 1, bytes 89
+
