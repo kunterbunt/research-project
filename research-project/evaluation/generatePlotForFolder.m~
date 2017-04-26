@@ -1,0 +1,20 @@
+function generatePlotForFolder(path)
+sums = [];
+fairnesses = [];
+for i=4:50
+   filename = [path num2str(i) '/parsed'];
+   values = getValuesFromFile(filename);
+   sums(end + 1) = sum(values);   
+   fairnesses(end + 1) = getFairness(values');
+   %label = strcat('Rx', num2str(i));
+   %nlabels(end + 1) = {label};
+end
+
+figure
+hold on
+title('Throughput and fairness for 
+ylabel('#bytes received');
+[hAx,hLine1,hLine2] = plotyy([4:50], sums, [4:50], fairnesses);
+hold off
+end
+
