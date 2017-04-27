@@ -17,6 +17,6 @@ for pairs = 2:5
 
     for i=1:size(folders)       
         rb = [rbs(i,1) rbs(i,2)];        
-        generatePlotForFolder(folders{i}, rb, titles(i));    
+        FirstParameterStudy_generatePlotForFolder(folders{i}, rb, titles(i));    
     end
 end

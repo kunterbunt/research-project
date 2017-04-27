@@ -1,16 +1,14 @@
-function generatePlotForFolder(path, rbs, plotTitle)
+function FirstParameterStudy_generatePlotForFolder(path, rbs, plotTitle)
 sums = [];
 fairnesses = [];
 for i=rbs(1):rbs(2)
-   filename = [path num2str(i) 'rbs/parsed'];
-   values = getValuesFromFile(filename);
-    byteSum = sum(values);
-    fairness = getFairness(values');
+   filename = [path num2str(i) 'rbs/parsed'];   
+   [byteSum, fairness] = getByteSumAndFairness(filename);   
    sums(end + 1) = byteSum;
    fairnesses(end + 1) = fairness;   
 end
 
-figure
+fig = figure('visible','off');
 hold on
 title(plotTitle);
 [hAx, hLine1, hLine2] = plotyy(rbs(1):rbs(2), sums, rbs(1):rbs(2), fairnesses);
@@ -21,5 +19,7 @@ set(hAx(2),'YLim',[0 1.1])
 set(hAx,'xlim', rbs);
 xlabel('number of RBs');
 hold off
+filename = strcat(path, plotTitle, '.png');
+saveas(fig, filename{1}, 'png');
 end
 
