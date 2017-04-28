@@ -8,7 +8,7 @@ for i=1:10
    fairnesses(end + 1) = fairness;   
 end
 
-fig = figure;
+fig = figure('visible', 'off');
 %figure
 hold on
 title(plotTitle);
@@ -20,7 +20,7 @@ set(hAx(2),'YLim',[0 1.1])
 %set(hAx,'xlim', rbs);
 xlabel('number of Bands');
 hold off
-%filename = strcat(path, plotTitle, '.png');
-%saveas(fig, filename{1}, 'png');
+filename = strcat(path, plotTitle, '.png');
+saveas(fig, filename{1}, 'png');
 end
 
