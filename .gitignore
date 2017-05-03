@@ -1,4 +1,5 @@
-research-project/results/
+research-project/results/*.log
+research-project/results/*/*/*/*.sca
 research-project/research-project
 research-project/out/
 */.idea/workspace.xml
