@@ -1,0 +1,1 @@
+./research-project -c ReassignmentTest-1RBs -u Cmdenv -n .:../../inet/examples:../../inet/src:../../inet/tutorials:../../simulte/simulations:../../simulte/src --image-path=../../simulte/images -l ../../inet/src/INET -l ../../simulte/src/lte -r 0..49
