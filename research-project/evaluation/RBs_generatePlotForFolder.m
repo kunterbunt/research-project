@@ -17,8 +17,19 @@ ylabel(hAx(1),'#bytes received') % left y-axis
 ylabel(hAx(2),'Jains Fairness Index') % right y-axis
 set(hAx(1),'YLim',[0 8000000])
 set(hAx(2),'YLim',[0 1.1])
-%set(hAx,'xlim', rbs);
-xlabel('number of Bands');
+set(gca,'fontsize', 21)
+set(hAx(2),'fontsize', 21)
+xlabel('#bands');
+
+ylabh = get(hAx(2),'ylabel');
+set(ylabh,'Position', get(ylabh,'Position') + [-2 0 0])
+
+xlabh = get(gca, 'xlabel');
+set(xlabh,'Position', [5 0 0])
+
+titleh = get(gca, 'title');
+set(titleh, 'Position', get(titleh,'Position') + [1 0 0])
+
 hold off
 filename = strcat(path, plotTitle, '.png');
 saveas(fig, filename{1}, 'png');
