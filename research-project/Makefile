@@ -40,6 +40,7 @@ INCLUDE_PATH = \
     -Iresults/ReassignmentTest-50RBs-Local/2pairs \
     -Iresults/Test-CellularFirst \
     -Iresults/Test-Reassignment \
+    -Iresults/Test-SINR \
     -Iresults/Test-Sorting \
     -Iresults/Test-Sorting-D2D
 
@@ -170,6 +171,7 @@ clean:
 	$(Q)-rm -f results/ReassignmentTest-50RBs-Local/2pairs/*_m.cc results/ReassignmentTest-50RBs-Local/2pairs/*_m.h results/ReassignmentTest-50RBs-Local/2pairs/*_sm.cc results/ReassignmentTest-50RBs-Local/2pairs/*_sm.h
 	$(Q)-rm -f results/Test-CellularFirst/*_m.cc results/Test-CellularFirst/*_m.h results/Test-CellularFirst/*_sm.cc results/Test-CellularFirst/*_sm.h
 	$(Q)-rm -f results/Test-Reassignment/*_m.cc results/Test-Reassignment/*_m.h results/Test-Reassignment/*_sm.cc results/Test-Reassignment/*_sm.h
+	$(Q)-rm -f results/Test-SINR/*_m.cc results/Test-SINR/*_m.h results/Test-SINR/*_sm.cc results/Test-SINR/*_sm.h
 	$(Q)-rm -f results/Test-Sorting/*_m.cc results/Test-Sorting/*_m.h results/Test-Sorting/*_sm.cc results/Test-Sorting/*_sm.h
 	$(Q)-rm -f results/Test-Sorting-D2D/*_m.cc results/Test-Sorting-D2D/*_m.h results/Test-Sorting-D2D/*_sm.cc results/Test-Sorting-D2D/*_sm.h
 
@@ -178,7 +180,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc evaluation/parameter-study_pairs-bands-rbs/*.cc results/*.cc results/ReassignmentTest-1RBs-D2D/*.cc results/ReassignmentTest-1RBs-D2D/1pairs/*.cc results/ReassignmentTest-1RBs-D2D/2pairs/*.cc results/ReassignmentTest-1RBs-D2D/3pairs/*.cc results/ReassignmentTest-1RBs-D2D/4pairs/*.cc results/ReassignmentTest-1RBs-D2D/5pairs/*.cc results/ReassignmentTest-1RBs-Local/*.cc results/ReassignmentTest-50RBs-D2D/*.cc results/ReassignmentTest-50RBs-D2D/1pairs/*.cc results/ReassignmentTest-50RBs-D2D/2pairs/*.cc results/ReassignmentTest-50RBs-D2D/3pairs/*.cc results/ReassignmentTest-50RBs-D2D/4pairs/*.cc results/ReassignmentTest-50RBs-D2D/5pairs/*.cc results/ReassignmentTest-50RBs-Local/*.cc results/ReassignmentTest-50RBs-Local/2pairs/*.cc results/Test-CellularFirst/*.cc results/Test-Reassignment/*.cc results/Test-Sorting/*.cc results/Test-Sorting-D2D/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc evaluation/parameter-study_pairs-bands-rbs/*.cc results/*.cc results/ReassignmentTest-1RBs-D2D/*.cc results/ReassignmentTest-1RBs-D2D/1pairs/*.cc results/ReassignmentTest-1RBs-D2D/2pairs/*.cc results/ReassignmentTest-1RBs-D2D/3pairs/*.cc results/ReassignmentTest-1RBs-D2D/4pairs/*.cc results/ReassignmentTest-1RBs-D2D/5pairs/*.cc results/ReassignmentTest-1RBs-Local/*.cc results/ReassignmentTest-50RBs-D2D/*.cc results/ReassignmentTest-50RBs-D2D/1pairs/*.cc results/ReassignmentTest-50RBs-D2D/2pairs/*.cc results/ReassignmentTest-50RBs-D2D/3pairs/*.cc results/ReassignmentTest-50RBs-D2D/4pairs/*.cc results/ReassignmentTest-50RBs-D2D/5pairs/*.cc results/ReassignmentTest-50RBs-Local/*.cc results/ReassignmentTest-50RBs-Local/2pairs/*.cc results/Test-CellularFirst/*.cc results/Test-Reassignment/*.cc results/Test-SINR/*.cc results/Test-Sorting/*.cc results/Test-Sorting-D2D/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 
