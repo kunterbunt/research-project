@@ -1,4 +1,4 @@
-folder = {['/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/research-project/results/ReassignmentTest-50RBs-D2D/']};   
+folder = {['/home/kunterbunt/dev/omnetpp-5.0/samples/research-project/research-project/results/ReassignmentTest-1RBs-D2D/']};   
 titles = {['Reassignment Scheduler, 1 band, 1 RB']};  
 
 sums = [];
