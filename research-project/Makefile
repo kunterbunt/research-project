@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for research-project
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
+#  opp_makemake -f --deep -O out -L/home/kunterbunt/dev/omnetpp-5.0/samples/inet/out/$$\(CONFIGNAME\)/src -L/home/kunterbunt/dev/omnetpp-5.0/samples/simulte/out/$$\(CONFIGNAME\)/src -lINET -lsimulte -DINET_IMPORT -KINET_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/inet -KSIMULTE_PROJ=/home/kunterbunt/dev/omnetpp-5.0/samples/simulte
 #
 
 # Name of target to be created (-o option)
@@ -23,6 +23,230 @@ INCLUDE_PATH = \
     -Ievaluation/mode-selection/test \
     -Ievaluation/parameter-study_pairs-bands-rbs \
     -Iresults \
+    -Iresults/RBs \
+    -Iresults/RBs/1pairs \
+    -Iresults/RBs/1pairs/10bands \
+    -Iresults/RBs/1pairs/1bands \
+    -Iresults/RBs/1pairs/2bands \
+    -Iresults/RBs/1pairs/3bands \
+    -Iresults/RBs/1pairs/4bands \
+    -Iresults/RBs/1pairs/5bands \
+    -Iresults/RBs/1pairs/6bands \
+    -Iresults/RBs/1pairs/7bands \
+    -Iresults/RBs/1pairs/8bands \
+    -Iresults/RBs/1pairs/9bands \
+    -Iresults/RBs/2pairs \
+    -Iresults/RBs/2pairs/10bands \
+    -Iresults/RBs/2pairs/1bands \
+    -Iresults/RBs/2pairs/2bands \
+    -Iresults/RBs/2pairs/3bands \
+    -Iresults/RBs/2pairs/4bands \
+    -Iresults/RBs/2pairs/5bands \
+    -Iresults/RBs/2pairs/6bands \
+    -Iresults/RBs/2pairs/7bands \
+    -Iresults/RBs/2pairs/8bands \
+    -Iresults/RBs/2pairs/9bands \
+    -Iresults/RBs/3pairs \
+    -Iresults/RBs/3pairs/10bands \
+    -Iresults/RBs/3pairs/1bands \
+    -Iresults/RBs/3pairs/2bands \
+    -Iresults/RBs/3pairs/3bands \
+    -Iresults/RBs/3pairs/4bands \
+    -Iresults/RBs/3pairs/5bands \
+    -Iresults/RBs/3pairs/6bands \
+    -Iresults/RBs/3pairs/7bands \
+    -Iresults/RBs/3pairs/8bands \
+    -Iresults/RBs/3pairs/9bands \
+    -Iresults/RBs/4pairs \
+    -Iresults/RBs/4pairs/10bands \
+    -Iresults/RBs/4pairs/1bands \
+    -Iresults/RBs/4pairs/2bands \
+    -Iresults/RBs/4pairs/3bands \
+    -Iresults/RBs/4pairs/4bands \
+    -Iresults/RBs/4pairs/5bands \
+    -Iresults/RBs/4pairs/6bands \
+    -Iresults/RBs/4pairs/7bands \
+    -Iresults/RBs/4pairs/8bands \
+    -Iresults/RBs/4pairs/9bands \
+    -Iresults/RBs/5pairs \
+    -Iresults/RBs/5pairs/10bands \
+    -Iresults/RBs/5pairs/1bands \
+    -Iresults/RBs/5pairs/2bands \
+    -Iresults/RBs/5pairs/3bands \
+    -Iresults/RBs/5pairs/4bands \
+    -Iresults/RBs/5pairs/5bands \
+    -Iresults/RBs/5pairs/6bands \
+    -Iresults/RBs/5pairs/7bands \
+    -Iresults/RBs/5pairs/8bands \
+    -Iresults/RBs/5pairs/9bands \
+    -Iresults/RBs-MD \
+    -Iresults/RBs-MD/1pairs \
+    -Iresults/RBs-MD/1pairs/10bands \
+    -Iresults/RBs-MD/1pairs/1bands \
+    -Iresults/RBs-MD/1pairs/2bands \
+    -Iresults/RBs-MD/1pairs/3bands \
+    -Iresults/RBs-MD/1pairs/4bands \
+    -Iresults/RBs-MD/1pairs/5bands \
+    -Iresults/RBs-MD/1pairs/6bands \
+    -Iresults/RBs-MD/1pairs/7bands \
+    -Iresults/RBs-MD/1pairs/8bands \
+    -Iresults/RBs-MD/1pairs/9bands \
+    -Iresults/RBs-MD/2pairs \
+    -Iresults/RBs-MD/2pairs/10bands \
+    -Iresults/RBs-MD/2pairs/1bands \
+    -Iresults/RBs-MD/2pairs/2bands \
+    -Iresults/RBs-MD/2pairs/3bands \
+    -Iresults/RBs-MD/2pairs/4bands \
+    -Iresults/RBs-MD/2pairs/5bands \
+    -Iresults/RBs-MD/2pairs/6bands \
+    -Iresults/RBs-MD/2pairs/7bands \
+    -Iresults/RBs-MD/2pairs/8bands \
+    -Iresults/RBs-MD/2pairs/9bands \
+    -Iresults/RBs-MD/3pairs \
+    -Iresults/RBs-MD/3pairs/10bands \
+    -Iresults/RBs-MD/3pairs/1bands \
+    -Iresults/RBs-MD/3pairs/2bands \
+    -Iresults/RBs-MD/3pairs/3bands \
+    -Iresults/RBs-MD/3pairs/4bands \
+    -Iresults/RBs-MD/3pairs/5bands \
+    -Iresults/RBs-MD/3pairs/6bands \
+    -Iresults/RBs-MD/3pairs/7bands \
+    -Iresults/RBs-MD/3pairs/8bands \
+    -Iresults/RBs-MD/3pairs/9bands \
+    -Iresults/RBs-MD/4pairs \
+    -Iresults/RBs-MD/4pairs/10bands \
+    -Iresults/RBs-MD/4pairs/1bands \
+    -Iresults/RBs-MD/4pairs/2bands \
+    -Iresults/RBs-MD/4pairs/3bands \
+    -Iresults/RBs-MD/4pairs/4bands \
+    -Iresults/RBs-MD/4pairs/5bands \
+    -Iresults/RBs-MD/4pairs/6bands \
+    -Iresults/RBs-MD/4pairs/7bands \
+    -Iresults/RBs-MD/4pairs/8bands \
+    -Iresults/RBs-MD/4pairs/9bands \
+    -Iresults/RBs-MD/5pairs \
+    -Iresults/RBs-MD/5pairs/10bands \
+    -Iresults/RBs-MD/5pairs/1bands \
+    -Iresults/RBs-MD/5pairs/2bands \
+    -Iresults/RBs-MD/5pairs/3bands \
+    -Iresults/RBs-MD/5pairs/4bands \
+    -Iresults/RBs-MD/5pairs/5bands \
+    -Iresults/RBs-MD/5pairs/6bands \
+    -Iresults/RBs-MD/5pairs/7bands \
+    -Iresults/RBs-MD/5pairs/8bands \
+    -Iresults/RBs-MD/5pairs/9bands \
+    -Iresults/RBs-MD-in-circle \
+    -Iresults/RBs-MD-in-circle/1pairs \
+    -Iresults/RBs-MD-in-circle/1pairs/10bands \
+    -Iresults/RBs-MD-in-circle/1pairs/1bands \
+    -Iresults/RBs-MD-in-circle/1pairs/2bands \
+    -Iresults/RBs-MD-in-circle/1pairs/3bands \
+    -Iresults/RBs-MD-in-circle/1pairs/4bands \
+    -Iresults/RBs-MD-in-circle/1pairs/5bands \
+    -Iresults/RBs-MD-in-circle/1pairs/6bands \
+    -Iresults/RBs-MD-in-circle/1pairs/7bands \
+    -Iresults/RBs-MD-in-circle/1pairs/8bands \
+    -Iresults/RBs-MD-in-circle/1pairs/9bands \
+    -Iresults/RBs-MD-in-circle/2pairs \
+    -Iresults/RBs-MD-in-circle/2pairs/10bands \
+    -Iresults/RBs-MD-in-circle/2pairs/1bands \
+    -Iresults/RBs-MD-in-circle/2pairs/2bands \
+    -Iresults/RBs-MD-in-circle/2pairs/3bands \
+    -Iresults/RBs-MD-in-circle/2pairs/4bands \
+    -Iresults/RBs-MD-in-circle/2pairs/5bands \
+    -Iresults/RBs-MD-in-circle/2pairs/6bands \
+    -Iresults/RBs-MD-in-circle/2pairs/7bands \
+    -Iresults/RBs-MD-in-circle/2pairs/8bands \
+    -Iresults/RBs-MD-in-circle/2pairs/9bands \
+    -Iresults/RBs-MD-in-circle/3pairs \
+    -Iresults/RBs-MD-in-circle/3pairs/10bands \
+    -Iresults/RBs-MD-in-circle/3pairs/1bands \
+    -Iresults/RBs-MD-in-circle/3pairs/2bands \
+    -Iresults/RBs-MD-in-circle/3pairs/3bands \
+    -Iresults/RBs-MD-in-circle/3pairs/4bands \
+    -Iresults/RBs-MD-in-circle/3pairs/5bands \
+    -Iresults/RBs-MD-in-circle/3pairs/6bands \
+    -Iresults/RBs-MD-in-circle/3pairs/7bands \
+    -Iresults/RBs-MD-in-circle/3pairs/8bands \
+    -Iresults/RBs-MD-in-circle/3pairs/9bands \
+    -Iresults/RBs-MD-in-circle/4pairs \
+    -Iresults/RBs-MD-in-circle/4pairs/10bands \
+    -Iresults/RBs-MD-in-circle/4pairs/1bands \
+    -Iresults/RBs-MD-in-circle/4pairs/2bands \
+    -Iresults/RBs-MD-in-circle/4pairs/3bands \
+    -Iresults/RBs-MD-in-circle/4pairs/4bands \
+    -Iresults/RBs-MD-in-circle/4pairs/5bands \
+    -Iresults/RBs-MD-in-circle/4pairs/6bands \
+    -Iresults/RBs-MD-in-circle/4pairs/7bands \
+    -Iresults/RBs-MD-in-circle/4pairs/8bands \
+    -Iresults/RBs-MD-in-circle/4pairs/9bands \
+    -Iresults/RBs-MD-in-circle/5pairs \
+    -Iresults/RBs-MD-in-circle/5pairs/10bands \
+    -Iresults/RBs-MD-in-circle/5pairs/1bands \
+    -Iresults/RBs-MD-in-circle/5pairs/2bands \
+    -Iresults/RBs-MD-in-circle/5pairs/3bands \
+    -Iresults/RBs-MD-in-circle/5pairs/4bands \
+    -Iresults/RBs-MD-in-circle/5pairs/5bands \
+    -Iresults/RBs-MD-in-circle/5pairs/6bands \
+    -Iresults/RBs-MD-in-circle/5pairs/7bands \
+    -Iresults/RBs-MD-in-circle/5pairs/8bands \
+    -Iresults/RBs-MD-in-circle/5pairs/9bands \
+    -Iresults/RBs-in-circle \
+    -Iresults/RBs-in-circle/1pairs \
+    -Iresults/RBs-in-circle/1pairs/10bands \
+    -Iresults/RBs-in-circle/1pairs/1bands \
+    -Iresults/RBs-in-circle/1pairs/2bands \
+    -Iresults/RBs-in-circle/1pairs/3bands \
+    -Iresults/RBs-in-circle/1pairs/4bands \
+    -Iresults/RBs-in-circle/1pairs/5bands \
+    -Iresults/RBs-in-circle/1pairs/6bands \
+    -Iresults/RBs-in-circle/1pairs/7bands \
+    -Iresults/RBs-in-circle/1pairs/8bands \
+    -Iresults/RBs-in-circle/1pairs/9bands \
+    -Iresults/RBs-in-circle/2pairs \
+    -Iresults/RBs-in-circle/2pairs/10bands \
+    -Iresults/RBs-in-circle/2pairs/1bands \
+    -Iresults/RBs-in-circle/2pairs/2bands \
+    -Iresults/RBs-in-circle/2pairs/3bands \
+    -Iresults/RBs-in-circle/2pairs/4bands \
+    -Iresults/RBs-in-circle/2pairs/5bands \
+    -Iresults/RBs-in-circle/2pairs/6bands \
+    -Iresults/RBs-in-circle/2pairs/7bands \
+    -Iresults/RBs-in-circle/2pairs/8bands \
+    -Iresults/RBs-in-circle/2pairs/9bands \
+    -Iresults/RBs-in-circle/3pairs \
+    -Iresults/RBs-in-circle/3pairs/10bands \
+    -Iresults/RBs-in-circle/3pairs/1bands \
+    -Iresults/RBs-in-circle/3pairs/2bands \
+    -Iresults/RBs-in-circle/3pairs/3bands \
+    -Iresults/RBs-in-circle/3pairs/4bands \
+    -Iresults/RBs-in-circle/3pairs/5bands \
+    -Iresults/RBs-in-circle/3pairs/6bands \
+    -Iresults/RBs-in-circle/3pairs/7bands \
+    -Iresults/RBs-in-circle/3pairs/8bands \
+    -Iresults/RBs-in-circle/3pairs/9bands \
+    -Iresults/RBs-in-circle/4pairs \
+    -Iresults/RBs-in-circle/4pairs/10bands \
+    -Iresults/RBs-in-circle/4pairs/1bands \
+    -Iresults/RBs-in-circle/4pairs/2bands \
+    -Iresults/RBs-in-circle/4pairs/3bands \
+    -Iresults/RBs-in-circle/4pairs/4bands \
+    -Iresults/RBs-in-circle/4pairs/5bands \
+    -Iresults/RBs-in-circle/4pairs/6bands \
+    -Iresults/RBs-in-circle/4pairs/7bands \
+    -Iresults/RBs-in-circle/4pairs/8bands \
+    -Iresults/RBs-in-circle/4pairs/9bands \
+    -Iresults/RBs-in-circle/5pairs \
+    -Iresults/RBs-in-circle/5pairs/10bands \
+    -Iresults/RBs-in-circle/5pairs/1bands \
+    -Iresults/RBs-in-circle/5pairs/2bands \
+    -Iresults/RBs-in-circle/5pairs/3bands \
+    -Iresults/RBs-in-circle/5pairs/4bands \
+    -Iresults/RBs-in-circle/5pairs/5bands \
+    -Iresults/RBs-in-circle/5pairs/6bands \
+    -Iresults/RBs-in-circle/5pairs/7bands \
+    -Iresults/RBs-in-circle/5pairs/8bands \
+    -Iresults/RBs-in-circle/5pairs/9bands \
     -Iresults/ReassignmentTest-1RBs-D2D \
     -Iresults/ReassignmentTest-1RBs-D2D/1pairs \
     -Iresults/ReassignmentTest-1RBs-D2D/2pairs \
@@ -93,7 +317,7 @@ include $(CONFIGFILE)
 OMNETPP_LIB_SUBDIR = $(OMNETPP_LIB_DIR)/$(TOOLCHAIN_NAME)
 OMNETPP_LIBS = -L"$(OMNETPP_LIB_SUBDIR)" -L"$(OMNETPP_LIB_DIR)" -loppmain$D $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 
-COPTS = $(CFLAGS)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 SMCOPTS =
 
@@ -154,6 +378,230 @@ clean:
 	$(Q)-rm -f evaluation/mode-selection/test/*_m.cc evaluation/mode-selection/test/*_m.h evaluation/mode-selection/test/*_sm.cc evaluation/mode-selection/test/*_sm.h
 	$(Q)-rm -f evaluation/parameter-study_pairs-bands-rbs/*_m.cc evaluation/parameter-study_pairs-bands-rbs/*_m.h evaluation/parameter-study_pairs-bands-rbs/*_sm.cc evaluation/parameter-study_pairs-bands-rbs/*_sm.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h results/*_sm.cc results/*_sm.h
+	$(Q)-rm -f results/RBs/*_m.cc results/RBs/*_m.h results/RBs/*_sm.cc results/RBs/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/*_m.cc results/RBs/1pairs/*_m.h results/RBs/1pairs/*_sm.cc results/RBs/1pairs/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/10bands/*_m.cc results/RBs/1pairs/10bands/*_m.h results/RBs/1pairs/10bands/*_sm.cc results/RBs/1pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/1bands/*_m.cc results/RBs/1pairs/1bands/*_m.h results/RBs/1pairs/1bands/*_sm.cc results/RBs/1pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/2bands/*_m.cc results/RBs/1pairs/2bands/*_m.h results/RBs/1pairs/2bands/*_sm.cc results/RBs/1pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/3bands/*_m.cc results/RBs/1pairs/3bands/*_m.h results/RBs/1pairs/3bands/*_sm.cc results/RBs/1pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/4bands/*_m.cc results/RBs/1pairs/4bands/*_m.h results/RBs/1pairs/4bands/*_sm.cc results/RBs/1pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/5bands/*_m.cc results/RBs/1pairs/5bands/*_m.h results/RBs/1pairs/5bands/*_sm.cc results/RBs/1pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/6bands/*_m.cc results/RBs/1pairs/6bands/*_m.h results/RBs/1pairs/6bands/*_sm.cc results/RBs/1pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/7bands/*_m.cc results/RBs/1pairs/7bands/*_m.h results/RBs/1pairs/7bands/*_sm.cc results/RBs/1pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/8bands/*_m.cc results/RBs/1pairs/8bands/*_m.h results/RBs/1pairs/8bands/*_sm.cc results/RBs/1pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs/1pairs/9bands/*_m.cc results/RBs/1pairs/9bands/*_m.h results/RBs/1pairs/9bands/*_sm.cc results/RBs/1pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/*_m.cc results/RBs/2pairs/*_m.h results/RBs/2pairs/*_sm.cc results/RBs/2pairs/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/10bands/*_m.cc results/RBs/2pairs/10bands/*_m.h results/RBs/2pairs/10bands/*_sm.cc results/RBs/2pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/1bands/*_m.cc results/RBs/2pairs/1bands/*_m.h results/RBs/2pairs/1bands/*_sm.cc results/RBs/2pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/2bands/*_m.cc results/RBs/2pairs/2bands/*_m.h results/RBs/2pairs/2bands/*_sm.cc results/RBs/2pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/3bands/*_m.cc results/RBs/2pairs/3bands/*_m.h results/RBs/2pairs/3bands/*_sm.cc results/RBs/2pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/4bands/*_m.cc results/RBs/2pairs/4bands/*_m.h results/RBs/2pairs/4bands/*_sm.cc results/RBs/2pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/5bands/*_m.cc results/RBs/2pairs/5bands/*_m.h results/RBs/2pairs/5bands/*_sm.cc results/RBs/2pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/6bands/*_m.cc results/RBs/2pairs/6bands/*_m.h results/RBs/2pairs/6bands/*_sm.cc results/RBs/2pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/7bands/*_m.cc results/RBs/2pairs/7bands/*_m.h results/RBs/2pairs/7bands/*_sm.cc results/RBs/2pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/8bands/*_m.cc results/RBs/2pairs/8bands/*_m.h results/RBs/2pairs/8bands/*_sm.cc results/RBs/2pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs/2pairs/9bands/*_m.cc results/RBs/2pairs/9bands/*_m.h results/RBs/2pairs/9bands/*_sm.cc results/RBs/2pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/*_m.cc results/RBs/3pairs/*_m.h results/RBs/3pairs/*_sm.cc results/RBs/3pairs/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/10bands/*_m.cc results/RBs/3pairs/10bands/*_m.h results/RBs/3pairs/10bands/*_sm.cc results/RBs/3pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/1bands/*_m.cc results/RBs/3pairs/1bands/*_m.h results/RBs/3pairs/1bands/*_sm.cc results/RBs/3pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/2bands/*_m.cc results/RBs/3pairs/2bands/*_m.h results/RBs/3pairs/2bands/*_sm.cc results/RBs/3pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/3bands/*_m.cc results/RBs/3pairs/3bands/*_m.h results/RBs/3pairs/3bands/*_sm.cc results/RBs/3pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/4bands/*_m.cc results/RBs/3pairs/4bands/*_m.h results/RBs/3pairs/4bands/*_sm.cc results/RBs/3pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/5bands/*_m.cc results/RBs/3pairs/5bands/*_m.h results/RBs/3pairs/5bands/*_sm.cc results/RBs/3pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/6bands/*_m.cc results/RBs/3pairs/6bands/*_m.h results/RBs/3pairs/6bands/*_sm.cc results/RBs/3pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/7bands/*_m.cc results/RBs/3pairs/7bands/*_m.h results/RBs/3pairs/7bands/*_sm.cc results/RBs/3pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/8bands/*_m.cc results/RBs/3pairs/8bands/*_m.h results/RBs/3pairs/8bands/*_sm.cc results/RBs/3pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs/3pairs/9bands/*_m.cc results/RBs/3pairs/9bands/*_m.h results/RBs/3pairs/9bands/*_sm.cc results/RBs/3pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/*_m.cc results/RBs/4pairs/*_m.h results/RBs/4pairs/*_sm.cc results/RBs/4pairs/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/10bands/*_m.cc results/RBs/4pairs/10bands/*_m.h results/RBs/4pairs/10bands/*_sm.cc results/RBs/4pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/1bands/*_m.cc results/RBs/4pairs/1bands/*_m.h results/RBs/4pairs/1bands/*_sm.cc results/RBs/4pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/2bands/*_m.cc results/RBs/4pairs/2bands/*_m.h results/RBs/4pairs/2bands/*_sm.cc results/RBs/4pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/3bands/*_m.cc results/RBs/4pairs/3bands/*_m.h results/RBs/4pairs/3bands/*_sm.cc results/RBs/4pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/4bands/*_m.cc results/RBs/4pairs/4bands/*_m.h results/RBs/4pairs/4bands/*_sm.cc results/RBs/4pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/5bands/*_m.cc results/RBs/4pairs/5bands/*_m.h results/RBs/4pairs/5bands/*_sm.cc results/RBs/4pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/6bands/*_m.cc results/RBs/4pairs/6bands/*_m.h results/RBs/4pairs/6bands/*_sm.cc results/RBs/4pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/7bands/*_m.cc results/RBs/4pairs/7bands/*_m.h results/RBs/4pairs/7bands/*_sm.cc results/RBs/4pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/8bands/*_m.cc results/RBs/4pairs/8bands/*_m.h results/RBs/4pairs/8bands/*_sm.cc results/RBs/4pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs/4pairs/9bands/*_m.cc results/RBs/4pairs/9bands/*_m.h results/RBs/4pairs/9bands/*_sm.cc results/RBs/4pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/*_m.cc results/RBs/5pairs/*_m.h results/RBs/5pairs/*_sm.cc results/RBs/5pairs/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/10bands/*_m.cc results/RBs/5pairs/10bands/*_m.h results/RBs/5pairs/10bands/*_sm.cc results/RBs/5pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/1bands/*_m.cc results/RBs/5pairs/1bands/*_m.h results/RBs/5pairs/1bands/*_sm.cc results/RBs/5pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/2bands/*_m.cc results/RBs/5pairs/2bands/*_m.h results/RBs/5pairs/2bands/*_sm.cc results/RBs/5pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/3bands/*_m.cc results/RBs/5pairs/3bands/*_m.h results/RBs/5pairs/3bands/*_sm.cc results/RBs/5pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/4bands/*_m.cc results/RBs/5pairs/4bands/*_m.h results/RBs/5pairs/4bands/*_sm.cc results/RBs/5pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/5bands/*_m.cc results/RBs/5pairs/5bands/*_m.h results/RBs/5pairs/5bands/*_sm.cc results/RBs/5pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/6bands/*_m.cc results/RBs/5pairs/6bands/*_m.h results/RBs/5pairs/6bands/*_sm.cc results/RBs/5pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/7bands/*_m.cc results/RBs/5pairs/7bands/*_m.h results/RBs/5pairs/7bands/*_sm.cc results/RBs/5pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/8bands/*_m.cc results/RBs/5pairs/8bands/*_m.h results/RBs/5pairs/8bands/*_sm.cc results/RBs/5pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs/5pairs/9bands/*_m.cc results/RBs/5pairs/9bands/*_m.h results/RBs/5pairs/9bands/*_sm.cc results/RBs/5pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/*_m.cc results/RBs-MD/*_m.h results/RBs-MD/*_sm.cc results/RBs-MD/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/*_m.cc results/RBs-MD/1pairs/*_m.h results/RBs-MD/1pairs/*_sm.cc results/RBs-MD/1pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/10bands/*_m.cc results/RBs-MD/1pairs/10bands/*_m.h results/RBs-MD/1pairs/10bands/*_sm.cc results/RBs-MD/1pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/1bands/*_m.cc results/RBs-MD/1pairs/1bands/*_m.h results/RBs-MD/1pairs/1bands/*_sm.cc results/RBs-MD/1pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/2bands/*_m.cc results/RBs-MD/1pairs/2bands/*_m.h results/RBs-MD/1pairs/2bands/*_sm.cc results/RBs-MD/1pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/3bands/*_m.cc results/RBs-MD/1pairs/3bands/*_m.h results/RBs-MD/1pairs/3bands/*_sm.cc results/RBs-MD/1pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/4bands/*_m.cc results/RBs-MD/1pairs/4bands/*_m.h results/RBs-MD/1pairs/4bands/*_sm.cc results/RBs-MD/1pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/5bands/*_m.cc results/RBs-MD/1pairs/5bands/*_m.h results/RBs-MD/1pairs/5bands/*_sm.cc results/RBs-MD/1pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/6bands/*_m.cc results/RBs-MD/1pairs/6bands/*_m.h results/RBs-MD/1pairs/6bands/*_sm.cc results/RBs-MD/1pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/7bands/*_m.cc results/RBs-MD/1pairs/7bands/*_m.h results/RBs-MD/1pairs/7bands/*_sm.cc results/RBs-MD/1pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/8bands/*_m.cc results/RBs-MD/1pairs/8bands/*_m.h results/RBs-MD/1pairs/8bands/*_sm.cc results/RBs-MD/1pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/1pairs/9bands/*_m.cc results/RBs-MD/1pairs/9bands/*_m.h results/RBs-MD/1pairs/9bands/*_sm.cc results/RBs-MD/1pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/*_m.cc results/RBs-MD/2pairs/*_m.h results/RBs-MD/2pairs/*_sm.cc results/RBs-MD/2pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/10bands/*_m.cc results/RBs-MD/2pairs/10bands/*_m.h results/RBs-MD/2pairs/10bands/*_sm.cc results/RBs-MD/2pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/1bands/*_m.cc results/RBs-MD/2pairs/1bands/*_m.h results/RBs-MD/2pairs/1bands/*_sm.cc results/RBs-MD/2pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/2bands/*_m.cc results/RBs-MD/2pairs/2bands/*_m.h results/RBs-MD/2pairs/2bands/*_sm.cc results/RBs-MD/2pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/3bands/*_m.cc results/RBs-MD/2pairs/3bands/*_m.h results/RBs-MD/2pairs/3bands/*_sm.cc results/RBs-MD/2pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/4bands/*_m.cc results/RBs-MD/2pairs/4bands/*_m.h results/RBs-MD/2pairs/4bands/*_sm.cc results/RBs-MD/2pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/5bands/*_m.cc results/RBs-MD/2pairs/5bands/*_m.h results/RBs-MD/2pairs/5bands/*_sm.cc results/RBs-MD/2pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/6bands/*_m.cc results/RBs-MD/2pairs/6bands/*_m.h results/RBs-MD/2pairs/6bands/*_sm.cc results/RBs-MD/2pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/7bands/*_m.cc results/RBs-MD/2pairs/7bands/*_m.h results/RBs-MD/2pairs/7bands/*_sm.cc results/RBs-MD/2pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/8bands/*_m.cc results/RBs-MD/2pairs/8bands/*_m.h results/RBs-MD/2pairs/8bands/*_sm.cc results/RBs-MD/2pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/2pairs/9bands/*_m.cc results/RBs-MD/2pairs/9bands/*_m.h results/RBs-MD/2pairs/9bands/*_sm.cc results/RBs-MD/2pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/*_m.cc results/RBs-MD/3pairs/*_m.h results/RBs-MD/3pairs/*_sm.cc results/RBs-MD/3pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/10bands/*_m.cc results/RBs-MD/3pairs/10bands/*_m.h results/RBs-MD/3pairs/10bands/*_sm.cc results/RBs-MD/3pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/1bands/*_m.cc results/RBs-MD/3pairs/1bands/*_m.h results/RBs-MD/3pairs/1bands/*_sm.cc results/RBs-MD/3pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/2bands/*_m.cc results/RBs-MD/3pairs/2bands/*_m.h results/RBs-MD/3pairs/2bands/*_sm.cc results/RBs-MD/3pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/3bands/*_m.cc results/RBs-MD/3pairs/3bands/*_m.h results/RBs-MD/3pairs/3bands/*_sm.cc results/RBs-MD/3pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/4bands/*_m.cc results/RBs-MD/3pairs/4bands/*_m.h results/RBs-MD/3pairs/4bands/*_sm.cc results/RBs-MD/3pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/5bands/*_m.cc results/RBs-MD/3pairs/5bands/*_m.h results/RBs-MD/3pairs/5bands/*_sm.cc results/RBs-MD/3pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/6bands/*_m.cc results/RBs-MD/3pairs/6bands/*_m.h results/RBs-MD/3pairs/6bands/*_sm.cc results/RBs-MD/3pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/7bands/*_m.cc results/RBs-MD/3pairs/7bands/*_m.h results/RBs-MD/3pairs/7bands/*_sm.cc results/RBs-MD/3pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/8bands/*_m.cc results/RBs-MD/3pairs/8bands/*_m.h results/RBs-MD/3pairs/8bands/*_sm.cc results/RBs-MD/3pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/3pairs/9bands/*_m.cc results/RBs-MD/3pairs/9bands/*_m.h results/RBs-MD/3pairs/9bands/*_sm.cc results/RBs-MD/3pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/*_m.cc results/RBs-MD/4pairs/*_m.h results/RBs-MD/4pairs/*_sm.cc results/RBs-MD/4pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/10bands/*_m.cc results/RBs-MD/4pairs/10bands/*_m.h results/RBs-MD/4pairs/10bands/*_sm.cc results/RBs-MD/4pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/1bands/*_m.cc results/RBs-MD/4pairs/1bands/*_m.h results/RBs-MD/4pairs/1bands/*_sm.cc results/RBs-MD/4pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/2bands/*_m.cc results/RBs-MD/4pairs/2bands/*_m.h results/RBs-MD/4pairs/2bands/*_sm.cc results/RBs-MD/4pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/3bands/*_m.cc results/RBs-MD/4pairs/3bands/*_m.h results/RBs-MD/4pairs/3bands/*_sm.cc results/RBs-MD/4pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/4bands/*_m.cc results/RBs-MD/4pairs/4bands/*_m.h results/RBs-MD/4pairs/4bands/*_sm.cc results/RBs-MD/4pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/5bands/*_m.cc results/RBs-MD/4pairs/5bands/*_m.h results/RBs-MD/4pairs/5bands/*_sm.cc results/RBs-MD/4pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/6bands/*_m.cc results/RBs-MD/4pairs/6bands/*_m.h results/RBs-MD/4pairs/6bands/*_sm.cc results/RBs-MD/4pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/7bands/*_m.cc results/RBs-MD/4pairs/7bands/*_m.h results/RBs-MD/4pairs/7bands/*_sm.cc results/RBs-MD/4pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/8bands/*_m.cc results/RBs-MD/4pairs/8bands/*_m.h results/RBs-MD/4pairs/8bands/*_sm.cc results/RBs-MD/4pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/4pairs/9bands/*_m.cc results/RBs-MD/4pairs/9bands/*_m.h results/RBs-MD/4pairs/9bands/*_sm.cc results/RBs-MD/4pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/*_m.cc results/RBs-MD/5pairs/*_m.h results/RBs-MD/5pairs/*_sm.cc results/RBs-MD/5pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/10bands/*_m.cc results/RBs-MD/5pairs/10bands/*_m.h results/RBs-MD/5pairs/10bands/*_sm.cc results/RBs-MD/5pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/1bands/*_m.cc results/RBs-MD/5pairs/1bands/*_m.h results/RBs-MD/5pairs/1bands/*_sm.cc results/RBs-MD/5pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/2bands/*_m.cc results/RBs-MD/5pairs/2bands/*_m.h results/RBs-MD/5pairs/2bands/*_sm.cc results/RBs-MD/5pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/3bands/*_m.cc results/RBs-MD/5pairs/3bands/*_m.h results/RBs-MD/5pairs/3bands/*_sm.cc results/RBs-MD/5pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/4bands/*_m.cc results/RBs-MD/5pairs/4bands/*_m.h results/RBs-MD/5pairs/4bands/*_sm.cc results/RBs-MD/5pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/5bands/*_m.cc results/RBs-MD/5pairs/5bands/*_m.h results/RBs-MD/5pairs/5bands/*_sm.cc results/RBs-MD/5pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/6bands/*_m.cc results/RBs-MD/5pairs/6bands/*_m.h results/RBs-MD/5pairs/6bands/*_sm.cc results/RBs-MD/5pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/7bands/*_m.cc results/RBs-MD/5pairs/7bands/*_m.h results/RBs-MD/5pairs/7bands/*_sm.cc results/RBs-MD/5pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/8bands/*_m.cc results/RBs-MD/5pairs/8bands/*_m.h results/RBs-MD/5pairs/8bands/*_sm.cc results/RBs-MD/5pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD/5pairs/9bands/*_m.cc results/RBs-MD/5pairs/9bands/*_m.h results/RBs-MD/5pairs/9bands/*_sm.cc results/RBs-MD/5pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/*_m.cc results/RBs-MD-in-circle/*_m.h results/RBs-MD-in-circle/*_sm.cc results/RBs-MD-in-circle/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/*_m.cc results/RBs-MD-in-circle/1pairs/*_m.h results/RBs-MD-in-circle/1pairs/*_sm.cc results/RBs-MD-in-circle/1pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/10bands/*_m.cc results/RBs-MD-in-circle/1pairs/10bands/*_m.h results/RBs-MD-in-circle/1pairs/10bands/*_sm.cc results/RBs-MD-in-circle/1pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/1bands/*_m.cc results/RBs-MD-in-circle/1pairs/1bands/*_m.h results/RBs-MD-in-circle/1pairs/1bands/*_sm.cc results/RBs-MD-in-circle/1pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/2bands/*_m.cc results/RBs-MD-in-circle/1pairs/2bands/*_m.h results/RBs-MD-in-circle/1pairs/2bands/*_sm.cc results/RBs-MD-in-circle/1pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/3bands/*_m.cc results/RBs-MD-in-circle/1pairs/3bands/*_m.h results/RBs-MD-in-circle/1pairs/3bands/*_sm.cc results/RBs-MD-in-circle/1pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/4bands/*_m.cc results/RBs-MD-in-circle/1pairs/4bands/*_m.h results/RBs-MD-in-circle/1pairs/4bands/*_sm.cc results/RBs-MD-in-circle/1pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/5bands/*_m.cc results/RBs-MD-in-circle/1pairs/5bands/*_m.h results/RBs-MD-in-circle/1pairs/5bands/*_sm.cc results/RBs-MD-in-circle/1pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/6bands/*_m.cc results/RBs-MD-in-circle/1pairs/6bands/*_m.h results/RBs-MD-in-circle/1pairs/6bands/*_sm.cc results/RBs-MD-in-circle/1pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/7bands/*_m.cc results/RBs-MD-in-circle/1pairs/7bands/*_m.h results/RBs-MD-in-circle/1pairs/7bands/*_sm.cc results/RBs-MD-in-circle/1pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/8bands/*_m.cc results/RBs-MD-in-circle/1pairs/8bands/*_m.h results/RBs-MD-in-circle/1pairs/8bands/*_sm.cc results/RBs-MD-in-circle/1pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/1pairs/9bands/*_m.cc results/RBs-MD-in-circle/1pairs/9bands/*_m.h results/RBs-MD-in-circle/1pairs/9bands/*_sm.cc results/RBs-MD-in-circle/1pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/*_m.cc results/RBs-MD-in-circle/2pairs/*_m.h results/RBs-MD-in-circle/2pairs/*_sm.cc results/RBs-MD-in-circle/2pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/10bands/*_m.cc results/RBs-MD-in-circle/2pairs/10bands/*_m.h results/RBs-MD-in-circle/2pairs/10bands/*_sm.cc results/RBs-MD-in-circle/2pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/1bands/*_m.cc results/RBs-MD-in-circle/2pairs/1bands/*_m.h results/RBs-MD-in-circle/2pairs/1bands/*_sm.cc results/RBs-MD-in-circle/2pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/2bands/*_m.cc results/RBs-MD-in-circle/2pairs/2bands/*_m.h results/RBs-MD-in-circle/2pairs/2bands/*_sm.cc results/RBs-MD-in-circle/2pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/3bands/*_m.cc results/RBs-MD-in-circle/2pairs/3bands/*_m.h results/RBs-MD-in-circle/2pairs/3bands/*_sm.cc results/RBs-MD-in-circle/2pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/4bands/*_m.cc results/RBs-MD-in-circle/2pairs/4bands/*_m.h results/RBs-MD-in-circle/2pairs/4bands/*_sm.cc results/RBs-MD-in-circle/2pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/5bands/*_m.cc results/RBs-MD-in-circle/2pairs/5bands/*_m.h results/RBs-MD-in-circle/2pairs/5bands/*_sm.cc results/RBs-MD-in-circle/2pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/6bands/*_m.cc results/RBs-MD-in-circle/2pairs/6bands/*_m.h results/RBs-MD-in-circle/2pairs/6bands/*_sm.cc results/RBs-MD-in-circle/2pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/7bands/*_m.cc results/RBs-MD-in-circle/2pairs/7bands/*_m.h results/RBs-MD-in-circle/2pairs/7bands/*_sm.cc results/RBs-MD-in-circle/2pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/8bands/*_m.cc results/RBs-MD-in-circle/2pairs/8bands/*_m.h results/RBs-MD-in-circle/2pairs/8bands/*_sm.cc results/RBs-MD-in-circle/2pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/2pairs/9bands/*_m.cc results/RBs-MD-in-circle/2pairs/9bands/*_m.h results/RBs-MD-in-circle/2pairs/9bands/*_sm.cc results/RBs-MD-in-circle/2pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/*_m.cc results/RBs-MD-in-circle/3pairs/*_m.h results/RBs-MD-in-circle/3pairs/*_sm.cc results/RBs-MD-in-circle/3pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/10bands/*_m.cc results/RBs-MD-in-circle/3pairs/10bands/*_m.h results/RBs-MD-in-circle/3pairs/10bands/*_sm.cc results/RBs-MD-in-circle/3pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/1bands/*_m.cc results/RBs-MD-in-circle/3pairs/1bands/*_m.h results/RBs-MD-in-circle/3pairs/1bands/*_sm.cc results/RBs-MD-in-circle/3pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/2bands/*_m.cc results/RBs-MD-in-circle/3pairs/2bands/*_m.h results/RBs-MD-in-circle/3pairs/2bands/*_sm.cc results/RBs-MD-in-circle/3pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/3bands/*_m.cc results/RBs-MD-in-circle/3pairs/3bands/*_m.h results/RBs-MD-in-circle/3pairs/3bands/*_sm.cc results/RBs-MD-in-circle/3pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/4bands/*_m.cc results/RBs-MD-in-circle/3pairs/4bands/*_m.h results/RBs-MD-in-circle/3pairs/4bands/*_sm.cc results/RBs-MD-in-circle/3pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/5bands/*_m.cc results/RBs-MD-in-circle/3pairs/5bands/*_m.h results/RBs-MD-in-circle/3pairs/5bands/*_sm.cc results/RBs-MD-in-circle/3pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/6bands/*_m.cc results/RBs-MD-in-circle/3pairs/6bands/*_m.h results/RBs-MD-in-circle/3pairs/6bands/*_sm.cc results/RBs-MD-in-circle/3pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/7bands/*_m.cc results/RBs-MD-in-circle/3pairs/7bands/*_m.h results/RBs-MD-in-circle/3pairs/7bands/*_sm.cc results/RBs-MD-in-circle/3pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/8bands/*_m.cc results/RBs-MD-in-circle/3pairs/8bands/*_m.h results/RBs-MD-in-circle/3pairs/8bands/*_sm.cc results/RBs-MD-in-circle/3pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/3pairs/9bands/*_m.cc results/RBs-MD-in-circle/3pairs/9bands/*_m.h results/RBs-MD-in-circle/3pairs/9bands/*_sm.cc results/RBs-MD-in-circle/3pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/*_m.cc results/RBs-MD-in-circle/4pairs/*_m.h results/RBs-MD-in-circle/4pairs/*_sm.cc results/RBs-MD-in-circle/4pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/10bands/*_m.cc results/RBs-MD-in-circle/4pairs/10bands/*_m.h results/RBs-MD-in-circle/4pairs/10bands/*_sm.cc results/RBs-MD-in-circle/4pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/1bands/*_m.cc results/RBs-MD-in-circle/4pairs/1bands/*_m.h results/RBs-MD-in-circle/4pairs/1bands/*_sm.cc results/RBs-MD-in-circle/4pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/2bands/*_m.cc results/RBs-MD-in-circle/4pairs/2bands/*_m.h results/RBs-MD-in-circle/4pairs/2bands/*_sm.cc results/RBs-MD-in-circle/4pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/3bands/*_m.cc results/RBs-MD-in-circle/4pairs/3bands/*_m.h results/RBs-MD-in-circle/4pairs/3bands/*_sm.cc results/RBs-MD-in-circle/4pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/4bands/*_m.cc results/RBs-MD-in-circle/4pairs/4bands/*_m.h results/RBs-MD-in-circle/4pairs/4bands/*_sm.cc results/RBs-MD-in-circle/4pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/5bands/*_m.cc results/RBs-MD-in-circle/4pairs/5bands/*_m.h results/RBs-MD-in-circle/4pairs/5bands/*_sm.cc results/RBs-MD-in-circle/4pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/6bands/*_m.cc results/RBs-MD-in-circle/4pairs/6bands/*_m.h results/RBs-MD-in-circle/4pairs/6bands/*_sm.cc results/RBs-MD-in-circle/4pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/7bands/*_m.cc results/RBs-MD-in-circle/4pairs/7bands/*_m.h results/RBs-MD-in-circle/4pairs/7bands/*_sm.cc results/RBs-MD-in-circle/4pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/8bands/*_m.cc results/RBs-MD-in-circle/4pairs/8bands/*_m.h results/RBs-MD-in-circle/4pairs/8bands/*_sm.cc results/RBs-MD-in-circle/4pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/4pairs/9bands/*_m.cc results/RBs-MD-in-circle/4pairs/9bands/*_m.h results/RBs-MD-in-circle/4pairs/9bands/*_sm.cc results/RBs-MD-in-circle/4pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/*_m.cc results/RBs-MD-in-circle/5pairs/*_m.h results/RBs-MD-in-circle/5pairs/*_sm.cc results/RBs-MD-in-circle/5pairs/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/10bands/*_m.cc results/RBs-MD-in-circle/5pairs/10bands/*_m.h results/RBs-MD-in-circle/5pairs/10bands/*_sm.cc results/RBs-MD-in-circle/5pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/1bands/*_m.cc results/RBs-MD-in-circle/5pairs/1bands/*_m.h results/RBs-MD-in-circle/5pairs/1bands/*_sm.cc results/RBs-MD-in-circle/5pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/2bands/*_m.cc results/RBs-MD-in-circle/5pairs/2bands/*_m.h results/RBs-MD-in-circle/5pairs/2bands/*_sm.cc results/RBs-MD-in-circle/5pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/3bands/*_m.cc results/RBs-MD-in-circle/5pairs/3bands/*_m.h results/RBs-MD-in-circle/5pairs/3bands/*_sm.cc results/RBs-MD-in-circle/5pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/4bands/*_m.cc results/RBs-MD-in-circle/5pairs/4bands/*_m.h results/RBs-MD-in-circle/5pairs/4bands/*_sm.cc results/RBs-MD-in-circle/5pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/5bands/*_m.cc results/RBs-MD-in-circle/5pairs/5bands/*_m.h results/RBs-MD-in-circle/5pairs/5bands/*_sm.cc results/RBs-MD-in-circle/5pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/6bands/*_m.cc results/RBs-MD-in-circle/5pairs/6bands/*_m.h results/RBs-MD-in-circle/5pairs/6bands/*_sm.cc results/RBs-MD-in-circle/5pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/7bands/*_m.cc results/RBs-MD-in-circle/5pairs/7bands/*_m.h results/RBs-MD-in-circle/5pairs/7bands/*_sm.cc results/RBs-MD-in-circle/5pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/8bands/*_m.cc results/RBs-MD-in-circle/5pairs/8bands/*_m.h results/RBs-MD-in-circle/5pairs/8bands/*_sm.cc results/RBs-MD-in-circle/5pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-MD-in-circle/5pairs/9bands/*_m.cc results/RBs-MD-in-circle/5pairs/9bands/*_m.h results/RBs-MD-in-circle/5pairs/9bands/*_sm.cc results/RBs-MD-in-circle/5pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/*_m.cc results/RBs-in-circle/*_m.h results/RBs-in-circle/*_sm.cc results/RBs-in-circle/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/*_m.cc results/RBs-in-circle/1pairs/*_m.h results/RBs-in-circle/1pairs/*_sm.cc results/RBs-in-circle/1pairs/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/10bands/*_m.cc results/RBs-in-circle/1pairs/10bands/*_m.h results/RBs-in-circle/1pairs/10bands/*_sm.cc results/RBs-in-circle/1pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/1bands/*_m.cc results/RBs-in-circle/1pairs/1bands/*_m.h results/RBs-in-circle/1pairs/1bands/*_sm.cc results/RBs-in-circle/1pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/2bands/*_m.cc results/RBs-in-circle/1pairs/2bands/*_m.h results/RBs-in-circle/1pairs/2bands/*_sm.cc results/RBs-in-circle/1pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/3bands/*_m.cc results/RBs-in-circle/1pairs/3bands/*_m.h results/RBs-in-circle/1pairs/3bands/*_sm.cc results/RBs-in-circle/1pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/4bands/*_m.cc results/RBs-in-circle/1pairs/4bands/*_m.h results/RBs-in-circle/1pairs/4bands/*_sm.cc results/RBs-in-circle/1pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/5bands/*_m.cc results/RBs-in-circle/1pairs/5bands/*_m.h results/RBs-in-circle/1pairs/5bands/*_sm.cc results/RBs-in-circle/1pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/6bands/*_m.cc results/RBs-in-circle/1pairs/6bands/*_m.h results/RBs-in-circle/1pairs/6bands/*_sm.cc results/RBs-in-circle/1pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/7bands/*_m.cc results/RBs-in-circle/1pairs/7bands/*_m.h results/RBs-in-circle/1pairs/7bands/*_sm.cc results/RBs-in-circle/1pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/8bands/*_m.cc results/RBs-in-circle/1pairs/8bands/*_m.h results/RBs-in-circle/1pairs/8bands/*_sm.cc results/RBs-in-circle/1pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/1pairs/9bands/*_m.cc results/RBs-in-circle/1pairs/9bands/*_m.h results/RBs-in-circle/1pairs/9bands/*_sm.cc results/RBs-in-circle/1pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/*_m.cc results/RBs-in-circle/2pairs/*_m.h results/RBs-in-circle/2pairs/*_sm.cc results/RBs-in-circle/2pairs/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/10bands/*_m.cc results/RBs-in-circle/2pairs/10bands/*_m.h results/RBs-in-circle/2pairs/10bands/*_sm.cc results/RBs-in-circle/2pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/1bands/*_m.cc results/RBs-in-circle/2pairs/1bands/*_m.h results/RBs-in-circle/2pairs/1bands/*_sm.cc results/RBs-in-circle/2pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/2bands/*_m.cc results/RBs-in-circle/2pairs/2bands/*_m.h results/RBs-in-circle/2pairs/2bands/*_sm.cc results/RBs-in-circle/2pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/3bands/*_m.cc results/RBs-in-circle/2pairs/3bands/*_m.h results/RBs-in-circle/2pairs/3bands/*_sm.cc results/RBs-in-circle/2pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/4bands/*_m.cc results/RBs-in-circle/2pairs/4bands/*_m.h results/RBs-in-circle/2pairs/4bands/*_sm.cc results/RBs-in-circle/2pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/5bands/*_m.cc results/RBs-in-circle/2pairs/5bands/*_m.h results/RBs-in-circle/2pairs/5bands/*_sm.cc results/RBs-in-circle/2pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/6bands/*_m.cc results/RBs-in-circle/2pairs/6bands/*_m.h results/RBs-in-circle/2pairs/6bands/*_sm.cc results/RBs-in-circle/2pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/7bands/*_m.cc results/RBs-in-circle/2pairs/7bands/*_m.h results/RBs-in-circle/2pairs/7bands/*_sm.cc results/RBs-in-circle/2pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/8bands/*_m.cc results/RBs-in-circle/2pairs/8bands/*_m.h results/RBs-in-circle/2pairs/8bands/*_sm.cc results/RBs-in-circle/2pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/2pairs/9bands/*_m.cc results/RBs-in-circle/2pairs/9bands/*_m.h results/RBs-in-circle/2pairs/9bands/*_sm.cc results/RBs-in-circle/2pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/*_m.cc results/RBs-in-circle/3pairs/*_m.h results/RBs-in-circle/3pairs/*_sm.cc results/RBs-in-circle/3pairs/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/10bands/*_m.cc results/RBs-in-circle/3pairs/10bands/*_m.h results/RBs-in-circle/3pairs/10bands/*_sm.cc results/RBs-in-circle/3pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/1bands/*_m.cc results/RBs-in-circle/3pairs/1bands/*_m.h results/RBs-in-circle/3pairs/1bands/*_sm.cc results/RBs-in-circle/3pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/2bands/*_m.cc results/RBs-in-circle/3pairs/2bands/*_m.h results/RBs-in-circle/3pairs/2bands/*_sm.cc results/RBs-in-circle/3pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/3bands/*_m.cc results/RBs-in-circle/3pairs/3bands/*_m.h results/RBs-in-circle/3pairs/3bands/*_sm.cc results/RBs-in-circle/3pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/4bands/*_m.cc results/RBs-in-circle/3pairs/4bands/*_m.h results/RBs-in-circle/3pairs/4bands/*_sm.cc results/RBs-in-circle/3pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/5bands/*_m.cc results/RBs-in-circle/3pairs/5bands/*_m.h results/RBs-in-circle/3pairs/5bands/*_sm.cc results/RBs-in-circle/3pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/6bands/*_m.cc results/RBs-in-circle/3pairs/6bands/*_m.h results/RBs-in-circle/3pairs/6bands/*_sm.cc results/RBs-in-circle/3pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/7bands/*_m.cc results/RBs-in-circle/3pairs/7bands/*_m.h results/RBs-in-circle/3pairs/7bands/*_sm.cc results/RBs-in-circle/3pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/8bands/*_m.cc results/RBs-in-circle/3pairs/8bands/*_m.h results/RBs-in-circle/3pairs/8bands/*_sm.cc results/RBs-in-circle/3pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/3pairs/9bands/*_m.cc results/RBs-in-circle/3pairs/9bands/*_m.h results/RBs-in-circle/3pairs/9bands/*_sm.cc results/RBs-in-circle/3pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/*_m.cc results/RBs-in-circle/4pairs/*_m.h results/RBs-in-circle/4pairs/*_sm.cc results/RBs-in-circle/4pairs/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/10bands/*_m.cc results/RBs-in-circle/4pairs/10bands/*_m.h results/RBs-in-circle/4pairs/10bands/*_sm.cc results/RBs-in-circle/4pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/1bands/*_m.cc results/RBs-in-circle/4pairs/1bands/*_m.h results/RBs-in-circle/4pairs/1bands/*_sm.cc results/RBs-in-circle/4pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/2bands/*_m.cc results/RBs-in-circle/4pairs/2bands/*_m.h results/RBs-in-circle/4pairs/2bands/*_sm.cc results/RBs-in-circle/4pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/3bands/*_m.cc results/RBs-in-circle/4pairs/3bands/*_m.h results/RBs-in-circle/4pairs/3bands/*_sm.cc results/RBs-in-circle/4pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/4bands/*_m.cc results/RBs-in-circle/4pairs/4bands/*_m.h results/RBs-in-circle/4pairs/4bands/*_sm.cc results/RBs-in-circle/4pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/5bands/*_m.cc results/RBs-in-circle/4pairs/5bands/*_m.h results/RBs-in-circle/4pairs/5bands/*_sm.cc results/RBs-in-circle/4pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/6bands/*_m.cc results/RBs-in-circle/4pairs/6bands/*_m.h results/RBs-in-circle/4pairs/6bands/*_sm.cc results/RBs-in-circle/4pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/7bands/*_m.cc results/RBs-in-circle/4pairs/7bands/*_m.h results/RBs-in-circle/4pairs/7bands/*_sm.cc results/RBs-in-circle/4pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/8bands/*_m.cc results/RBs-in-circle/4pairs/8bands/*_m.h results/RBs-in-circle/4pairs/8bands/*_sm.cc results/RBs-in-circle/4pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/4pairs/9bands/*_m.cc results/RBs-in-circle/4pairs/9bands/*_m.h results/RBs-in-circle/4pairs/9bands/*_sm.cc results/RBs-in-circle/4pairs/9bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/*_m.cc results/RBs-in-circle/5pairs/*_m.h results/RBs-in-circle/5pairs/*_sm.cc results/RBs-in-circle/5pairs/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/10bands/*_m.cc results/RBs-in-circle/5pairs/10bands/*_m.h results/RBs-in-circle/5pairs/10bands/*_sm.cc results/RBs-in-circle/5pairs/10bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/1bands/*_m.cc results/RBs-in-circle/5pairs/1bands/*_m.h results/RBs-in-circle/5pairs/1bands/*_sm.cc results/RBs-in-circle/5pairs/1bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/2bands/*_m.cc results/RBs-in-circle/5pairs/2bands/*_m.h results/RBs-in-circle/5pairs/2bands/*_sm.cc results/RBs-in-circle/5pairs/2bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/3bands/*_m.cc results/RBs-in-circle/5pairs/3bands/*_m.h results/RBs-in-circle/5pairs/3bands/*_sm.cc results/RBs-in-circle/5pairs/3bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/4bands/*_m.cc results/RBs-in-circle/5pairs/4bands/*_m.h results/RBs-in-circle/5pairs/4bands/*_sm.cc results/RBs-in-circle/5pairs/4bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/5bands/*_m.cc results/RBs-in-circle/5pairs/5bands/*_m.h results/RBs-in-circle/5pairs/5bands/*_sm.cc results/RBs-in-circle/5pairs/5bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/6bands/*_m.cc results/RBs-in-circle/5pairs/6bands/*_m.h results/RBs-in-circle/5pairs/6bands/*_sm.cc results/RBs-in-circle/5pairs/6bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/7bands/*_m.cc results/RBs-in-circle/5pairs/7bands/*_m.h results/RBs-in-circle/5pairs/7bands/*_sm.cc results/RBs-in-circle/5pairs/7bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/8bands/*_m.cc results/RBs-in-circle/5pairs/8bands/*_m.h results/RBs-in-circle/5pairs/8bands/*_sm.cc results/RBs-in-circle/5pairs/8bands/*_sm.h
+	$(Q)-rm -f results/RBs-in-circle/5pairs/9bands/*_m.cc results/RBs-in-circle/5pairs/9bands/*_m.h results/RBs-in-circle/5pairs/9bands/*_sm.cc results/RBs-in-circle/5pairs/9bands/*_sm.h
 	$(Q)-rm -f results/ReassignmentTest-1RBs-D2D/*_m.cc results/ReassignmentTest-1RBs-D2D/*_m.h results/ReassignmentTest-1RBs-D2D/*_sm.cc results/ReassignmentTest-1RBs-D2D/*_sm.h
 	$(Q)-rm -f results/ReassignmentTest-1RBs-D2D/1pairs/*_m.cc results/ReassignmentTest-1RBs-D2D/1pairs/*_m.h results/ReassignmentTest-1RBs-D2D/1pairs/*_sm.cc results/ReassignmentTest-1RBs-D2D/1pairs/*_sm.h
 	$(Q)-rm -f results/ReassignmentTest-1RBs-D2D/2pairs/*_m.cc results/ReassignmentTest-1RBs-D2D/2pairs/*_m.h results/ReassignmentTest-1RBs-D2D/2pairs/*_sm.cc results/ReassignmentTest-1RBs-D2D/2pairs/*_sm.h
@@ -180,7 +628,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc evaluation/parameter-study_pairs-bands-rbs/*.cc results/*.cc results/ReassignmentTest-1RBs-D2D/*.cc results/ReassignmentTest-1RBs-D2D/1pairs/*.cc results/ReassignmentTest-1RBs-D2D/2pairs/*.cc results/ReassignmentTest-1RBs-D2D/3pairs/*.cc results/ReassignmentTest-1RBs-D2D/4pairs/*.cc results/ReassignmentTest-1RBs-D2D/5pairs/*.cc results/ReassignmentTest-1RBs-Local/*.cc results/ReassignmentTest-50RBs-D2D/*.cc results/ReassignmentTest-50RBs-D2D/1pairs/*.cc results/ReassignmentTest-50RBs-D2D/2pairs/*.cc results/ReassignmentTest-50RBs-D2D/3pairs/*.cc results/ReassignmentTest-50RBs-D2D/4pairs/*.cc results/ReassignmentTest-50RBs-D2D/5pairs/*.cc results/ReassignmentTest-50RBs-Local/*.cc results/ReassignmentTest-50RBs-Local/2pairs/*.cc results/Test-CellularFirst/*.cc results/Test-Reassignment/*.cc results/Test-SINR/*.cc results/Test-Sorting/*.cc results/Test-Sorting-D2D/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES) $(SM_CC_FILES)  ./*.cc configs/*.cc evaluation/*.cc evaluation/mode-selection/*.cc evaluation/mode-selection/test/*.cc evaluation/parameter-study_pairs-bands-rbs/*.cc results/*.cc results/RBs/*.cc results/RBs/1pairs/*.cc results/RBs/1pairs/10bands/*.cc results/RBs/1pairs/1bands/*.cc results/RBs/1pairs/2bands/*.cc results/RBs/1pairs/3bands/*.cc results/RBs/1pairs/4bands/*.cc results/RBs/1pairs/5bands/*.cc results/RBs/1pairs/6bands/*.cc results/RBs/1pairs/7bands/*.cc results/RBs/1pairs/8bands/*.cc results/RBs/1pairs/9bands/*.cc results/RBs/2pairs/*.cc results/RBs/2pairs/10bands/*.cc results/RBs/2pairs/1bands/*.cc results/RBs/2pairs/2bands/*.cc results/RBs/2pairs/3bands/*.cc results/RBs/2pairs/4bands/*.cc results/RBs/2pairs/5bands/*.cc results/RBs/2pairs/6bands/*.cc results/RBs/2pairs/7bands/*.cc results/RBs/2pairs/8bands/*.cc results/RBs/2pairs/9bands/*.cc results/RBs/3pairs/*.cc results/RBs/3pairs/10bands/*.cc results/RBs/3pairs/1bands/*.cc results/RBs/3pairs/2bands/*.cc results/RBs/3pairs/3bands/*.cc results/RBs/3pairs/4bands/*.cc results/RBs/3pairs/5bands/*.cc results/RBs/3pairs/6bands/*.cc results/RBs/3pairs/7bands/*.cc results/RBs/3pairs/8bands/*.cc results/RBs/3pairs/9bands/*.cc results/RBs/4pairs/*.cc results/RBs/4pairs/10bands/*.cc results/RBs/4pairs/1bands/*.cc results/RBs/4pairs/2bands/*.cc results/RBs/4pairs/3bands/*.cc results/RBs/4pairs/4bands/*.cc results/RBs/4pairs/5bands/*.cc results/RBs/4pairs/6bands/*.cc results/RBs/4pairs/7bands/*.cc results/RBs/4pairs/8bands/*.cc results/RBs/4pairs/9bands/*.cc results/RBs/5pairs/*.cc results/RBs/5pairs/10bands/*.cc results/RBs/5pairs/1bands/*.cc results/RBs/5pairs/2bands/*.cc results/RBs/5pairs/3bands/*.cc results/RBs/5pairs/4bands/*.cc results/RBs/5pairs/5bands/*.cc results/RBs/5pairs/6bands/*.cc results/RBs/5pairs/7bands/*.cc results/RBs/5pairs/8bands/*.cc results/RBs/5pairs/9bands/*.cc results/RBs-MD/*.cc results/RBs-MD/1pairs/*.cc results/RBs-MD/1pairs/10bands/*.cc results/RBs-MD/1pairs/1bands/*.cc results/RBs-MD/1pairs/2bands/*.cc results/RBs-MD/1pairs/3bands/*.cc results/RBs-MD/1pairs/4bands/*.cc results/RBs-MD/1pairs/5bands/*.cc results/RBs-MD/1pairs/6bands/*.cc results/RBs-MD/1pairs/7bands/*.cc results/RBs-MD/1pairs/8bands/*.cc results/RBs-MD/1pairs/9bands/*.cc results/RBs-MD/2pairs/*.cc results/RBs-MD/2pairs/10bands/*.cc results/RBs-MD/2pairs/1bands/*.cc results/RBs-MD/2pairs/2bands/*.cc results/RBs-MD/2pairs/3bands/*.cc results/RBs-MD/2pairs/4bands/*.cc results/RBs-MD/2pairs/5bands/*.cc results/RBs-MD/2pairs/6bands/*.cc results/RBs-MD/2pairs/7bands/*.cc results/RBs-MD/2pairs/8bands/*.cc results/RBs-MD/2pairs/9bands/*.cc results/RBs-MD/3pairs/*.cc results/RBs-MD/3pairs/10bands/*.cc results/RBs-MD/3pairs/1bands/*.cc results/RBs-MD/3pairs/2bands/*.cc results/RBs-MD/3pairs/3bands/*.cc results/RBs-MD/3pairs/4bands/*.cc results/RBs-MD/3pairs/5bands/*.cc results/RBs-MD/3pairs/6bands/*.cc results/RBs-MD/3pairs/7bands/*.cc results/RBs-MD/3pairs/8bands/*.cc results/RBs-MD/3pairs/9bands/*.cc results/RBs-MD/4pairs/*.cc results/RBs-MD/4pairs/10bands/*.cc results/RBs-MD/4pairs/1bands/*.cc results/RBs-MD/4pairs/2bands/*.cc results/RBs-MD/4pairs/3bands/*.cc results/RBs-MD/4pairs/4bands/*.cc results/RBs-MD/4pairs/5bands/*.cc results/RBs-MD/4pairs/6bands/*.cc results/RBs-MD/4pairs/7bands/*.cc results/RBs-MD/4pairs/8bands/*.cc results/RBs-MD/4pairs/9bands/*.cc results/RBs-MD/5pairs/*.cc results/RBs-MD/5pairs/10bands/*.cc results/RBs-MD/5pairs/1bands/*.cc results/RBs-MD/5pairs/2bands/*.cc results/RBs-MD/5pairs/3bands/*.cc results/RBs-MD/5pairs/4bands/*.cc results/RBs-MD/5pairs/5bands/*.cc results/RBs-MD/5pairs/6bands/*.cc results/RBs-MD/5pairs/7bands/*.cc results/RBs-MD/5pairs/8bands/*.cc results/RBs-MD/5pairs/9bands/*.cc results/RBs-MD-in-circle/*.cc results/RBs-MD-in-circle/1pairs/*.cc results/RBs-MD-in-circle/1pairs/10bands/*.cc results/RBs-MD-in-circle/1pairs/1bands/*.cc results/RBs-MD-in-circle/1pairs/2bands/*.cc results/RBs-MD-in-circle/1pairs/3bands/*.cc results/RBs-MD-in-circle/1pairs/4bands/*.cc results/RBs-MD-in-circle/1pairs/5bands/*.cc results/RBs-MD-in-circle/1pairs/6bands/*.cc results/RBs-MD-in-circle/1pairs/7bands/*.cc results/RBs-MD-in-circle/1pairs/8bands/*.cc results/RBs-MD-in-circle/1pairs/9bands/*.cc results/RBs-MD-in-circle/2pairs/*.cc results/RBs-MD-in-circle/2pairs/10bands/*.cc results/RBs-MD-in-circle/2pairs/1bands/*.cc results/RBs-MD-in-circle/2pairs/2bands/*.cc results/RBs-MD-in-circle/2pairs/3bands/*.cc results/RBs-MD-in-circle/2pairs/4bands/*.cc results/RBs-MD-in-circle/2pairs/5bands/*.cc results/RBs-MD-in-circle/2pairs/6bands/*.cc results/RBs-MD-in-circle/2pairs/7bands/*.cc results/RBs-MD-in-circle/2pairs/8bands/*.cc results/RBs-MD-in-circle/2pairs/9bands/*.cc results/RBs-MD-in-circle/3pairs/*.cc results/RBs-MD-in-circle/3pairs/10bands/*.cc results/RBs-MD-in-circle/3pairs/1bands/*.cc results/RBs-MD-in-circle/3pairs/2bands/*.cc results/RBs-MD-in-circle/3pairs/3bands/*.cc results/RBs-MD-in-circle/3pairs/4bands/*.cc results/RBs-MD-in-circle/3pairs/5bands/*.cc results/RBs-MD-in-circle/3pairs/6bands/*.cc results/RBs-MD-in-circle/3pairs/7bands/*.cc results/RBs-MD-in-circle/3pairs/8bands/*.cc results/RBs-MD-in-circle/3pairs/9bands/*.cc results/RBs-MD-in-circle/4pairs/*.cc results/RBs-MD-in-circle/4pairs/10bands/*.cc results/RBs-MD-in-circle/4pairs/1bands/*.cc results/RBs-MD-in-circle/4pairs/2bands/*.cc results/RBs-MD-in-circle/4pairs/3bands/*.cc results/RBs-MD-in-circle/4pairs/4bands/*.cc results/RBs-MD-in-circle/4pairs/5bands/*.cc results/RBs-MD-in-circle/4pairs/6bands/*.cc results/RBs-MD-in-circle/4pairs/7bands/*.cc results/RBs-MD-in-circle/4pairs/8bands/*.cc results/RBs-MD-in-circle/4pairs/9bands/*.cc results/RBs-MD-in-circle/5pairs/*.cc results/RBs-MD-in-circle/5pairs/10bands/*.cc results/RBs-MD-in-circle/5pairs/1bands/*.cc results/RBs-MD-in-circle/5pairs/2bands/*.cc results/RBs-MD-in-circle/5pairs/3bands/*.cc results/RBs-MD-in-circle/5pairs/4bands/*.cc results/RBs-MD-in-circle/5pairs/5bands/*.cc results/RBs-MD-in-circle/5pairs/6bands/*.cc results/RBs-MD-in-circle/5pairs/7bands/*.cc results/RBs-MD-in-circle/5pairs/8bands/*.cc results/RBs-MD-in-circle/5pairs/9bands/*.cc results/RBs-in-circle/*.cc results/RBs-in-circle/1pairs/*.cc results/RBs-in-circle/1pairs/10bands/*.cc results/RBs-in-circle/1pairs/1bands/*.cc results/RBs-in-circle/1pairs/2bands/*.cc results/RBs-in-circle/1pairs/3bands/*.cc results/RBs-in-circle/1pairs/4bands/*.cc results/RBs-in-circle/1pairs/5bands/*.cc results/RBs-in-circle/1pairs/6bands/*.cc results/RBs-in-circle/1pairs/7bands/*.cc results/RBs-in-circle/1pairs/8bands/*.cc results/RBs-in-circle/1pairs/9bands/*.cc results/RBs-in-circle/2pairs/*.cc results/RBs-in-circle/2pairs/10bands/*.cc results/RBs-in-circle/2pairs/1bands/*.cc results/RBs-in-circle/2pairs/2bands/*.cc results/RBs-in-circle/2pairs/3bands/*.cc results/RBs-in-circle/2pairs/4bands/*.cc results/RBs-in-circle/2pairs/5bands/*.cc results/RBs-in-circle/2pairs/6bands/*.cc results/RBs-in-circle/2pairs/7bands/*.cc results/RBs-in-circle/2pairs/8bands/*.cc results/RBs-in-circle/2pairs/9bands/*.cc results/RBs-in-circle/3pairs/*.cc results/RBs-in-circle/3pairs/10bands/*.cc results/RBs-in-circle/3pairs/1bands/*.cc results/RBs-in-circle/3pairs/2bands/*.cc results/RBs-in-circle/3pairs/3bands/*.cc results/RBs-in-circle/3pairs/4bands/*.cc results/RBs-in-circle/3pairs/5bands/*.cc results/RBs-in-circle/3pairs/6bands/*.cc results/RBs-in-circle/3pairs/7bands/*.cc results/RBs-in-circle/3pairs/8bands/*.cc results/RBs-in-circle/3pairs/9bands/*.cc results/RBs-in-circle/4pairs/*.cc results/RBs-in-circle/4pairs/10bands/*.cc results/RBs-in-circle/4pairs/1bands/*.cc results/RBs-in-circle/4pairs/2bands/*.cc results/RBs-in-circle/4pairs/3bands/*.cc results/RBs-in-circle/4pairs/4bands/*.cc results/RBs-in-circle/4pairs/5bands/*.cc results/RBs-in-circle/4pairs/6bands/*.cc results/RBs-in-circle/4pairs/7bands/*.cc results/RBs-in-circle/4pairs/8bands/*.cc results/RBs-in-circle/4pairs/9bands/*.cc results/RBs-in-circle/5pairs/*.cc results/RBs-in-circle/5pairs/10bands/*.cc results/RBs-in-circle/5pairs/1bands/*.cc results/RBs-in-circle/5pairs/2bands/*.cc results/RBs-in-circle/5pairs/3bands/*.cc results/RBs-in-circle/5pairs/4bands/*.cc results/RBs-in-circle/5pairs/5bands/*.cc results/RBs-in-circle/5pairs/6bands/*.cc results/RBs-in-circle/5pairs/7bands/*.cc results/RBs-in-circle/5pairs/8bands/*.cc results/RBs-in-circle/5pairs/9bands/*.cc results/ReassignmentTest-1RBs-D2D/*.cc results/ReassignmentTest-1RBs-D2D/1pairs/*.cc results/ReassignmentTest-1RBs-D2D/2pairs/*.cc results/ReassignmentTest-1RBs-D2D/3pairs/*.cc results/ReassignmentTest-1RBs-D2D/4pairs/*.cc results/ReassignmentTest-1RBs-D2D/5pairs/*.cc results/ReassignmentTest-1RBs-Local/*.cc results/ReassignmentTest-50RBs-D2D/*.cc results/ReassignmentTest-50RBs-D2D/1pairs/*.cc results/ReassignmentTest-50RBs-D2D/2pairs/*.cc results/ReassignmentTest-50RBs-D2D/3pairs/*.cc results/ReassignmentTest-50RBs-D2D/4pairs/*.cc results/ReassignmentTest-50RBs-D2D/5pairs/*.cc results/ReassignmentTest-50RBs-Local/*.cc results/ReassignmentTest-50RBs-Local/2pairs/*.cc results/Test-CellularFirst/*.cc results/Test-Reassignment/*.cc results/Test-SINR/*.cc results/Test-Sorting/*.cc results/Test-Sorting-D2D/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

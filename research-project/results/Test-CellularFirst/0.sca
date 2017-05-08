@@ -1,14 +1,14 @@
 version 2
-run Test-CellularFirst-0-20170505-17:04:53-18726
+run Test-CellularFirst-0-20170508-14:41:00-12439
 attr configname Test-CellularFirst
-attr datetime 20170505-17:04:53
+attr datetime 20170508-14:41:00
 attr experiment Test-CellularFirst
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network LTECell
-attr processid 18726
+attr processid 12439
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -65,7 +65,7 @@ param **.ueCellRx[9].mobility.initialY 500m
 param **.ueCellTx[*].udpApp[0].destAddresses "\"ueCellRx[\" + string(ancestorIndex(1)) + \"]\""
 param **.ueCellTx[*].udpApp[0].destPort 1000
 param **.ueCellTx[*].udpApp[0].messageLength 65.507B
-param **.ueCellTx[*].udpApp[0].sendInterval 0.0005s
+param **.ueCellTx[*].udpApp[0].sendInterval 0.00025s
 param **.ueCellTx[*].udpApp[0].typename "\"UDPBasicApp\""
 param **.ueCellTx[0].mobility.initialX 560.676m
 param **.ueCellTx[0].mobility.initialY 544.084m
@@ -114,7 +114,7 @@ param **.ueD2DTx[*].nic.d2dPeerAddresses "\"ueD2DRx[\" + string(ancestorIndex(1)
 param **.ueD2DTx[*].udpApp[*].destAddresses "\"ueD2DRx[\" + string(ancestorIndex(1)) + \"]\""
 param **.ueD2DTx[*].udpApp[0].destPort 1000
 param **.ueD2DTx[*].udpApp[0].messageLength 65.507B
-param **.ueD2DTx[*].udpApp[0].sendInterval 0.0005s
+param **.ueD2DTx[*].udpApp[0].sendInterval 0.00025s
 param **.ueD2DTx[*].udpApp[0].typename "\"UDPBasicApp\""
 param **.ueD2DTx[0].mobility.initialX 580.902m
 param **.ueD2DTx[0].mobility.initialY 558.779m
@@ -839,198 +839,30 @@ scalar LTECell.pgw.udp 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
-scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToLowerLayer:count 	7200
+scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	676800
+scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToUpperLayer:count 	7200
+scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	669600
+scalar LTECell.eNodeB.nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	7200
+scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	676800
+scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	7200
+scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	669600
+scalar LTECell.eNodeB.nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.eNodeB.nic.rlc.um 	rlcCellPacketLossUl:lteAvg 	0
-attr source  rlcCellPacketLossUl
-attr title  "rlc Cell Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.eNodeB.nic.rlc.um 	rlcCellPacketLossDl:lteAvg 	0
-attr source  rlcCellPacketLossDl
-attr title  "rlc Cell Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.eNodeB.nic.rlc.um 	rlcCellThroughputDl:lteRate 	72686.93877551
-attr source  rlcCellThroughputDl
-attr title  "Cell Throughput at the rlc layer DL, lteRate"
-attr unit  Bps
-scalar LTECell.eNodeB.nic.rlc.um 	rlcCellThroughputUl:lteRate 	69061.224489796
-attr source  rlcCellThroughputUl
-attr title  "Cell Throughput at the rlc layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo1:lteAvg 	15
-attr source  cqiDlMuMimo1
-attr title  "Average cqi MuMimo band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo1:lteAvg 	15
-attr source  cqiDlMuMimo1
-attr title  "Average cqi MuMimo band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo1:lteAvg 	15
-attr source  cqiDlMuMimo1
-attr title  "Average cqi MuMimo band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo1:lteAvg 	15
-attr source  cqiDlMuMimo1
-attr title  "Average cqi MuMimo band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo0:lteAvg 	15
-attr source  cqiDlMuMimo0
-attr title  "Average cqi MuMimo band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo0:lteAvg 	15
-attr source  cqiDlMuMimo0
-attr title  "Average cqi MuMimo band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo0:lteAvg 	15
-attr source  cqiDlMuMimo0
-attr title  "Average cqi MuMimo band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlMuMimo0:lteAvg 	15
-attr source  cqiDlMuMimo0
-attr title  "Average cqi MuMimo band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv1:lteAvg 	15
-attr source  cqiDlTxDiv1
-attr title  "Average cqi TxDiv band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv1:lteAvg 	15
-attr source  cqiDlTxDiv1
-attr title  "Average cqi TxDiv band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv1:lteAvg 	15
-attr source  cqiDlTxDiv1
-attr title  "Average cqi TxDiv band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv1:lteAvg 	15
-attr source  cqiDlTxDiv1
-attr title  "Average cqi TxDiv band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv0:lteAvg 	15
-attr source  cqiDlTxDiv0
-attr title  "Average cqi TxDiv band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv0:lteAvg 	15
-attr source  cqiDlTxDiv0
-attr title  "Average cqi TxDiv band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv0:lteAvg 	15
-attr source  cqiDlTxDiv0
-attr title  "Average cqi TxDiv band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlTxDiv0:lteAvg 	15
-attr source  cqiDlTxDiv0
-attr title  "Average cqi TxDiv band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux1:lteAvg 	15
-attr source  cqiDlSpmux1
-attr title  "Average cqi Spmux band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux1:lteAvg 	15
-attr source  cqiDlSpmux1
-attr title  "Average cqi Spmux band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux1:lteAvg 	15
-attr source  cqiDlSpmux1
-attr title  "Average cqi Spmux band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux1:lteAvg 	15
-attr source  cqiDlSpmux1
-attr title  "Average cqi Spmux band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux0:lteAvg 	15
-attr source  cqiDlSpmux0
-attr title  "Average cqi Spmux band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux0:lteAvg 	15
-attr source  cqiDlSpmux0
-attr title  "Average cqi Spmux band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux0:lteAvg 	15
-attr source  cqiDlSpmux0
-attr title  "Average cqi Spmux band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSpmux0:lteAvg 	15
-attr source  cqiDlSpmux0
-attr title  "Average cqi Spmux band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso1:lteAvg 	15
-attr source  cqiDlSiso1
-attr title  "Average cqi siso band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso1:lteAvg 	15
-attr source  cqiDlSiso1
-attr title  "Average cqi siso band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso1:lteAvg 	15
-attr source  cqiDlSiso1
-attr title  "Average cqi siso band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso1:lteAvg 	15
-attr source  cqiDlSiso1
-attr title  "Average cqi siso band 1, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso0:lteAvg 	15
-attr source  cqiDlSiso0
-attr title  "Average cqi siso band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso0:lteAvg 	15
-attr source  cqiDlSiso0
-attr title  "Average cqi siso band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso0:lteAvg 	15
-attr source  cqiDlSiso0
-attr title  "Average cqi siso band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	cqiDlSiso0:lteAvg 	15
-attr source  cqiDlSiso0
-attr title  "Average cqi siso band 0, lteAvg"
-attr unit  cqi
-scalar LTECell.eNodeB.nic.mac 	depletedPowerUl:lteAvg 	0
-attr source  depletedPowerUl
-attr title  "LTE ENodeB depleted power Ul, lteAvg"
-attr unit  watts
-scalar LTECell.eNodeB.nic.mac 	depletedPowerDl:lteAvg 	263.62534435258
-attr source  depletedPowerDl
-attr title  "LTE ENodeB depleted power Dl, lteAvg"
-attr unit  watts
-scalar LTECell.eNodeB.nic.mac 	avgServedBlocksUl:lteAvg 	1.1250892766044
-attr source  avgServedBlocksUl
-attr title  "LTE Avg Served Blocks Ul, lteAvg"
-attr unit  blocks
-scalar LTECell.eNodeB.nic.mac 	avgServedBlocksDl:lteAvg 	0.96418732782369
-attr source  avgServedBlocksDl
-attr title  "LTE Avg Served Blocks Dl, lteAvg"
-attr unit  blocks
-scalar LTECell.eNodeB.nic.mac 	cellBlocksUtilizationUl:lteAvg 	0.56254463830221
-attr source  cellBlocksUtilizationUl
-attr title  "LTE Cell Blocks Utilization Ul, lteAvg"
-attr unit  blocks
-scalar LTECell.eNodeB.nic.mac 	cellBlocksUtilizationDl:lteAvg 	0.48209366391185
-attr source  cellBlocksUtilizationDl
-attr title  "LTE Cell Blocks Utilization Dl, lteAvg"
-attr unit  blocks
 scalar LTECell.eNodeB.nic.mac 	measuredItbs:mean 	-nan
 attr source  measuredItbs
 attr title  "TBS index, mean"
@@ -1107,78 +939,42 @@ scalar LTECell.eNodeB.nic.mac 	macPacketLossUl:mean 	-nan
 attr source  macPacketLossUl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
-scalar LTECell.eNodeB.nic.mac 	macCellPacketLossD2D:mean 	0
+scalar LTECell.eNodeB.nic.mac 	macCellPacketLossD2D:mean 	-nan
 attr source  macCellPacketLossD2D
 attr title  "Mac Cell Packet Loss D2D, mean"
 attr unit  ""
-scalar LTECell.eNodeB.nic.mac 	macCellPacketLossUl:mean 	0
+scalar LTECell.eNodeB.nic.mac 	macCellPacketLossUl:mean 	-nan
 attr source  macCellPacketLossUl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.eNodeB.nic.mac 	macCellPacketLossDl:mean 	0
+scalar LTECell.eNodeB.nic.mac 	macCellPacketLossDl:mean 	-nan
 attr source  macCellPacketLossDl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.eNodeB.nic.mac 	macCellThroughputD2D:lteRate 	3793.2161830813
-attr source  macCellThroughputD2D
-attr title  "Cell Throughput at the MAC layer D2D, lteRate"
-attr unit  Bps
-scalar LTECell.eNodeB.nic.mac 	macCellThroughputDl:lteRate 	72927.959183673
-attr source  macCellThroughputDl
-attr title  "Cell Throughput at the MAC layer DL, lteRate"
-attr unit  Bps
-scalar LTECell.eNodeB.nic.mac 	macCellThroughputUl:lteRate 	72567.244897959
-attr source  macCellThroughputUl
-attr title  "Cell Throughput at the MAC layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.ueD2DTx[0].nic.mac 	macThroughputUl:lteRate 	250.22961526686
-attr source  macThroughputUl
-attr title  "Throughput at the MAC layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellTx[0].nic.mac 	macThroughputUl:lteRate 	72317.040816327
-attr source  macThroughputUl
-attr title  "Throughput at the MAC layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.ueD2DTx[0].nic.mac 	macDelayUl:lteAvg 	0.0039999999999999
-attr source  macDelayUl
-attr title  "Delay at the MAC layer UL, lteAvg"
-attr unit  s
-scalar LTECell.ueCellTx[0].nic.mac 	macDelayUl:lteAvg 	0.0040000000000005
-attr source  macDelayUl
-attr title  "Delay at the MAC layer UL, lteAvg"
-attr unit  s
-scalar LTECell.eNodeB.nic.mac 	sentPacketToLowerLayer:count 	31962
+scalar LTECell.eNodeB.nic.mac 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.eNodeB.nic.mac 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.eNodeB.nic.mac 	sentPacketToUpperLayer:count 	17413
+scalar LTECell.eNodeB.nic.mac 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.eNodeB.nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	692781
+scalar LTECell.eNodeB.nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.eNodeB.nic.mac 	receivedPacketFromLowerLayer:count 	27471
+scalar LTECell.eNodeB.nic.mac 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.eNodeB.nic.mac 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.eNodeB.nic.mac 	receivedPacketFromUpperLayer:count 	16650
+scalar LTECell.eNodeB.nic.mac 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.eNodeB.nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	1372603
+scalar LTECell.eNodeB.nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueD2DTx[0].nic.mac 	averageCqiUl:lteAvg 	15
-attr source  averageCqiUl
-attr title  "Average Cqi reported in UL, lteAvg"
-attr unit  cqi
-scalar LTECell.ueCellTx[0].nic.mac 	averageCqiUl:lteAvg 	15
-attr source  averageCqiUl
-attr title  "Average Cqi reported in UL, lteAvg"
-attr unit  cqi
 statistic LTECell.eNodeB.ppp.queue 	queueingTime:histogram
 field count 0
 field mean -nan
@@ -1327,7 +1123,7 @@ scalar LTECell.eNodeB.udp 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
-scalar LTECell.ueD2DTx[0].udpApp[0] 	"packets sent" 	20000
+scalar LTECell.ueD2DTx[0].udpApp[0] 	"packets sent" 	224
 scalar LTECell.ueD2DTx[0].udpApp[0] 	"packets received" 	0
 scalar LTECell.ueD2DTx[0].udpApp[0] 	rcvdPk:count 	0
 attr interpolationmode  none
@@ -1337,10 +1133,6 @@ scalar LTECell.ueD2DTx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueD2DTx[0].udpApp[0] 	throughput:last 	-nan
-attr source  throughput(rcvdPk)
-attr title  "throughput, last"
-attr unit  bps
 statistic LTECell.ueD2DTx[0].udpApp[0] 	rcvdPkLifetime:stats
 field count 0
 field mean -nan
@@ -1353,11 +1145,11 @@ attr interpolationmode  none
 attr source  messageAge(rcvdPk)
 attr title  "received packet lifetime, stats"
 attr unit  s
-scalar LTECell.ueD2DTx[0].udpApp[0] 	sentPk:count 	19601
+scalar LTECell.ueD2DTx[0].udpApp[0] 	sentPk:count 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, count"
-scalar LTECell.ueD2DTx[0].udpApp[0] 	sentPk:sum(packetBytes) 	1274065
+scalar LTECell.ueD2DTx[0].udpApp[0] 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
@@ -1378,18 +1170,18 @@ scalar LTECell.ueD2DTx[0].udp 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueD2DTx[0].udp 	sentPk:count 	19601
+scalar LTECell.ueD2DTx[0].udp 	sentPk:count 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, count"
-scalar LTECell.ueD2DTx[0].udp 	sentPk:sum(packetBytes) 	1430873
+scalar LTECell.ueD2DTx[0].udp 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
-scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:count 	19601
+scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	1842494
+scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	0
@@ -1404,10 +1196,10 @@ attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	19601
+scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	1822893
+scalar LTECell.ueD2DTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueD2DTx[0].nic.mac 	measuredItbs:mean 	-nan
@@ -1458,7 +1250,7 @@ scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRate_1st_Dl:mean 	-nan
 attr source  harqErrorRate_1st_Dl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRate_1st_Ul:mean 	0
+scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRate_1st_Ul:mean 	-nan
 attr source  harqErrorRate_1st_Ul
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -1470,7 +1262,7 @@ scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRateDl:mean 	-nan
 attr source  harqErrorRateDl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRateUl:mean 	0
+scalar LTECell.ueD2DTx[0].nic.mac 	harqErrorRateUl:mean 	-nan
 attr source  harqErrorRateUl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -1482,7 +1274,7 @@ scalar LTECell.ueD2DTx[0].nic.mac 	macPacketLossDl:mean 	-nan
 attr source  macPacketLossDl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueD2DTx[0].nic.mac 	macPacketLossUl:mean 	0
+scalar LTECell.ueD2DTx[0].nic.mac 	macPacketLossUl:mean 	-nan
 attr source  macPacketLossUl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
@@ -1498,28 +1290,28 @@ scalar LTECell.ueD2DTx[0].nic.mac 	macCellPacketLossDl:mean 	-nan
 attr source  macCellPacketLossDl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToLowerLayer:count 	3675
+scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToUpperLayer:count 	1226
+scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
 scalar LTECell.ueD2DTx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromLowerLayer:count 	6740
+scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromUpperLayer:count 	20827
+scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	1878398
+scalar LTECell.ueD2DTx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueD2DTx[0].networkLayer.arp 	failedARPResolution:count 	0
@@ -1532,76 +1324,72 @@ scalar LTECell.ueD2DTx[0].networkLayer.arp 	sentReply:count 	0
 attr title  "ARP replies sent, count"
 scalar LTECell.ueD2DTx[0].networkLayer.arp 	sentReq:count 	0
 attr title  "ARP request sent, count"
-scalar LTECell.ueD2DRx[0].udpApp[0] 	rcvdPk:count 	377
+scalar LTECell.ueD2DRx[0].udpApp[0] 	rcvdPk:count 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, count"
-scalar LTECell.ueD2DRx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	24505
+scalar LTECell.ueD2DRx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueD2DRx[0].udpApp[0] 	throughput:last 	21666.666666667
-attr source  throughput(rcvdPk)
-attr title  "throughput, last"
-attr unit  bps
 statistic LTECell.ueD2DRx[0].udpApp[0] 	endToEndDelay:histogram
-field count 377
-field mean 5.0013275862069
-field stddev 2.7713184159796
-field sum 1885.5005
-field sqrsum 12317.76303125
-field min 0.222
-field max 9.779
+field count 0
+field mean -nan
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min -nan
+field max -nan
 attr interpolationmode  none
 attr source  messageAge(rcvdPk)
 attr title  "end-to-end delay, histogram"
 attr unit  s
 bin	-INF	0
-bin	-1.02575	0
-bin	-0.85938333333333	0
-bin	-0.69301666666667	0
-bin	-0.52665	0
-bin	-0.36028333333333	0
-bin	-0.19391666666667	0
-bin	-0.02755	0
-bin	0.13881666666667	3
-bin	0.30518333333333	8
-bin	0.47155	5
-bin	0.63791666666667	8
-bin	0.80428333333333	5
-bin	0.97065	8
-bin	1.1370166666667	5
-bin	1.3033833333333	8
-bin	1.46975	7
-bin	1.6361166666667	6
-bin	1.8024833333333	7
-bin	1.96885	6
-bin	2.1352166666667	7
-bin	2.3015833333333	6
-bin	2.46795	7
-bin	2.6343166666667	5
-bin	2.8006833333333	8
-bin	2.96705	5
-bin	3.1334166666667	8
-bin	3.2997833333333	5
-bin	3.46615	8
-bin	3.6325166666667	5
-bin	3.7988833333333	8
-bin	3.96525	229
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	0
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
 scalar LTECell.ueD2DRx[0].udp 	droppedPkBadChecksum:count 	0
 attr interpolationmode  none
 attr title  "packets dropped (checksum error), count"
 scalar LTECell.ueD2DRx[0].udp 	droppedPkWrongPort:count 	0
 attr interpolationmode  none
 attr title  "packets dropped (wrong port), count"
-scalar LTECell.ueD2DRx[0].udp 	passedUpPk:count 	377
+scalar LTECell.ueD2DRx[0].udp 	passedUpPk:count 	0
 attr interpolationmode  none
 attr title  "packets passed up, count"
-scalar LTECell.ueD2DRx[0].udp 	rcvdPk:count 	377
+scalar LTECell.ueD2DRx[0].udp 	rcvdPk:count 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, count"
-scalar LTECell.ueD2DRx[0].udp 	rcvdPk:sum(packetBytes) 	27521
+scalar LTECell.ueD2DRx[0].udp 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
@@ -1619,16 +1407,16 @@ attr source  sentPacketToLowerLayer
 scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	377
+scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	35061
+scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	377
+scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	35438
+scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	0
@@ -1637,34 +1425,6 @@ attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueD2DRx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcPduPacketLossD2D:lteAvg 	0
-attr source  rlcPduPacketLossD2D
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcPacketLossTotal:lteAvg 	0
-attr source  rlcPacketLossTotal
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcPacketLossD2D:lteAvg 	0
-attr source  rlcPacketLossD2D
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcPduThroughputD2D:lteRate 	3674.1711011052
-attr source  rlcPduThroughputD2D
-attr title  "Throughput at the rlc layer D2D, lteRate"
-attr unit  Bps
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcPduDelayD2D:lteAvg 	0.004
-attr source  rlcPduDelayD2D
-attr title  "Delay at the rlc layer D2D, lteAvg"
-attr unit  s
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcThroughputD2D:lteRate 	3626.4838313549
-attr source  rlcThroughputD2D
-attr title  "Throughput at the rlc layer D2D, lteRate"
-attr unit  Bps
-scalar LTECell.ueD2DRx[0].nic.rlc.um 	rlcDelayD2D:lteAvg 	5.0013275862069
-attr source  rlcDelayD2D
-attr title  "Delay at the rlc layer D2D, lteAvg"
-attr unit  s
 scalar LTECell.ueD2DRx[0].nic.mac 	measuredItbs:mean 	-nan
 attr source  measuredItbs
 attr title  "TBS index, mean"
@@ -1705,7 +1465,7 @@ scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRate_2nd_Ul:mean 	-nan
 attr source  harqErrorRate_2nd_Ul
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRate_1st_D2D:mean 	0
+scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRate_1st_D2D:mean 	-nan
 attr source  harqErrorRate_1st_D2D
 attr title  "Harq Error Rate D2D, mean"
 attr unit  ""
@@ -1717,7 +1477,7 @@ scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRate_1st_Ul:mean 	-nan
 attr source  harqErrorRate_1st_Ul
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRateD2D:mean 	0
+scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRateD2D:mean 	-nan
 attr source  harqErrorRateD2D
 attr title  "Harq Error Rate D2D, mean"
 attr unit  ""
@@ -1729,7 +1489,7 @@ scalar LTECell.ueD2DRx[0].nic.mac 	harqErrorRateUl:mean 	-nan
 attr source  harqErrorRateUl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.mac 	macPacketLossD2D:mean 	0
+scalar LTECell.ueD2DRx[0].nic.mac 	macPacketLossD2D:mean 	-nan
 attr source  macPacketLossD2D
 attr title  "Mac Packet Loss D2D, mean"
 attr unit  ""
@@ -1753,27 +1513,19 @@ scalar LTECell.ueD2DRx[0].nic.mac 	macCellPacketLossDl:mean 	-nan
 attr source  macCellPacketLossDl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueD2DRx[0].nic.mac 	macThroughputD2D:lteRate 	3793.2161830813
-attr source  macThroughputD2D
-attr title  "Throughput at the MAC layer D2D, lteRate"
-attr unit  Bps
-scalar LTECell.ueD2DRx[0].nic.mac 	macDelayD2D:lteAvg 	0.004
-attr source  macDelayD2D
-attr title  "Delay at the MAC layer D2D, lteAvg"
-attr unit  s
-scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToLowerLayer:count 	612
+scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToUpperLayer:count 	204
+scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	35904
+scalar LTECell.ueD2DRx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueD2DRx[0].nic.mac 	receivedPacketFromLowerLayer:count 	612
+scalar LTECell.ueD2DRx[0].nic.mac 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueD2DRx[0].nic.mac 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
@@ -1785,10 +1537,6 @@ attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueD2DRx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueD2DRx[0].nic.mac 	averageCqiD2D:lteAvg 	6.3333333333333
-attr source  averageCqiD2D
-attr title  "Average Cqi reported in D2D, lteAvg"
-attr unit  cqi
 scalar LTECell.ueD2DRx[0].networkLayer.arp 	failedARPResolution:count 	0
 attr title  "ARP failed resolutions, count"
 scalar LTECell.ueD2DRx[0].networkLayer.arp 	completedARPResolution:count 	0
@@ -1799,7 +1547,7 @@ scalar LTECell.ueD2DRx[0].networkLayer.arp 	sentReply:count 	0
 attr title  "ARP replies sent, count"
 scalar LTECell.ueD2DRx[0].networkLayer.arp 	sentReq:count 	0
 attr title  "ARP request sent, count"
-scalar LTECell.ueCellTx[0].udpApp[0] 	"packets sent" 	20000
+scalar LTECell.ueCellTx[0].udpApp[0] 	"packets sent" 	224
 scalar LTECell.ueCellTx[0].udpApp[0] 	"packets received" 	0
 scalar LTECell.ueCellTx[0].udpApp[0] 	rcvdPk:count 	0
 attr interpolationmode  none
@@ -1809,10 +1557,6 @@ scalar LTECell.ueCellTx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueCellTx[0].udpApp[0] 	throughput:last 	-nan
-attr source  throughput(rcvdPk)
-attr title  "throughput, last"
-attr unit  bps
 statistic LTECell.ueCellTx[0].udpApp[0] 	rcvdPkLifetime:stats
 field count 0
 field mean -nan
@@ -1825,11 +1569,11 @@ attr interpolationmode  none
 attr source  messageAge(rcvdPk)
 attr title  "received packet lifetime, stats"
 attr unit  s
-scalar LTECell.ueCellTx[0].udpApp[0] 	sentPk:count 	19601
+scalar LTECell.ueCellTx[0].udpApp[0] 	sentPk:count 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, count"
-scalar LTECell.ueCellTx[0].udpApp[0] 	sentPk:sum(packetBytes) 	1274065
+scalar LTECell.ueCellTx[0].udpApp[0] 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
@@ -1850,18 +1594,18 @@ scalar LTECell.ueCellTx[0].udp 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueCellTx[0].udp 	sentPk:count 	19601
+scalar LTECell.ueCellTx[0].udp 	sentPk:count 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, count"
-scalar LTECell.ueCellTx[0].udp 	sentPk:sum(packetBytes) 	1430873
+scalar LTECell.ueCellTx[0].udp 	sentPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPk
 attr title  "packets sent, sum(packetBytes)"
-scalar LTECell.ueCellTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:count 	19601
+scalar LTECell.ueCellTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueCellTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	1842494
+scalar LTECell.ueCellTx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueCellTx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	0
@@ -1876,40 +1620,12 @@ attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueCellTx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueCellTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	19601
+scalar LTECell.ueCellTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueCellTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	1822893
+scalar LTECell.ueCellTx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcPduPacketLossUl:lteAvg 	0
-attr source  rlcPduPacketLossUl
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcPacketLossTotal:lteAvg 	0
-attr source  rlcPacketLossTotal
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcPacketLossUl:lteAvg 	0
-attr source  rlcPacketLossUl
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcPduThroughputUl:lteRate 	70691.93877551
-attr source  rlcPduThroughputUl
-attr title  "Throughput at the rlc layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcPduDelayUl:lteAvg 	0.0040000000000005
-attr source  rlcPduDelayUl
-attr title  "Delay at the rlc layer UL, lteAvg"
-attr unit  s
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcThroughputUl:lteRate 	69061.224489796
-attr source  rlcThroughputUl
-attr title  "Throughput at the rlc layer UL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellTx[0].nic.rlc.um 	rlcDelayUl:lteAvg 	3.2306240277778
-attr source  rlcDelayUl
-attr title  "Delay at the rlc layer UL, lteAvg"
-attr unit  s
 scalar LTECell.ueCellTx[0].nic.mac 	measuredItbs:mean 	-nan
 attr source  measuredItbs
 attr title  "TBS index, mean"
@@ -1958,7 +1674,7 @@ scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRate_1st_Dl:mean 	-nan
 attr source  harqErrorRate_1st_Dl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRate_1st_Ul:mean 	0
+scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRate_1st_Ul:mean 	-nan
 attr source  harqErrorRate_1st_Ul
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -1970,7 +1686,7 @@ scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRateDl:mean 	-nan
 attr source  harqErrorRateDl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
-scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRateUl:mean 	0
+scalar LTECell.ueCellTx[0].nic.mac 	harqErrorRateUl:mean 	-nan
 attr source  harqErrorRateUl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -1982,7 +1698,7 @@ scalar LTECell.ueCellTx[0].nic.mac 	macPacketLossDl:mean 	-nan
 attr source  macPacketLossDl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueCellTx[0].nic.mac 	macPacketLossUl:mean 	0
+scalar LTECell.ueCellTx[0].nic.mac 	macPacketLossUl:mean 	-nan
 attr source  macPacketLossUl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
@@ -1998,28 +1714,28 @@ scalar LTECell.ueCellTx[0].nic.mac 	macCellPacketLossDl:mean 	-nan
 attr source  macCellPacketLossDl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToLowerLayer:count 	8423
+scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToUpperLayer:count 	7963
+scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
 scalar LTECell.ueCellTx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromLowerLayer:count 	16385
+scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromUpperLayer:count 	27564
+scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromUpperLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	2535275
+scalar LTECell.ueCellTx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueCellTx[0].networkLayer.arp 	failedARPResolution:count 	0
@@ -2032,76 +1748,72 @@ scalar LTECell.ueCellTx[0].networkLayer.arp 	sentReply:count 	0
 attr title  "ARP replies sent, count"
 scalar LTECell.ueCellTx[0].networkLayer.arp 	sentReq:count 	0
 attr title  "ARP request sent, count"
-scalar LTECell.ueCellRx[0].udpApp[0] 	rcvdPk:count 	7201
+scalar LTECell.ueCellRx[0].udpApp[0] 	rcvdPk:count 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, count"
-scalar LTECell.ueCellRx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	468065
+scalar LTECell.ueCellRx[0].udpApp[0] 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
-scalar LTECell.ueCellRx[0].udpApp[0] 	throughput:last 	380990.0990099
-attr source  throughput(rcvdPk)
-attr title  "throughput, last"
-attr unit  bps
 statistic LTECell.ueCellRx[0].udpApp[0] 	endToEndDelay:histogram
-field count 7201
-field mean 3.2327493403694
-field stddev 1.790106573044
-field sum 23279.028
-field sqrsum 98327.52952
-field min 0.133
-field max 6.333
+field count 0
+field mean -nan
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min -nan
+field max -nan
 attr interpolationmode  none
 attr source  messageAge(rcvdPk)
 attr title  "end-to-end delay, histogram"
 attr unit  s
 bin	-INF	0
-bin	0.09075	0
-bin	0.096383333333333	0
-bin	0.10201666666667	0
-bin	0.10765	0
-bin	0.11328333333333	0
-bin	0.11891666666667	0
-bin	0.12455	0
-bin	0.13018333333333	4
-bin	0.13581666666667	5
-bin	0.14145	9
-bin	0.14708333333333	6
-bin	0.15271666666667	5
-bin	0.15835	8
-bin	0.16398333333333	7
-bin	0.16961666666667	5
-bin	0.17525	7
-bin	0.18088333333333	8
-bin	0.18651666666667	5
-bin	0.19215	7
-bin	0.19778333333333	7
-bin	0.20341666666667	6
-bin	0.20905	7
-bin	0.21468333333333	7
-bin	0.22031666666667	5
-bin	0.22595	7
-bin	0.23158333333333	7
-bin	0.23721666666667	6
-bin	0.24285	7
-bin	0.24848333333333	6
-bin	0.25411666666667	7
-bin	0.25975	7053
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	0
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
 scalar LTECell.ueCellRx[0].udp 	droppedPkBadChecksum:count 	0
 attr interpolationmode  none
 attr title  "packets dropped (checksum error), count"
 scalar LTECell.ueCellRx[0].udp 	droppedPkWrongPort:count 	0
 attr interpolationmode  none
 attr title  "packets dropped (wrong port), count"
-scalar LTECell.ueCellRx[0].udp 	passedUpPk:count 	7201
+scalar LTECell.ueCellRx[0].udp 	passedUpPk:count 	0
 attr interpolationmode  none
 attr title  "packets passed up, count"
-scalar LTECell.ueCellRx[0].udp 	rcvdPk:count 	7201
+scalar LTECell.ueCellRx[0].udp 	rcvdPk:count 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, count"
-scalar LTECell.ueCellRx[0].udp 	rcvdPk:sum(packetBytes) 	525673
+scalar LTECell.ueCellRx[0].udp 	rcvdPk:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  rcvdPk
 attr title  "packets received, sum(packetBytes)"
@@ -2119,16 +1831,16 @@ attr source  sentPacketToLowerLayer
 scalar LTECell.ueCellRx[0].nic.pdcpRrc 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueCellRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	7201
+scalar LTECell.ueCellRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueCellRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	669693
+scalar LTECell.ueCellRx[0].nic.pdcpRrc 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	7201
+scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
-scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	676894
+scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:count 	0
@@ -2137,34 +1849,6 @@ attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueCellRx[0].nic.pdcpRrc 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcPduPacketLossDl:lteAvg 	0
-attr source  rlcPduPacketLossDl
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcPacketLossTotal:lteAvg 	0
-attr source  rlcPacketLossTotal
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcPacketLossDl:lteAvg 	0
-attr source  rlcPacketLossDl
-attr title  "rlc Packet Loss, lteAvg"
-attr unit  ""
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcPduThroughputDl:lteRate 	70999.387755102
-attr source  rlcPduThroughputDl
-attr title  "Throughput at the rlc layer DL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcPduDelayDl:lteAvg 	0.0040000000000001
-attr source  rlcPduDelayDl
-attr title  "Delay at the rlc layer UL, lteAvg"
-attr unit  s
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcThroughputDl:lteRate 	69070.816326531
-attr source  rlcThroughputDl
-attr title  "Throughput at the rlc layer DL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellRx[0].nic.rlc.um 	rlcDelayDl:lteAvg 	0.0060000000000002
-attr source  rlcDelayDl
-attr title  "Delay at the rlc layer UL, lteAvg"
-attr unit  s
 scalar LTECell.ueCellRx[0].nic.mac 	measuredItbs:mean 	-nan
 attr source  measuredItbs
 attr title  "TBS index, mean"
@@ -2209,7 +1893,7 @@ scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRate_1st_D2D:mean 	-nan
 attr source  harqErrorRate_1st_D2D
 attr title  "Harq Error Rate D2D, mean"
 attr unit  ""
-scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRate_1st_Dl:mean 	0
+scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRate_1st_Dl:mean 	-nan
 attr source  harqErrorRate_1st_Dl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -2221,7 +1905,7 @@ scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRateD2D:mean 	-nan
 attr source  harqErrorRateD2D
 attr title  "Harq Error Rate D2D, mean"
 attr unit  ""
-scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRateDl:mean 	0
+scalar LTECell.ueCellRx[0].nic.mac 	harqErrorRateDl:mean 	-nan
 attr source  harqErrorRateDl
 attr title  "Harq Error Rate Dl, mean"
 attr unit  ""
@@ -2233,7 +1917,7 @@ scalar LTECell.ueCellRx[0].nic.mac 	macPacketLossD2D:mean 	-nan
 attr source  macPacketLossD2D
 attr title  "Mac Packet Loss D2D, mean"
 attr unit  ""
-scalar LTECell.ueCellRx[0].nic.mac 	macPacketLossDl:mean 	0
+scalar LTECell.ueCellRx[0].nic.mac 	macPacketLossDl:mean 	-nan
 attr source  macPacketLossDl
 attr title  "Mac Packet Loss, mean"
 attr unit  ""
@@ -2253,27 +1937,19 @@ scalar LTECell.ueCellRx[0].nic.mac 	macCellPacketLossDl:mean 	-nan
 attr source  macCellPacketLossDl
 attr title  "Mac Cell Packet Loss, mean"
 attr unit  ""
-scalar LTECell.ueCellRx[0].nic.mac 	macThroughputDl:lteRate 	72927.959183673
-attr source  macThroughputDl
-attr title  "Throughput at the MAC layer DL, lteRate"
-attr unit  Bps
-scalar LTECell.ueCellRx[0].nic.mac 	macDelayDl:lteAvg 	0.0040000000000001
-attr source  macDelayDl
-attr title  "Delay at the MAC layer UL, lteAvg"
-attr unit  s
-scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToLowerLayer:count 	9450
+scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToLowerLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
 scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToLowerLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToLowerLayer
-scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToUpperLayer:count 	9450
+scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToUpperLayer:count 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	695794
+scalar LTECell.ueCellRx[0].nic.mac 	sentPacketToUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  sentPacketToUpperLayer
-scalar LTECell.ueCellRx[0].nic.mac 	receivedPacketFromLowerLayer:count 	9450
+scalar LTECell.ueCellRx[0].nic.mac 	receivedPacketFromLowerLayer:count 	0
 attr interpolationmode  none
 attr source  receivedPacketFromLowerLayer
 scalar LTECell.ueCellRx[0].nic.mac 	receivedPacketFromLowerLayer:sum(packetBytes) 	0
@@ -2285,10 +1961,6 @@ attr source  receivedPacketFromUpperLayer
 scalar LTECell.ueCellRx[0].nic.mac 	receivedPacketFromUpperLayer:sum(packetBytes) 	0
 attr interpolationmode  none
 attr source  receivedPacketFromUpperLayer
-scalar LTECell.ueCellRx[0].nic.mac 	averageCqiDl:lteAvg 	15
-attr source  averageCqiDl
-attr title  "Average Cqi reported in DL, lteAvg"
-attr unit  cqi
 scalar LTECell.ueCellRx[0].networkLayer.arp 	failedARPResolution:count 	0
 attr title  "ARP failed resolutions, count"
 scalar LTECell.ueCellRx[0].networkLayer.arp 	completedARPResolution:count 	0
